@@ -17,7 +17,7 @@
 
 # tzinaliy
 
-add user prompt start the program with gnl;
+add user prompt start the program with gnl getline;
 
 
 
