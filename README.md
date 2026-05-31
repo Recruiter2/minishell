@@ -1,4 +1,4 @@
-_This project has been created as part of the 42 curriculum by tzinaliy._
+_This project has been created as part of the 42 curriculum by marhuber and tzinaliy._
 
 ## Description
 The point of minishell is to create an imitation of shell inside bash terminal. 
@@ -55,7 +55,7 @@ foreground pipeline.
 
 ## Resources
 
-'man getline'
+'man getline' <\br>
 https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218
 https://en.wikipedia.org/wiki/Abstract_syntax_tree
 https://en.wikipedia.org/wiki/Context-free_grammar
