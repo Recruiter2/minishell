@@ -42,7 +42,7 @@ foreground pipeline.<br>
 • In interactive mode:<br>
 ◦ ctrl-C displays a new prompt on a new line.<br>
 ◦ ctrl-D exits the shell.<br>
-◦ ctrl-\ does nothing.<br>
+◦ ctrl-\ does nothing.<br><br>
  This shell will implement the following built-in commands:<br>
 ◦ echo with option -n<br>
 ◦ cd with only a relative or absolute path<br>
