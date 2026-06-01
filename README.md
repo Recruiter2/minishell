@@ -59,6 +59,13 @@ foreground pipeline.<br>
 https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218
 https://en.wikipedia.org/wiki/Abstract_syntax_tree
 https://en.wikipedia.org/wiki/Context-free_grammar
+https://youtube.com/shorts/mi6DoxNEN6w?si=null
+https://github.com/Swoorup/mysh
+https://harm-smits.github.io/42docs/projects/minishell
+https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+
+Other resources <br>
+https://gist.github.com/Alinaprotsyuk/3d58f8cd52eb03a11283d64beb0e083e
 
 
 
