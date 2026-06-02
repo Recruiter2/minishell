@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/02 22:00:56 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/02 22:09:43 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int main(void)
 		}
 
 		if (*line) 
-			add_history(line);   // add non-empty lines to history
+			add_history(line);   // add non-empty lines to forbidden history; in fact we are using external history 🤡 we are supposed to code it ourselves
 
 		if (is_blank(line))
 		{		   // ignore empty / whitespace-only lines
 			free(line);
-			continue;
+			continue; //is continue even allowed?
 		}
 
 		if (debug)
