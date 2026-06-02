@@ -8,6 +8,10 @@ It will show a display prompt waiting for a new command
 **run _`make`_**
 **then _`./minishell`_**
 
+## Tests & Usefull commands
+
+`printenv`
+
 
 #### Requirements
 
@@ -27,9 +31,9 @@ characters in the quoted sequence.<br>
 • Handle " (double quote) which should prevent the shell from interpreting the meta-
 characters in the quoted sequence except for \$ (dollar sign). <br> <br>
 We will implement the following redirections:<br>
-◦ < should redirect input.<br>
-◦ > should redirect output.<br>
-◦ << should be given a delimiter, then read the input until a line containing the
+	◦ < should redirect input.<br>
+	◦ > should redirect output.<br>
+	◦ << should be given a delimiter, then read the input until a line containing the
 delimiter is seen. However, it doesn’t have to update the history!<br>
 ◦ >> should redirect output in append mode.<br>
 • Implement pipes (| character). The output of each command in the pipeline is
