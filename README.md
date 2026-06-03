@@ -5,12 +5,12 @@ The point of minishell is to create an imitation of shell inside bash terminal.
 It will show a display prompt waiting for a new command
 
 ## Instructions
-**run _`make`_**
-**then _`./minishell`_**
+**run _`make`_**<br>
+**then _`./minishell`_**<br>
 
 ## Tests & Usefull commands
 
-`printenv`
+`printenv`<br>
 
 
 #### Requirements
@@ -59,14 +59,15 @@ This shell will implement the following built-in commands:<br>
 
 ## Resources
 
-'man getline' <br>
-https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218
-https://en.wikipedia.org/wiki/Abstract_syntax_tree
-https://en.wikipedia.org/wiki/Context-free_grammar
-https://youtube.com/shorts/mi6DoxNEN6w?si=null
-https://github.com/Swoorup/mysh
-https://harm-smits.github.io/42docs/projects/minishell
-https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+`man getline` <br>
+`man history` <br>
+https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218<br>
+https://en.wikipedia.org/wiki/Abstract_syntax_tree<br>
+https://en.wikipedia.org/wiki/Context-free_grammar<br>
+https://youtube.com/shorts/mi6DoxNEN6w?si=null<br>
+https://github.com/Swoorup/mysh<br>
+https://harm-smits.github.io/42docs/projects/minishell<br>
+https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf<br>
 
 Other resources <br>
 https://gist.github.com/Alinaprotsyuk/3d58f8cd52eb03a11283d64beb0e083e
