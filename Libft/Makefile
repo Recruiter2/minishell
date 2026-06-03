@@ -71,6 +71,7 @@ $(OBJ_DIR):
 
 
 clean:
+		rm -rf $(OBJ_DIR)
 		@rm -f $(OFILES)  $(ERRORFILES)
 
 fclean: clean
