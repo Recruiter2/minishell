@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:42:10 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/05/20 20:08:30 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/03 17:49:56 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	*ft_memchr(const void *str, int c, size_t n);
 int		ft_memcmp(const void *str, const void *str0, size_t n);
 // locate a string in a substring
 char	*ft_strnstr(const char *big, const char *little, size_t len);
+// ft_isspace is an atoi helper
+int		ft_isspace(int c);
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s);
