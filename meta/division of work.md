@@ -17,9 +17,13 @@
 
 # tzinaliy
 
+- **Prompt display:** Minishell displays a prompt when waiting for a new command.
+- **Command history:** It has a working history feature that allows navigating and reusing previous commands.
+/*
+add makefile; add libft; start structureing
 add user prompt start the program with gnl getline;
 add history
-read history
+read history (this wasn't asked 🤡🤡 but I did it anyways 🤡🤡)*/
 
 
 
