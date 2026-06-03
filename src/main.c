@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/03 10:39:40 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/03 14:09:56 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <ctype.h>
 #include "../Libft/libft.h"
 
-static int debug = 0; // toggle for printing raw lines for debugging
+//static int debug = 0; // toggle for printing raw lines for debugging
 
 // return 1 if line is all whitespace or empty
 static int is_blank(const char *s)
