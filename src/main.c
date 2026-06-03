@@ -6,19 +6,13 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/03 21:55:49 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/04 00:47:51 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// File: main.c
-// Compile with: gcc -Wall -Wextra -Werror main.c -lreadline
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <ctype.h>
-#include "../Libft/libft.h"
+
+#include "../includes/minishell.h"
 
 //static int debug = 0; // toggle for printing raw lines for debugging
 
