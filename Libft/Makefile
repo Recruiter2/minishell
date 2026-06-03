@@ -68,9 +68,7 @@ $(NAME) : $(OFILES)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-#$(OBJ_DIR)/%.o: %.c
-#	mkdir -p $(OBJ_DIR)
-#	@$(CC) $(CFLAGS) -c $< -o $@
+
 
 clean:
 		@rm -f $(OFILES)  $(ERRORFILES)

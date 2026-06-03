@@ -6,7 +6,7 @@
 #    By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/13 21:14:27 by tzinaliy          #+#    #+#              #
-#    Updated: 2026/06/04 00:38:16 by tzinaliy         ###   ########.fr        #
+#    Updated: 2026/06/04 00:42:37 by tzinaliy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJ_DIR = obj
 
 ERRORFILES := ft_printf.h.gch a.out
 AR := ar rcs
-#OFILES	:= $(CFILES:.c=.o)
+
 OFILES = $(addprefix $(OBJ_DIR)/, $(CFILES:.c=.o))
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
@@ -34,9 +34,7 @@ $(NAME) : $(OFILES)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
-#$(OBJ_DIR)/%.o: %.c 
-#	mkdir -p $(OBJ_DIR)
-#	@$(CC) $(CFLAGS) -c $< -o $@
+
 
 clean:
 		rm -rf $(OBJ_DIR)
