@@ -56,18 +56,23 @@ ERRORFILES := libft.h.gch\
 AR	:= ar rcs
 OFILES = $(addprefix $(OBJ_DIR)/, $(CFILES:.c=.o))
 
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 all: $(NAME) 
 
 $(NAME) : $(OFILES) 
 		@$(AR)  $(NAME) $(OFILES)
 
 
-$(OBJ_DIR)/%.o: %.c 
-	mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+#$(OBJ_DIR)/%.o: %.c
+#	mkdir -p $(OBJ_DIR)
+#	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-		rm -rf $(OBJ_DIR)
 		@rm -f $(OFILES)  $(ERRORFILES)
 
 fclean: clean
