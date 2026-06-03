@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/03 14:09:56 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:55:49 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int is_blank(const char *s)
 {
 	while (*s)
 	{
-		if (!isspace((unsigned char)*s))
+		if (!ft_isspace((unsigned char)*s))
 			return 0;
 		s++;
 	}
@@ -61,15 +61,20 @@ int main(void)
 {
 	char *line;
 	int all_blank = 1;
+	int	i;
 
+	i = 0;
 	while (1) {
 		line = readline("minishell$ ");
-		for (char *p = line; *p; ++p) 
-			if (!isspace((unsigned char)*p))
-				{
-					all_blank = 0;
-					break;
-				}
+		while (line[i])
+		{
+			if (!ft_isspace(line[i]))
+			{
+				all_blank = 0;
+				break;
+			}
+			i++;
+		}
 		if (!all_blank) {
 			add_shell_history(line);
 			if (strcmp(line, "history") == 0)
