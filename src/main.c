@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/02 22:09:43 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/03 10:39:40 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,45 +34,77 @@ static int is_blank(const char *s)
 	return 1;
 }
 
+// Add a line to history (call after checking not blank)
+/* Optionally keep your own persistent history array/file in this function */
+static void add_shell_history(const char *line)
+{
+	if (!line || *line == '\0')
+		return;
+	add_history(line);
+
+}
+
+// Print history builtin: "history"
+// start index at 1 to match bash
+static void builtin_history(void)
+{
+	HIST_ENTRY **hist_list = history_list();
+	if (!hist_list) {
+		return;
+	}
+	for (int i = 0; hist_list[i] != NULL; ++i) {
+		printf("%4d  %s\n", i + history_base, hist_list[i]->line);
+	}
+}
+
 int main(void)
 {
 	char *line;
+	int all_blank = 1;
 
 	while (1) {
-		line = readline("minishell$ "); // prompt (replace with desired prompt)
+		line = readline("minishell$ ");
+		for (char *p = line; *p; ++p) 
+			if (!isspace((unsigned char)*p))
+				{
+					all_blank = 0;
+					break;
+				}
+		if (!all_blank) {
+			add_shell_history(line);
+			if (strcmp(line, "history") == 0)
+				builtin_history();
+		}
 		if (!line)
-		{					// EOF (Ctrl-D)
-			write(1, "\n", 1);		  // mimic bash newline on EOF
+		{
+			write(1, "\n", 1);
 			break;
 		}
-
-		if (*line) 
-			add_history(line);   // add non-empty lines to forbidden history; in fact we are using external history 🤡 we are supposed to code it ourselves
-
 		if (is_blank(line))
-		{		   // ignore empty / whitespace-only lines
+		{
 			free(line);
-			continue; //is continue even allowed?
+			continue;
 		}
+		free(line);
+	}
+	return 0;
+}
 
-		if (debug)
+/* tools to work with later on and functionality we 'd like to add
+if (debug)
 		{					// optional debug output
 			printf("[DEBUG] raw input: %s\n", line);
 		}
 
-		// Here you would:
-		// 1) lex/tokenize the line
-		// 2) parse into commands & redirections
-		// 3) expand variables, handle quotes
-		// 4) execute commands (builtins inline, others via fork+execve)
-		//
-		// If execution fails because command not found, print:
-		//   minishell: <cmd>: command not found
-		//
-		// Do not automatically print "command not found" here without attempting exec.
+		Here you would:
+		1) lex/tokenize the line
+		2) parse into commands & redirections
+		3) expand variables, handle quotes
+		4) execute commands (builtins inline, others via fork+execve)
 
-		free(line);
-	}
+		If execution fails because command not found, print:
+		minishell: <cmd>: command not found
+		
+		Do not automatically print "command not found" here without attempting exec.
 
-	return 0;
-}
+*/
