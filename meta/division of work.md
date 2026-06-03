@@ -18,6 +18,8 @@
 # tzinaliy
 
 add user prompt start the program with gnl getline;
+add history
+read history
 
 
 
