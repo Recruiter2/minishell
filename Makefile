@@ -18,6 +18,8 @@ OBJ_DIR = obj
 INC_DIR = includes
 
 SRCS = 	main.c\
+		user_input.c\
+		history.c\
 
 
 
