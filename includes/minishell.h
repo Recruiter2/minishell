@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/04 14:32:58 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/04 19:27:38 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../Libft/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <signal.h>
 
 //function for user input or parsing...
 // this function check if readline is empty
@@ -25,3 +26,6 @@ void	handle_input(void);
 // history functions
 void add_shell_history(const char *line);
 void builtin_history(void);
+
+// signaling
+void sigint_handler(int sig);
