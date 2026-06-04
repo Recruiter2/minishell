@@ -20,6 +20,7 @@ INC_DIR = includes
 SRCS = 	main.c\
 		user_input.c\
 		history.c\
+		signaling.c\
 
 
 
