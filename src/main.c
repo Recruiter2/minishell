@@ -6,11 +6,9 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/04 13:19:27 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/04 14:32:09 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 #include "../includes/minishell.h"
 
