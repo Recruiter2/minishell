@@ -6,17 +6,16 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/04 13:19:27 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/04 14:32:58 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
 #include <ctype.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../Libft/libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 //function for user input or parsing...
 // this function check if readline is empty
