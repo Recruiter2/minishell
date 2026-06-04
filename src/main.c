@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/04 19:23:15 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/04 19:37:48 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 //static int debug = 0; // toggle for printing raw lines for debugging
 
+	/* Parent: set handlers for interactive prompt */
+/* restart interrupted syscalls if appropriate */
+	/* Ignore SIGQUIT in parent (Ctrl-\ does nothing) */
+
 int main(void)
 {
 	
-	/* Parent: set handlers for interactive prompt */
 	struct sigaction sa;
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART; /* restart interrupted syscalls if appropriate */
+	sa.sa_flags = SA_RESTART; 
 	sigaction(SIGINT, &sa, NULL);
-
-	/* Ignore SIGQUIT in parent (Ctrl-\ does nothing) */
 	signal(SIGQUIT, SIG_IGN);
-
 	handle_input();
 	return 0;
 }
