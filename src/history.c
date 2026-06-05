@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:56 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/04 14:31:57 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/05 12:21:45 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ void builtin_history(void)
 
 	i = 0;
 	HIST_ENTRY **hist_list = history_list();
-	if (!hist_list) {
+	if (!hist_list)
 		return;
-	}
-	while ( hist_list[i] != NULL)
+	while (hist_list[i] != NULL)
 	{
-		printf("%4d  %s\n", i + history_base, hist_list[i]->line);
+		ft_printf("%d  %s\n", i + history_base, hist_list[i]->line);
 		i++;
 	}
 }
