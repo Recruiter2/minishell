@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:42:10 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/03 17:49:56 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/05 12:21:45 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <limits.h>
-//# include "ft_printf/ft_printf.h"
+# include "ft_printf/ft_printf.h"
 
 typedef struct s_list
 {
