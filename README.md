@@ -63,7 +63,7 @@ This shell will implement the following built-in commands:<br>
 `man history` <br>
 `man signal` <br>
 `man sigaction` <br>
-`man signal` <br>
+`man sigemptyset` <br>
 `man signal` <br>
 https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218<br>
 https://en.wikipedia.org/wiki/Abstract_syntax_tree<br>
