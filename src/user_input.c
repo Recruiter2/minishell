@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/05 12:27:52 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/05 14:14:05 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int is_blank(const char *s)
 	return 1;
 }
 
+//history command is not needed so we won't further improve it to handle spaces
 void	handle_input(void)
 {
 	char *line;
