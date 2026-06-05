@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:29:56 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/04 19:36:53 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/05 12:18:38 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void sigint_handler(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 }
-  // replace input line with empty
-  		 // move to new line internally
-		 		   // redisplay prompt
+// replace input line with empty
+	// move to new line internally
+			// redisplay prompt
+
+//In forked child, before execve:
+
+//signal(SIGINT, SIG_DFL);
+//signal(SIGQUIT, SIG_DFL);
