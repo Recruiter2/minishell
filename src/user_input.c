@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/05 14:14:05 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/05 18:36:06 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	handle_input(void)
 			break;
 		}
 		all_blank = is_blank(line);
-		if (!all_blank) {
+		if (!all_blank)
+		{
 			add_shell_history(line);
 			if (ft_strncmp(line, "history", 7) == 0)
 				builtin_history();
