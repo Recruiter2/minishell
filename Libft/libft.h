@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:42:10 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/05 12:21:45 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/05 14:12:29 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	*ft_strchr(const char *str, int c);
 // locates the last occurence of str
 char	*ft_strrchr(const char *str, int c);
 int		ft_strncmp(const char *str, const char *str0, size_t size);
+int		ft_strcmp(char *s1, char *s2);
+
 void	*ft_memchr(const void *str, int c, size_t n);
 int		ft_memcmp(const void *str, const void *str0, size_t n);
 // locate a string in a substring
