@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:56 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/05 12:21:45 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/06 16:03:43 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void add_shell_history(const char *line)
 	if (!line || *line == '\0')
 		return;
 	add_history(line);
-
 }
 
 // Print history builtin: "history"
