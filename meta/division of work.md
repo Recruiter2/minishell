@@ -14,6 +14,7 @@
 
 # tzinaliy
 
+- **Parser** creer la table des commandes; free toute la table ce qui implique la creation d'une structure (garbage collector apres)
 - **Signal handling:** Minishell handles signals such as `ctrl-C` (SIGINT), `ctrl-D` (EOF), and `ctrl-\` (SIGQUIT) according to the specified behavior in the subject.
 /*partly done for main need to add signals for heredoc etc.
 */
