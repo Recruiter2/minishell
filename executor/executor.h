@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/06 17:05:02 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/06/06 17:25:51 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ to be used when the first string represents a command and the following strings
 (ex. "char **argv" is equivalent to "t_singlecmd argv")
 */
 typedef char	**t_singlecmd;
+
+/*
+< infile.txt grep "money" | cl -cw > outfile.txt 
+
+cmds -> cmds[0] -> cmds[0][0] -> "grep" -> 'g'
+				   cmds[0][1] -> "money"
+				   cmds[0][2] == NULL
+	 -> cmds[1]	-> cmds[1][0] -> "cl"
+	 			-> cmds[1][1] -> "-cw"
+				   cmds[1][2] == NULL
+	-> cmds[2] == NULL
+*/
 
 /*
 This struct contains all the information needed to execute a full command
