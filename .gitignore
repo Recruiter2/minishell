@@ -56,3 +56,4 @@ dkms.conf
 
 pipex
 executor/meta/testing/test
+executor/meta/testing/out.txt

@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/06 17:01:22 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/06/07 20:42:06 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 char	*ft_strjoin(char const *s1, char const *s2);
 
-int	find_cmd(char **path, char **argv)
+int	find_cmd(char **path, t_singlecmd argv)
 {
 	char	*tmp;
 
@@ -61,7 +61,7 @@ static int	openfiles(t_fullcmd *fullcmd, t_step *stepcol, int n)
 		stepcol[n - 1].fdout = 1;
 	else
 	{
-		if (1)
+		if (0)
 			o_flag_out = O_WRONLY | O_CREAT | O_APPEND;
 		else
 			o_flag_out = O_WRONLY | O_CREAT | O_TRUNC;
@@ -159,7 +159,7 @@ int	execute(t_ctx *ctx, t_fullcmd *fullcmd)
 
 	it_cmd = fullcmd->cmds;
 	n = 0;
-	while(it_cmd)
+	while(*it_cmd)
 	{
 		if (find_cmd(ctx->path, *it_cmd))
 			return (1);
