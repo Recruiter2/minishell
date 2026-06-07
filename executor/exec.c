@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/07 20:42:06 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/06/07 22:22:49 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	openfiles(t_fullcmd *fullcmd, t_step *stepcol, int n)
 		stepcol[n - 1].fdout = 1;
 	else
 	{
-		if (0)
+		if (fullcmd->fileout_append)
 			o_flag_out = O_WRONLY | O_CREAT | O_APPEND;
 		else
 			o_flag_out = O_WRONLY | O_CREAT | O_TRUNC;
@@ -174,5 +174,6 @@ int	execute(t_ctx *ctx, t_fullcmd *fullcmd)
 	if (start(ctx, fullcmd, stepcol, n))
 		return (1);
 	waits(stepcol, n);
+	free(stepcol);
 	return (0);
 }

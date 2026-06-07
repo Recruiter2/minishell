@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/06 17:25:51 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/06/07 22:13:52 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,23 @@ cmds -> cmds[0] -> cmds[0][0] -> "grep" -> 'g'
 
 /*
 This struct contains all the information needed to execute a full command
-A full command can contain pipes and simple redirections (|, <, >)
-namefilein is NULL if there is no infile (<)
-namefileout is NULL if the is no outfile (>)
+A full command can contain pipes and redirections (|, <, >, >>)
+
+namefilein is NULL if there is no infile (no <)
+
+namefileout is NULL if there is no outfile (neither > nor >>)
+
+if fileout_append equals zero then the outfile will be truncated (>), that is, 
+	any existing file will be overwritten (opening namefileout with O_TRUNC),
+	otherwise content written to the outfile will be appended to any existing
+	file (>>), that is, existing content stays (opening namefile with O_APPEND)
+	
 cmpds points at the beginning of a NULL-terminated array of pointers
 */
 typedef struct s_full_command
 {
 	// int		here_doc;		// here_doc instead of file1
+	int			fileout_append;
 	char		*namefilein;
 	char		*namefileout;
 	t_singlecmd	*cmds;
