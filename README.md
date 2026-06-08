@@ -72,6 +72,7 @@ https://youtube.com/shorts/mi6DoxNEN6w?si=null<br>
 https://github.com/Swoorup/mysh<br>
 https://harm-smits.github.io/42docs/projects/minishell<br>
 https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf<br>
+https://dev.to/elipie/intro-to-parsing-lexing-3g01<br>
 
 Other resources <br>
 https://gist.github.com/Alinaprotsyuk/3d58f8cd52eb03a11283d64beb0e083e
