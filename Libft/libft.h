@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:42:10 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/05 14:12:29 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/08 14:44:34 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int		ft_isspace(int c);
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s);
+//duplicate str but only up to n;
+char	*ft_strndup(const char *s, size_t n);
+
 
 //Part 2
 char	*ft_substr(char const *str, unsigned int start, size_t len);
