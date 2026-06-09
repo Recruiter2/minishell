@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/09 22:23:31 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/10 00:26:50 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,9 @@ static token_t *append_token(token_t *tail, token_t *t)
 		tail->next = t;
 	return t;
 }
-/*
-// create and append an operator token; returns 0 on OOM
-static int push_op(token_t **head, token_t **tail, token_type type)
-{
-	token_t *t = tok_new(type, NULL, 0);
-	if (!t)
-		return 0;
-	if (!*head)
-		*head = t;
-	if (*tail)
-		(*tail)->next = t;
-	*tail = t;
-	return 1;
-}
-*/
+
 // free list and the allocated token
-void	free_tokens(token_t *head)
+void	free_tokens_list(token_t *head)
 {
 	token_t	*p;
 	token_t	*n;
@@ -86,6 +72,19 @@ void	free_tokens(token_t *head)
 	}
 }
 // free the token struct allocated in tok_new
+
+
+// create and append an operator token; returns 0 on OOM
+static int push_op(token_t **head, token_t **tail, token_type type)
+{
+	token_t *token = tok_new(type, NULL, 0);
+	if (!token)
+		return 0;
+	if (!*head)
+		*head = token;
+	*tail = append_token(*tail, token);
+	return 1;
+}
 
 token_t *lexer(const char *str)
 {
@@ -114,6 +113,12 @@ token_t *lexer(const char *str)
 			i++;
 			continue;
 		}
+		if (str[i] == '|') 
+		{
+			if (!push_op(&head, &tail, T_PIPE))
+				goto fail; i++;
+				continue;
+		}
 		if (str[i] == '<' || str[i] == '>')
 		{
 			if (str[i] == '<' && str[i+1] == '<')
@@ -123,9 +128,7 @@ token_t *lexer(const char *str)
 					goto fail;
 				if (!head)
 					head = t;
-				else
-					tail->next = t;
-				tail = t;
+				tail = append_token(tail, token);
 				i += 2;
 				continue;
 			}
@@ -136,9 +139,7 @@ token_t *lexer(const char *str)
 					goto fail;
 				if (!head)
 					head = t;
-				else
-					tail->next = t;
-				tail = t;
+				tail = append_token(tail, token);
 				i += 2;
 				continue;
 			}
@@ -147,14 +148,12 @@ token_t *lexer(const char *str)
 				goto fail;
 			if (!head)
 				head = t;
-			else
-				tail->next = t;
-			tail = t;
+			tail = append_token(tail, token);
 			i++;
 			continue;
 		}
 
-		// WORD or quoted
+		// WORD or quoted ; ni = new index
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			char q = str[i];
@@ -170,9 +169,7 @@ token_t *lexer(const char *str)
 			}
 			if (!head)
 				head = t;
-			else
-				tail->next = t;
-			tail = t;
+			tail = append_token(tail, token);
 			i = ni;
 			continue;
 		}
@@ -214,20 +211,12 @@ token_t *lexer(const char *str)
 		}
 		if (!head)
 			head = t;
-		else
-			tail->next = t;
-		tail = t;
+		tail = append_token(tail, token);
 	}
 	return head;
 
 fail:
 	// free list
-	for (token_t *p = head; p;)
-	{
-		token_t *n = p->next;
-		free(p->text);
-		free(p);
-		p = n;
-	}
+	free_tokens_list(head);
 	return NULL;
 }
