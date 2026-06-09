@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/06 14:26:02 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/08 18:01:41 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,23 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
+
+typedef enum {
+	T_WORD,
+	T_PIPE,
+	T_REDIR_IN,	// <
+	T_REDIR_OUT,   // >
+	T_REDIR_APPEND,// >>
+	T_HEREDOC,	 // <<
+	T_SEMI,
+} token_type;
+
+typedef struct token {
+	token_type type;
+	char *text;	   // raw text (without surrounding quotes)
+	char quote;	   // 0 = none, '\'' or '"' if entire token was quoted
+	struct token *next;
+} token_t;
 
 //function for user input or parsing...
 // this function check if readline is empty
@@ -29,3 +46,8 @@ void builtin_history(void);
 
 // signaling
 void sigint_handler(int sig);
+
+//lexer
+
+token_t *lexer(const char *s);
+
