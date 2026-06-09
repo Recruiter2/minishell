@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/09 19:20:17 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/09 22:23:31 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,17 +114,6 @@ token_t *lexer(const char *str)
 			i++;
 			continue;
 		}
-		if (str[i] == ';')
-		{
-			token_t *t = tok_new(T_SEMI, NULL, 0);
-			if (!t)
-				goto fail;
-			if (!head)
-				head = t;
-			tail = append_token(tail, t);
-			i++;
-			continue;
-		}
 		if (str[i] == '<' || str[i] == '>')
 		{
 			if (str[i] == '<' && str[i+1] == '<')
@@ -191,7 +180,7 @@ token_t *lexer(const char *str)
 		// unquoted word: run until space or operator
 		int start = i;
 		while (str[i] && !ft_isspace((unsigned char)str[i]) &&
-			str[i] != '|' && str[i] != '<' && str[i] != '>' && str[i] != ';')
+			str[i] != '|' && str[i] != '<' && str[i] != '>')
 		{
 			if (str[i] == '\'' || str[i] == '"')
 			{ // allow embedded quoted parts inside word
