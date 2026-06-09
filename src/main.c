@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/09 19:09:08 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/09 22:21:27 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int main(void)
 /* reuse token_t and lexer() from lexer.c above */
 
 /* helper to show type name */
-static const char *type_name(token_type t) {
+static const char *type_name(token_type t)
+{
 	switch (t) {
 	case T_WORD: return "WORD";
 	case T_PIPE: return "PIPE";
@@ -50,7 +51,8 @@ static const char *type_name(token_type t) {
 	}
 }
 
-static void free_tokens(token_t *head) {
+static void free_tokens(token_t *head)
+{
 	token_t *p = head;
 	while (p) {
 		token_t *n = p->next;
