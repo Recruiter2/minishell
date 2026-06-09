@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/09 00:31:24 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/09 19:09:08 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void free_tokens(token_t *head) {
 		p = n;
 	}
 }
-
+//other
 int main(void)
 {
 	int i;
