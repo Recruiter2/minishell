@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/10 00:26:50 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/10 01:24:27 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,9 @@ token_t *lexer(const char *str)
 		if (str[i] == '|') 
 		{
 			if (!push_op(&head, &tail, T_PIPE))
-				goto fail; i++;
-				continue;
+				goto fail;
+			i++;
+			continue;
 		}
 		if (str[i] == '<' || str[i] == '>')
 		{
