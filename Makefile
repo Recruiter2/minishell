@@ -21,6 +21,7 @@ SRCS = 	main.c\
 		user_input.c\
 		history.c\
 		signaling.c\
+		lexer.c\
 
 
 
