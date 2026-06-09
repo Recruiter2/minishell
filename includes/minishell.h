@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/08 18:01:41 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/09 22:27:41 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef enum {
 	T_REDIR_OUT,   // >
 	T_REDIR_APPEND,// >>
 	T_HEREDOC,	 // <<
-	T_SEMI,
 } token_type;
 
 typedef struct token {

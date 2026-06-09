@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/09 22:21:27 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/09 22:27:41 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static const char *type_name(token_type t)
 	case T_REDIR_OUT: return "REDIR_OUT";
 	case T_REDIR_APPEND: return "REDIR_APPEND";
 	case T_HEREDOC: return "HEREDOC";
-	case T_SEMI: return "SEMI";
 	default: return "UNKNOWN";
 	}
 }
