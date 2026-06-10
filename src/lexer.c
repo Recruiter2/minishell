@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/10 01:24:27 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:43:35 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,19 @@
 
 static token_t *tok_new(token_type type, char *text, char quote)
 {
-	token_t *t = malloc(sizeof(*t));
-	if (!t){ free(text); return NULL; }
-	t->type = type;
-	t->text = text;
-	t->quote = quote;
-	t->next = NULL;
-	return t;
+	token_t	*token;
+
+	token = malloc(sizeof(*token));
+	if (!token)
+	{
+		free(text);
+		return NULL;
+	}
+	token->type = type;
+	token->text = text;
+	token->quote = quote;
+	token->next = NULL;
+	return token;
 }
 
 
