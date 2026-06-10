@@ -150,7 +150,7 @@ token_t *lexer(const char *str)
 			continue;
 		}
 
-		// WORD or quoted ; ni = new index
+		// WORD or quoted ; ni = new index //what this code do why free txt? what is txt?
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			char q = str[i];
