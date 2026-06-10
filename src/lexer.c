@@ -92,6 +92,8 @@ static int push_op(token_t **head, token_t **tail, token_type type)
 	return 1;
 }
 
+//the whole point of lexer is to give the type of the input and for now just remove spaces
+//but by return type we already can see it return a linked list of tokens
 token_t *lexer(const char *str)
 {
 	int i = 0;
