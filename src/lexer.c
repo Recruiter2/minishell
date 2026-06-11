@@ -132,12 +132,8 @@ token_t *lexer(const char *str)
 		{
 			if (str[i] == '<' && str[i+1] == '<')
 			{
-				token_t *t = tok_new(T_HEREDOC, NULL, 0);
-				if (!t)
-					goto fail;
-				if (!head)
-					head = t;
-				tail = append_token(tail, token);
+				if (!push_op(&head, &tail, T_HEREDOC))
+					return (free_tokens_list(head), NULL);
 				i += 2;
 				continue;
 			}
