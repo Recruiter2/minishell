@@ -170,14 +170,14 @@ token_t *lexer(const char *str)
 			int ni = consume_quoted(str, i, q, &txt);
 			if (ni < 0)
 				goto fail; // unmatched quote
-			token_t *t = tok_new(T_WORD, txt, q);
-			if (!t)
+			token = tok_new(T_WORD, txt, q);
+			if (!token)
 			{
 				free(txt);
 				goto fail;
 			}
 			if (!head)
-				head = t;
+				head = token;
 			tail = append_token(tail, token);
 			i = ni;
 			continue;
@@ -212,14 +212,14 @@ token_t *lexer(const char *str)
 		char *txt = ft_strndup(str + start, i - start);
 		if (!txt)
 			goto fail;
-		token_t *t = tok_new(T_WORD, txt, 0);
-		if (!t)
+		token = tok_new(T_WORD, txt, 0);
+		if (!token)
 		{
 			free(txt);
 			goto fail;
 		}
 		if (!head)
-			head = t;
+			head = token;
 		tail = append_token(tail, token);
 	}
 	return head;
