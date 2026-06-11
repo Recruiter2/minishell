@@ -144,12 +144,8 @@ token_t *lexer(const char *str)
 				i += 2;
 				continue;
 			}
-			token_t *t = tok_new(str[i] == '<' ? T_REDIR_IN : T_REDIR_OUT, NULL, 0);
-			if (!t)
-				goto fail;
-			if (!head)
-				head = t;
-			tail = append_token(tail, token);
+			if (!push_op(&head, &tail, str[i] == '<' ? T_REDIR_IN : T_REDIR_OUT))
+				return (free_tokens_list(head), NULL);
 			i++;
 			continue;
 		}
