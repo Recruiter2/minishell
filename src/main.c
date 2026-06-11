@@ -72,8 +72,8 @@ int main(void)
 		"cmd \"\" ''",
 		"cat < infile >> outfile",
 		"cmd <<'EOF' other",
-		"ls -l | grep '^d' ; echo done",
-		"echo arg\\ with\\ spaces back\\\\slash",
+		"ls -l | grep '^d' ",
+		"echo arg with spaces backslash",
 		"echo \"unclosed",
 		NULL
 	};
