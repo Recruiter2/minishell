@@ -124,7 +124,7 @@ token_t *lexer(const char *str)
 		if (str[i] == '|') 
 		{
 			if (!push_op(&head, &tail, T_PIPE))
-				goto fail;
+				return (free_tokens_list(head), NULL);
 			i++;
 			continue;
 		}
