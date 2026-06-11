@@ -92,6 +92,8 @@ static int push_op(token_t **head, token_t **tail, token_type type)
 	return 1;
 }
 
+//the whole point of lexer is to give the type of the input and for now just remove spaces
+//but by return type we already can see it return a linked list of tokens
 token_t *lexer(const char *str)
 {
 	int i = 0;
@@ -160,7 +162,7 @@ token_t *lexer(const char *str)
 			continue;
 		}
 
-		// WORD or quoted ; ni = new index
+		// WORD or quoted ; ni = new index //what this code do why free txt? what is txt?
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			char q = str[i];
@@ -227,3 +229,13 @@ fail:
 	free_tokens_list(head);
 	return NULL;
 }
+
+//how could fail be replace if exitis not good?
+//in the end we will try to achieve something like this
+//char **cmds;
+/*	cmd[0][0] = grep;
+	cmd[0][1] = money;
+	cmd[1][2] = cl;
+	cmd[1][3] = -cw;
+*/
+//or else
