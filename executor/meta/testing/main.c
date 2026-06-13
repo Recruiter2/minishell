@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/13 14:26:23 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/06/13 14:53:12 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	fullcmd.cmds[2] = NULL;
 	fullcmd.namefilein = "txt.txt";
 	fullcmd.namefileout = "out.txt";
+	fullcmd.fileout_append = 0;
 	execute(&ctx, &fullcmd);
 	free_all(fullcmd.cmds);
 	free_all(fullcmd.cmds + 1);

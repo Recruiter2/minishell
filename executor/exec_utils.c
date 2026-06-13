@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:34:54 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/13 14:13:30 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/06/13 15:25:54 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (0);
 }
-
-// void	putendl(const char *s)
-// {
-// 	while (*s)
-// 	{
-// 		write(1, s, 1);
-// 		s++;
-// 	}
-// 	write(1, "\n", 1);
-// }
 
 void	putstrfd(const char *s, int fd)
 {
