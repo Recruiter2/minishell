@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/07 22:31:19 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/06/13 14:26:23 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,21 @@ int	main(int argc, char **argv, char **envp)
 	fullcmd.cmds[2] = NULL;
 	fullcmd.namefilein = "txt.txt";
 	fullcmd.namefileout = "out.txt";
-	fullcmd.fileout_append = 0;
 	execute(&ctx, &fullcmd);
 	free_all(fullcmd.cmds);
 	free_all(fullcmd.cmds + 1);
-	// second run with: < txt.txt grep sit | wc -l >> out.txt
-	fullcmd.cmds[0] = ft_split("grep sit", ' ');
+	// second run with: < txt.txt grep sit | wc -l > out.txt
+	fullcmd.cmds[0] = ft_split("grep laoreet", ' ');
 	fullcmd.cmds[1] = ft_split("wc -l", ' ');
 	fullcmd.fileout_append = 1;
+	execute(&ctx, &fullcmd);
+	free_all(fullcmd.cmds);
+	free_all(fullcmd.cmds + 1);
+	// second run with: << END grep I | wc -l >> out.txt
+	fullcmd.cmds[0] = ft_split("grep I", ' ');
+	fullcmd.cmds[1] = ft_split("wc -l", ' ');
+	fullcmd.namefilein = 0;
+	fullcmd.heredocdelim = "END";
 	execute(&ctx, &fullcmd);
 	free_all(fullcmd.cmds);
 	free_all(fullcmd.cmds + 1);
