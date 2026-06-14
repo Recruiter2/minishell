@@ -217,3 +217,13 @@ fail:
 	free_tokens_list(head);
 	return NULL;
 }
+
+//how could fail be replace if exitis not good?
+//in the end we will try to achieve something like this
+//char **cmds;
+/*	cmd[0][0] = grep;
+	cmd[0][1] = money;
+	cmd[1][2] = cl;
+	cmd[1][3] = -cw;
+*/
+//or else
