@@ -82,7 +82,7 @@ int main(void)
 	i = 0;
 	while (tests[i] != NULL)
 	{
-		ft_printf("=== test %d: %s\n", i+1, tests[i]);
+		ft_printf("=== test %d: %s\n", i, tests[i]);
 		tokens = lexer(tests[i]);
 		i++;
 		if (!tokens)
