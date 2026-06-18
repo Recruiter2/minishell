@@ -1,7 +1,7 @@
 NAME         = minishell
 
 CC             = cc
-CFLAGS         = -Wall -Werror -Wextra -g -no-pie
+CFLAGS         = -Wall -Werror -Wextra -g
 
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)
 
