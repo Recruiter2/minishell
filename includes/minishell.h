@@ -65,5 +65,5 @@ void sigint_handler(int sig);
 
 //lexer
 
-token_t *lexer(const char *s);
+t_token	*lexer(const char *s);
 
