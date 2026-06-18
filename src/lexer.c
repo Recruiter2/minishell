@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/10 15:43:35 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/13 18:08:49 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 #include "../includes/minishell.h"
 
-
-
-static token_t *tok_new(token_type type, char *text, char quote)
+static token_t	*tok_new(token_type type, char *text, char quote)
 {
 	token_t	*token;
 
@@ -24,25 +22,32 @@ static token_t *tok_new(token_type type, char *text, char quote)
 	if (!token)
 	{
 		free(text);
-		return NULL;
+		return (NULL);
 	}
 	token->type = type;
 	token->text = text;
 	token->quote = quote;
 	token->next = NULL;
-	return token;
+	return (token);
 }
 
-
 // Consume quoted string starting at s[i] (quote char q). Returns new i (after closing quote) and sets out text (malloced).
-static int consume_quoted(const char *s, int i, char q, char **out)
+// skip opening quote
+// contents only
+// a revoir
+static int	consume_quoted(const char *s, int i, char **out)
 {
-	int start = ++i; // skip opening quote
-	while (s[i]){
+	char	q;
+	int		start;
+
+	q = s[i];
+	start = ++i;
+	while (s[i])
+	{
 		if (s[i] == q)
 		{
-			*out = ft_strndup(s + start, i - start); // contents only
-			return i + 1;
+			*out = ft_strndup(s + start, i - start);
+			return (i + 1);
 		}
 		if (q == '"' && s[i] == '\\' && s[i+1])
 			i += 2; // allow escaped char in double quotes
