@@ -40,7 +40,15 @@ typedef	enum
 	char	*text;
 	char	quote;
 	struct token	*next;
-} token_t;
+} token_t;*/
+
+typedef struct    s_token
+{
+    token_type    type;
+    char    *text;
+    char    quote;
+    struct token    *next;
+} t_token;
 
 
 //function for user input or parsing...
