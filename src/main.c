@@ -34,7 +34,7 @@ int main(void)
 	
 #include <stdio.h>
 
-/* reuse token_t and lexer() from lexer.c above */
+/* reuse t_token	and lexer() from lexer.c above */
 
 /* helper to show type name */
 static const char *type_name(token_type t)
@@ -50,11 +50,11 @@ static const char *type_name(token_type t)
 	}
 }
 
-static void free_tokens(token_t *head)
+static void free_tokens(t_token	*head)
 {
-	token_t *p = head;
+	t_token	*p = head;
 	while (p) {
-		token_t *n = p->next;
+		t_token	*n = p->next;
 		free(p->text);
 		free(p);
 		p = n;
@@ -64,8 +64,8 @@ static void free_tokens(token_t *head)
 int main(void)
 {
 	int i;
-	token_t *tokens;
-	token_t *head_tok;
+	t_token	*tokens;
+	t_token	*head_tok;
 	const char *tests[] = {
 		"echo hello world",
 		"echo \"a b\" c",
