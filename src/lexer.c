@@ -49,14 +49,17 @@ static int	consume_quoted(const char *s, int i, char **out)
 			*out = ft_strndup(s + start, i - start);
 			return (i + 1);
 		}
-		if (q == '"' && s[i] == '\\' && s[i+1])
-			i += 2; // allow escaped char in double quotes
+		if (q == '"' && s[i] == '\\' && s[i + 1])
+			i += 2;
 		else
 			i++;
 	}
-	return -1; // unmatched quote
+	return (-1);
 }
+// unmatched quote
 
+// allow escaped char in double quotes
+// unmatched quote
 // Append token to list tail; returns new tail or NULL on error
 static token_t *append_token(token_t *tail, token_t *t)
 {
