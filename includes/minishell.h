@@ -34,7 +34,7 @@ typedef	enum
 
 // raw text (without surrounding quotes)
 // 0 = none, '\'' or '"' if entire token was quoted
-typedef struct	token
+/*typedef struct	token
 {
 	token_type	type;
 	char	*text;
