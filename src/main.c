@@ -75,6 +75,7 @@ int main(void)
 		"ls -l | grep '^d' ",
 		"echo arg with spaces backslash",
 		"echo \"unclosed",
+		"a\"b",
 		NULL
 	};
 
