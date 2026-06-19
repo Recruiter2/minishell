@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/19 23:56:25 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/20 00:21:00 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int main(void)
 	i = 0;
 	while (tests[i] != NULL)
 	{
-		ft_printf("=== test %d: %s\n", i, tests[i]);
 		ft_printf("=== test %d: %s\n", i, tests[i]);
 		tokens = lexer(tests[i]);
 		i++;
