@@ -334,9 +334,8 @@ token_t	*lexer(const char *str)
 		{
 			if (str[i] == '\'' || str[i] == '"')
 			{ // allow embedded quoted parts inside word
-				char q = str[i];
-				char *inner = NULL;
-				int ni = consume_quoted(str, i, q, &inner);
+				inner = NULL;
+				ni = consume_quoted(str, i, &inner);
 				if (ni < 0)
 				{
 					free(inner);
