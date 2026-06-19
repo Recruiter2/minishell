@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/19 23:59:07 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/20 00:32:48 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,62 +233,13 @@ int	extract_unquoted_word(const char *str, int *i, t_token	**head,
 }
 // foreign extract unquoted
 /* Assumes:
-   - consume_quoted(const char *s, int idx,
+	- consume_quoted(const char *s, int idx,
 	char **out) returns index after closing quote (>=0) or -1 on error,
 	allocates *out on success.
-   - ft_isspace, ft_strndup, tok_new, append_token exist.
-   - t_token	is your token type.
+	- ft_isspace, ft_strndup, tok_new, append_token exist.
+	- t_token	is your token type.
 */
-/*static int	extract_unquoted_word(const char *str, int *ip, t_token	**head,
-		t_token	**tail)
-{
-	int		start;
-	char	*inner;
-	char	*txt;
-	t_token	*token;
-	int		ni;
 
-	start = *ip;
-	inner = NULL;
-	txt = NULL;
-	while (str[*ip] && !ft_isspace((unsigned char)str[*ip]) && str[*ip] != '|'
-		&& str[*ip] != '<' && str[*ip] != '>')
-	{
-		if (str[*ip] == '\'' || str[*ip] == '"')
-		{
-			inner = NULL;
-			ni = consume_quoted(str, *ip, &inner); // ni >= 0 on success 
-			if (ni < 0)
-			{
-				free(inner);
-				return (-1); // caller handles overall cleanup 
-			}
-			free(inner);   // we only needed to skip quoted part here 
-			*ip = (int)ni; // advance past quoted part 
-		}
-		else
-		{
-			if (str[*ip] == '\\' && str[*ip + 1])
-				*ip += 2;
-			else
-				(*ip)++;
-		}
-	}
-	txt = ft_strndup(str + start, *ip - start);
-	if (!txt)
-		return (-1);
-	token = tok_new(T_WORD, txt, 0);
-	if (!token)
-	{
-		free(txt); // tok_new failed and didn't take ownership 
-		return (-1);
-	}
-	if (*head == NULL)
-		*head = token;
-	*tail = append_token(*tail, token); // append_token returns new tail 
-	return (0);
-}
-*/
 // skip escaped char
 // take substring start..i-1 doesn't make sense since there is no start i -1
 
@@ -300,12 +251,7 @@ t_token	*lexer(const char *str)
 	t_token	*head;
 	t_token	*tail;
 	int		res;
-	/*int		start;
-		char	*txt;
-		int		ni;
 
-		t_token	*token;
-		char	*inner;*/
 	i = 0;
 	head = NULL;
 	tail = NULL;
@@ -326,54 +272,13 @@ t_token	*lexer(const char *str)
 			return (NULL);
 		if (res == 1)
 			continue ;
-		// unquoted word: run until space or operator
-		//start = i;
-		// looks like we needd the start because it is before the word?
-		/*while (str[i] && !ft_isspace((unsigned char)str[i]) && str[i] != '|'
-			&& str[i] != '<' && str[i] != '>')
-		{
-			if (str[i] == '\'' || str[i] == '"')
-			{ // allow embedded quoted parts inside word
-				inner = NULL;
-				ni = consume_quoted(str, i, &inner);
-				if (ni < 0)
-					return (free(inner), free_tokens_list(head), NULL);
-				// we will include the quotes' contents inline; to keep lexer simple,
-				// just advance index
-				i = ni;
-				free(inner);
-				// drop — parser will reconstruct properly; here we keep raw slice
-			}
-			else
-			{
-				if (str[i] == '\\' && str[i + 1])
-					i += 2; // skip escaped char
-				else
-					i++;
-			}
-		}
-		// take substring start..i-1
-		txt = ft_strndup(str + start, i - start);
-		if (!txt)
-			return (free_tokens_list(head), NULL);
-		token = tok_new(T_WORD, txt, 0);
-		if (!token)
-			return (free(txt), free_tokens_list(head), NULL);
-		if (!head)
-			head = token;
-		tail = append_token(tail, token);*/
 		res = extract_unquoted_word(str, &i, &head, &tail);
 		if (res == -1)
 			return (NULL);
 	}
 	return (head);
-	/*fail:
-		// free list
-		free_tokens_list(head);
-		return (NULL);*/
 }
 
-// how could fail be replace if exitis not good?
 // in the end we will try to achieve something like this
 // char **cmds;
 /*	cmd[0][0] = grep;
@@ -382,92 +287,3 @@ t_token	*lexer(const char *str)
 	cmd[1][3] = -cw;
 */
 // or else
-
-/*
-int	pipe_less_more_(const char *str, int *i, t_token	**head, t_token	**tail)
-{
-	if (!str || !i || !head || !tail)
-		return (-1);
-	if (str[*i] == '|')
-	{
-		if (!push_op(head, tail, T_PIPE))
-		{
-			free_tokens_list(*head);
-			return (-1);
-		}
-		(*i)++;
-		return (1);
-	}
-	if (str[*i] == '<' || str[*i] == '>')
-	{
-		if (str[*i] == '<' && str[*i + 1])
-		{
-			if (str[*i + 1] == '<')
-			{
-				if (!push_op(head, tail, T_HEREDOC))
-				{
-					free_tokens_list(*head);
-					return (-1);
-				}
-				*i += 2;
-				return (1);
-			}
-		}
-		if (str[*i] == '>' && str[*i + 1])
-		{
-			if (str[*i + 1] == '>')
-			{
-				if (!push_op(head, tail, T_REDIR_APPEND))
-				{
-					free_tokens_list(*head);
-					return (-1);
-				}
-				*i += 2;
-				return (1);
-			}
-		}
-		if (!redirect_choice(*head, *tail, str[*i]))
-		{
-			free_tokens_list(*head);
-			return (-1);
-		}
-		(*i)++;
-		return (1);
-	}
-	return (0);
-}
-*/
-
-/*if (str[i] == '|')
-		{
-			if (!push_op(&head, &tail, T_PIPE))
-				return (free_tokens_list(head), NULL);
-			i++;
-			continue ;
-		}
-		if (str[i] == '<' || str[i] == '>')
-		{
-			if (str[i] == '<' && str[i + 1] == '<')
-			{
-				if (!push_op(&head, &tail, T_HEREDOC))
-					return (free_tokens_list(head), NULL);
-				i += 2;
-				continue ;
-			}
-			if (str[i] == '>' && str[i + 1] == '>')
-			{
-				if (!push_op(&head, &tail, T_REDIR_APPEND))
-					return (free_tokens_list(head), NULL);
-				i += 2;
-				continue ;
-			}
-			if (!redirect_choice(head, tail, str[i]))
-				return (free_tokens_list(head), NULL);
-			i++;
-			continue ;
-		}*/
-/*res = pipe_less_more_(str, &i, &head, &tail);
-if (res == -1)
-	return (NULL);
-if (res == 1)
-	continue ;*/
