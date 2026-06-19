@@ -314,7 +314,7 @@ token_t	*lexer(const char *str)
 		if (ft_isspace((unsigned char)str[i]))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (str[i] == '|')
 		{
