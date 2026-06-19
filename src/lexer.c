@@ -358,10 +358,7 @@ token_t	*lexer(const char *str)
 			return (free_tokens_list(head), NULL);
 		token = tok_new(T_WORD, txt, 0);
 		if (!token)
-		{
-			free(txt);
-			goto fail;
-		}
+			return (free(txt), free_tokens_list(head), NULL);
 		if (!head)
 			head = token;
 		tail = append_token(tail, token);
