@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/19 16:09:04 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/19 23:55:24 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 #include "../includes/minishell.h"
 
-static token_t	*tok_new(token_type type, char *text, char quote)
+static t_token	*tok_new(token_type type, char *text, char quote)
 {
-	token_t	*token;
+	t_token	*token;
 
 	token = malloc(sizeof(*token));
 	if (!token)
@@ -61,7 +61,7 @@ static int	consume_quoted(const char *s, int i, char **out)
 // allow escaped char in double quotes
 // unmatched quote
 // Append token to list tail; returns new tail or NULL on error
-static token_t	*append_token(t_token	*tail, t_token	*t)
+static t_token	*append_token(t_token	*tail, t_token	*t)
 {
 	if (!t)
 		return (tail);
@@ -73,8 +73,8 @@ static token_t	*append_token(t_token	*tail, t_token	*t)
 // free list and the allocated token
 void	free_tokens_list(t_token	*head)
 {
-	token_t	*p;
-	token_t	*n;
+	t_token	*p;
+	t_token	*n;
 
 	p = head;
 	while (p)
@@ -90,7 +90,7 @@ void	free_tokens_list(t_token	*head)
 // create and append an operator token; returns 0 on OOM
 static int	push_op(t_token	**head, t_token	**tail, token_type type)
 {
-	token_t	*token;
+	t_token	*token;
 
 	token = tok_new(type, NULL, 0);
 	if (!token)
@@ -155,7 +155,7 @@ int	pipe_less_more_(const char *str, int *i, t_token	**head, t_token	**tail)
 // what this code do why free txt? what is txt?
 int	extract_quoted_word(const char *str, int *i, t_token	**head, t_token	**tail)
 {
-	token_t	*token;
+	t_token	*token;
 	int		ni;
 	char	*txt;
 
@@ -194,7 +194,7 @@ int	extract_unquoted_word(const char *str, int *i, t_token	**head,
 	char	*inner;
 	int		ni;
 	char	*txt;
-	token_t	*token;
+	t_token	*token;
 
 	start = *i;
 	txt = NULL;
@@ -245,7 +245,7 @@ int	extract_unquoted_word(const char *str, int *i, t_token	**head,
 	int		start;
 	char	*inner;
 	char	*txt;
-	token_t	*token;
+	t_token	*token;
 	int		ni;
 
 	start = *ip;
@@ -294,17 +294,17 @@ int	extract_unquoted_word(const char *str, int *i, t_token	**head,
 
 // the whole point of lexer is to give the type of the input and for now just remove spaces
 // but by return type we already can see it return a linked list of tokens
-token_t	*lexer(const char *str)
+t_token	*lexer(const char *str)
 {
 	int		i;
-	token_t	*head;
-	token_t	*tail;
+	t_token	*head;
+	t_token	*tail;
 	int		res;
 	int		start;
 	/*	char	*txt;
 		int		ni;
 
-		token_t	*token;
+		t_token	*token;
 		char	*inner;*/
 	i = 0;
 	head = NULL;
