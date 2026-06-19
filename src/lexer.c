@@ -236,12 +236,101 @@ fail:
 	return NULL;
 }
 
-//how could fail be replace if exitis not good?
-//in the end we will try to achieve something like this
-//char **cmds;
+// how could fail be replace if exitis not good?
+// in the end we will try to achieve something like this
+// char **cmds;
 /*	cmd[0][0] = grep;
 	cmd[0][1] = money;
 	cmd[1][2] = cl;
 	cmd[1][3] = -cw;
 */
-//or else
+// or else
+
+/*
+int	pipe_less_more_(const char *str, int *i, t_token	**head, t_token	**tail)
+{
+	if (!str || !i || !head || !tail)
+		return (-1);
+	if (str[*i] == '|')
+	{
+		if (!push_op(head, tail, T_PIPE))
+		{
+			free_tokens_list(*head);
+			return (-1);
+		}
+		(*i)++;
+		return (1);
+	}
+	if (str[*i] == '<' || str[*i] == '>')
+	{
+		if (str[*i] == '<' && str[*i + 1])
+		{
+			if (str[*i + 1] == '<')
+			{
+				if (!push_op(head, tail, T_HEREDOC))
+				{
+					free_tokens_list(*head);
+					return (-1);
+				}
+				*i += 2;
+				return (1);
+			}
+		}
+		if (str[*i] == '>' && str[*i + 1])
+		{
+			if (str[*i + 1] == '>')
+			{
+				if (!push_op(head, tail, T_REDIR_APPEND))
+				{
+					free_tokens_list(*head);
+					return (-1);
+				}
+				*i += 2;
+				return (1);
+			}
+		}
+		if (!redirect_choice(*head, *tail, str[*i]))
+		{
+			free_tokens_list(*head);
+			return (-1);
+		}
+		(*i)++;
+		return (1);
+	}
+	return (0);
+}
+*/
+
+/*if (str[i] == '|')
+		{
+			if (!push_op(&head, &tail, T_PIPE))
+				return (free_tokens_list(head), NULL);
+			i++;
+			continue ;
+		}
+		if (str[i] == '<' || str[i] == '>')
+		{
+			if (str[i] == '<' && str[i + 1] == '<')
+			{
+				if (!push_op(&head, &tail, T_HEREDOC))
+					return (free_tokens_list(head), NULL);
+				i += 2;
+				continue ;
+			}
+			if (str[i] == '>' && str[i + 1] == '>')
+			{
+				if (!push_op(&head, &tail, T_REDIR_APPEND))
+					return (free_tokens_list(head), NULL);
+				i += 2;
+				continue ;
+			}
+			if (!redirect_choice(head, tail, str[i]))
+				return (free_tokens_list(head), NULL);
+			i++;
+			continue ;
+		}*/
+/*res = pipe_less_more_(str, &i, &head, &tail);
+if (res == -1)
+	return (NULL);
+if (res == 1)
+	continue ;*/
