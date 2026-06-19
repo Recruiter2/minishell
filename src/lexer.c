@@ -337,11 +337,9 @@ token_t	*lexer(const char *str)
 				inner = NULL;
 				ni = consume_quoted(str, i, &inner);
 				if (ni < 0)
-				{
-					free(inner);
-					goto fail;
-				}
-				// we will include the quotes' contents inline; to keep lexer simple, just advance index
+					return (free(inner), free_tokens_list(head), NULL);
+				// we will include the quotes' contents inline; to keep lexer simple,
+				// just advance index
 				i = ni;
 				free(inner); // drop — parser will reconstruct properly; here we keep raw slice
 			} 
