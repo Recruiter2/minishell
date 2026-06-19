@@ -61,7 +61,7 @@ static int	consume_quoted(const char *s, int i, char **out)
 // allow escaped char in double quotes
 // unmatched quote
 // Append token to list tail; returns new tail or NULL on error
-static token_t *append_token(token_t *tail, token_t *t)
+static token_t	*append_token(t_token	*tail, t_token	*t)
 {
 	if (!t)
 		return tail;
@@ -71,7 +71,7 @@ static token_t *append_token(token_t *tail, token_t *t)
 }
 
 // free list and the allocated token
-void	free_tokens_list(token_t *head)
+void	free_tokens_list(t_token	*head)
 {
 	token_t	*p;
 	token_t	*n;
@@ -89,7 +89,7 @@ void	free_tokens_list(token_t *head)
 
 
 // create and append an operator token; returns 0 on OOM
-static int push_op(token_t **head, token_t **tail, token_type type)
+static int	push_op(t_token	**head, t_token	**tail, token_type type)
 {
 	token_t *token = tok_new(type, NULL, 0);
 	if (!token)
