@@ -361,7 +361,10 @@ token_t	*lexer(const char *str)
 			return (free(txt), free_tokens_list(head), NULL);
 		if (!head)
 			head = token;
-		tail = append_token(tail, token);
+		tail = append_token(tail, token);*/
+		res = extract_unquoted_word(str, &i, &head, &tail);
+		if (res == -1)
+			return (NULL);
 	}
 	return head;
 
