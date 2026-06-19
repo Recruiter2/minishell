@@ -366,9 +366,8 @@ token_t	*lexer(const char *str)
 		if (res == -1)
 			return (NULL);
 	}
-	return head;
-
-fail:
+	return (head);
+	/*fail:
 	// free list
 	free_tokens_list(head);
 	return NULL;
