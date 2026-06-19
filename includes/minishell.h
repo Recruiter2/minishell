@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/18 20:00:25 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/19 23:53:42 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ typedef	enum
 
 typedef struct    s_token
 {
-    token_type    type;
-    char    *text;
-    char    quote;
-    struct token    *next;
+	token_type	type;
+	char	*text;
+	char	quote;
+	struct s_token	*next;
 } t_token;
 
 
