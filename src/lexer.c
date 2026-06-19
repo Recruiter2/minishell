@@ -353,7 +353,7 @@ token_t	*lexer(const char *str)
 			}
 		}
 		// take substring start..i-1
-		char *txt = ft_strndup(str + start, i - start);
+		txt = ft_strndup(str + start, i - start);
 		if (!txt)
 			goto fail;
 		token = tok_new(T_WORD, txt, 0);
