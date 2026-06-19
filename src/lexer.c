@@ -346,8 +346,10 @@ token_t	*lexer(const char *str)
 			} 
 			else
 			{
-				if (str[i] == '\\' && str[i+1]) i += 2; // skip escaped char
-				else i++;
+				if (str[i] == '\\' && str[i + 1])
+					i += 2; // skip escaped char
+				else
+					i++;
 			}
 		}
 		// take substring start..i-1
