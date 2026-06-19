@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/19 16:11:07 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/19 23:56:25 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static const char *type_name(token_type t)
 	}
 }
 
-static void free_tokens(t_token	*head)
+//it seems this function was written twice check in lexer.... however this is test section so it will be deleted
+static void	free_tokens(t_token	*head)
 {
 	t_token	*p = head;
 	while (p) {
