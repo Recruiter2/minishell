@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/19 23:55:24 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/19 23:59:07 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,8 +300,8 @@ t_token	*lexer(const char *str)
 	t_token	*head;
 	t_token	*tail;
 	int		res;
-	int		start;
-	/*	char	*txt;
+	/*int		start;
+		char	*txt;
 		int		ni;
 
 		t_token	*token;
@@ -327,7 +327,7 @@ t_token	*lexer(const char *str)
 		if (res == 1)
 			continue ;
 		// unquoted word: run until space or operator
-		start = i;
+		//start = i;
 		// looks like we needd the start because it is before the word?
 		/*while (str[i] && !ft_isspace((unsigned char)str[i]) && str[i] != '|'
 			&& str[i] != '<' && str[i] != '>')
