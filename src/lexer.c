@@ -316,67 +316,16 @@ token_t	*lexer(const char *str)
 			i++;
 			continue ;
 		}
-		if (str[i] == '|')
-		{
-			token = tok_new(T_PIPE, NULL, 0);
-			if (!token)
-				goto fail;
-			if (!head)
-				head = token;
-			tail = append_token(tail, token);
-			i++;
-			continue;
-		}
-		if (str[i] == '|') 
-		{
-			if (!push_op(&head, &tail, T_PIPE))
-				return (free_tokens_list(head), NULL);
-			i++;
-			continue;
-		}
-		if (str[i] == '<' || str[i] == '>')
-		{
-			if (str[i] == '<' && str[i+1] == '<')
-			{
-				if (!push_op(&head, &tail, T_HEREDOC))
-					return (free_tokens_list(head), NULL);
-				i += 2;
-				continue;
-			}
-			if (str[i] == '>' && str[i+1] == '>')
-			{
-				if (!push_op(&head, &tail, T_REDIR_APPEND))
-					return (free_tokens_list(head), NULL);
-				i += 2;
-				continue;
-			}
-			if (!push_op(&head, &tail, str[i] == '<' ? T_REDIR_IN : T_REDIR_OUT))
-				return (free_tokens_list(head), NULL);
-			i++;
-			continue;
-		}
-
-		// WORD or quoted ; ni = new index //what this code do why free txt? what is txt?
-		if (str[i] == '\'' || str[i] == '"')
-		{
-			char q = str[i];
-			char *txt = NULL;
-			int ni = consume_quoted(str, i, q, &txt);
-			if (ni < 0)
-				goto fail; // unmatched quote
-			token = tok_new(T_WORD, txt, q);
-			if (!token)
-			{
-				free(txt);
-				goto fail;
-			}
-			if (!head)
-				head = token;
-			tail = append_token(tail, token);
-			i = ni;
-			continue;
-		}
-
+		res = pipe_less_more_(str, &i, &head, &tail);
+		if (res == -1)
+			return (NULL);
+		if (res == 1)
+			continue ;
+		res = extract_quoted_word(str, &i, &head, &tail);
+		if (res == -1)
+			return (NULL);
+		if (res == 1)
+			continue ;
 		// unquoted word: run until space or operator
 		int start = i;
 		while (str[i] && !ft_isspace((unsigned char)str[i]) &&
