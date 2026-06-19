@@ -370,7 +370,7 @@ token_t	*lexer(const char *str)
 	/*fail:
 	// free list
 	free_tokens_list(head);
-	return NULL;
+		return (NULL);*/
 }
 
 // how could fail be replace if exitis not good?
