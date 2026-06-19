@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/20 00:21:00 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/20 00:25:53 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int main(void)
 		"cmd \"\" ''",
 		"cat < infile >> outfile",
 		"cmd <<'EOF' other",
-		"ls -l | grep '^d' ",
-		"echo arg with spaces backslash",
 		"ls -l | grep '^d' ",
 		"echo arg with spaces backslash",
 		"echo \"unclosed",
