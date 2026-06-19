@@ -343,7 +343,7 @@ token_t	*lexer(const char *str)
 				i = ni;
 				free(inner);
 				// drop — parser will reconstruct properly; here we keep raw slice
-			} 
+			}
 			else
 			{
 				if (str[i] == '\\' && str[i + 1])
@@ -368,8 +368,8 @@ token_t	*lexer(const char *str)
 	}
 	return (head);
 	/*fail:
-	// free list
-	free_tokens_list(head);
+		// free list
+		free_tokens_list(head);
 		return (NULL);*/
 }
 
