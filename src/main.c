@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/18 20:00:25 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/19 16:11:07 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int main(void)
 		"cmd <<'EOF' other",
 		"ls -l | grep '^d' ",
 		"echo arg with spaces backslash",
+		"ls -l | grep '^d' ",
+		"echo arg with spaces backslash",
 		"echo \"unclosed",
 		"a\"b",
 		NULL
@@ -82,6 +84,7 @@ int main(void)
 	i = 0;
 	while (tests[i] != NULL)
 	{
+		ft_printf("=== test %d: %s\n", i, tests[i]);
 		ft_printf("=== test %d: %s\n", i, tests[i]);
 		tokens = lexer(tests[i]);
 		i++;
