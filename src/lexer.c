@@ -64,10 +64,10 @@ static int	consume_quoted(const char *s, int i, char **out)
 static token_t	*append_token(t_token	*tail, t_token	*t)
 {
 	if (!t)
-		return tail;
+		return (tail);
 	if (tail)
 		tail->next = t;
-	return t;
+	return (t);
 }
 
 // free list and the allocated token
@@ -87,13 +87,14 @@ void	free_tokens_list(t_token	*head)
 }
 // free the token struct allocated in tok_new
 
-
 // create and append an operator token; returns 0 on OOM
 static int	push_op(t_token	**head, t_token	**tail, token_type type)
 {
-	token_t *token = tok_new(type, NULL, 0);
+	token_t	*token;
+
+	token = tok_new(type, NULL, 0);
 	if (!token)
-		return 0;
+		return (0);
 	if (!*head)
 		*head = token;
 	*tail = append_token(*tail, token);
