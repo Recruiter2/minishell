@@ -327,9 +327,10 @@ token_t	*lexer(const char *str)
 		if (res == 1)
 			continue ;
 		// unquoted word: run until space or operator
-		int start = i;
-		while (str[i] && !ft_isspace((unsigned char)str[i]) &&
-			str[i] != '|' && str[i] != '<' && str[i] != '>')
+		start = i;
+		// looks like we needd the start because it is before the word?
+		/*while (str[i] && !ft_isspace((unsigned char)str[i]) && str[i] != '|'
+			&& str[i] != '<' && str[i] != '>')
 		{
 			if (str[i] == '\'' || str[i] == '"')
 			{ // allow embedded quoted parts inside word
