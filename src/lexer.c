@@ -97,7 +97,17 @@ static int push_op(token_t **head, token_t **tail, token_type type)
 	if (!*head)
 		*head = token;
 	*tail = append_token(*tail, token);
-	return 1;
+	return (1);
+}
+static int	redirect_choice(t_token	*head, t_token	*tail, char c)
+{
+	token_type	res;
+
+	if (c == '<')
+		res = T_REDIR_IN;
+	else
+		res = T_REDIR_OUT;
+	return (push_op(&head, &tail, res));
 }
 
 //the whole point of lexer is to give the type of the input and for now just remove spaces
