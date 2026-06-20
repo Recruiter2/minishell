@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/19 23:53:42 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/20 14:50:11 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,36 @@ typedef	enum
 	struct token	*next;
 } token_t;*/
 
-typedef struct    s_token
+typedef struct s_token
 {
-	token_type	type;
-	char	*text;
-	char	quote;
+	token_type		type;
+	char			*text;
+	char			quote;
 	struct s_token	*next;
-} t_token;
+}	t_token;
 
 
 //function for user input or parsing...
 // this function check if readline is empty
-int is_blank(const char *s);
+int		is_blank(const char *s);
 void	handle_input(void);
 
 // history functions
-void add_shell_history(const char *line);
-void builtin_history(void);
+void	add_shell_history(const char *line);
+void	builtin_history(void);
 
 // signaling
-void sigint_handler(int sig);
+void	sigint_handler(int sig);
 
 //lexer
 
-t_token	*lexer(const char *s);
+t_token	*lexer(char *s);
 
+t_token	*tok_new(token_type type, char *text, char quote);
+int		consume_quoted(const char *s, int i, char **out);
+t_token	*append_token(t_token	*tail, t_token	*t);
+void	free_tokens_list(t_token	*head);
+int		push_op(t_token	**head, t_token	**tail, token_type type);
+int		pipe_less_more_(char *str, int *i, t_token **head, t_token **tail);
+int	extract_quoted_word(char *str, int *i, t_token **head, t_token **tail);
+int	extract_unquoted_word(char *str, int *i, t_token	**head, t_token	**tail);
