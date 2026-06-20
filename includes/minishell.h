@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/20 14:50:11 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/20 23:59:45 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <readline/history.h>
 #include <signal.h>
 
-typedef	enum
+typedef enum e_token
 {
 	T_WORD,
 	T_PIPE,
@@ -26,7 +26,7 @@ typedef	enum
 	T_REDIR_OUT,
 	T_REDIR_APPEND,
 	T_HEREDOC
-} token_type;
+}	t_token_type;
 // <
 // >
 // >>
@@ -34,17 +34,11 @@ typedef	enum
 
 // raw text (without surrounding quotes)
 // 0 = none, '\'' or '"' if entire token was quoted
-/*typedef struct	token
-{
-	token_type	type;
-	char	*text;
-	char	quote;
-	struct token	*next;
-} token_t;*/
+
 
 typedef struct s_token
 {
-	token_type		type;
+	t_token_type	type;
 	char			*text;
 	char			quote;
 	struct s_token	*next;
@@ -67,11 +61,13 @@ void	sigint_handler(int sig);
 
 t_token	*lexer(char *s);
 
-t_token	*tok_new(token_type type, char *text, char quote);
+t_token	*tok_new(t_token_type type, char *text, char quote);
 int		consume_quoted(const char *s, int i, char **out);
 t_token	*append_token(t_token	*tail, t_token	*t);
 void	free_tokens_list(t_token	*head);
-int		push_op(t_token	**head, t_token	**tail, token_type type);
+int		push_op(t_token	**head, t_token	**tail, t_token_type type);
 int		pipe_less_more_(char *str, int *i, t_token **head, t_token **tail);
-int	extract_quoted_word(char *str, int *i, t_token **head, t_token **tail);
-int	extract_unquoted_word(char *str, int *i, t_token	**head, t_token	**tail);
+int		extract_quoted_word(char *str, int *i, t_token **head, t_token **tail);
+int		get_unquoted_word(char *str, int *i, t_token **head, t_token **tail);
+int		ft_isspace_pp(char c, int *i);
+void	init_lex(int *i, t_token **head, t_token **tail);
