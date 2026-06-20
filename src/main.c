@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/20 00:25:53 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/20 15:22:47 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,16 @@ int main(void)
 /* reuse t_token	and lexer() from lexer.c above */
 
 /* helper to show type name */
-static const char *type_name(token_type t)
+static const char	*type_name(token_type t)
 {
-	switch (t) {
-	case T_WORD: return "WORD";
-	case T_PIPE: return "PIPE";
-	case T_REDIR_IN: return "REDIR_IN";
-	case T_REDIR_OUT: return "REDIR_OUT";
-	case T_REDIR_APPEND: return "REDIR_APPEND";
-	case T_HEREDOC: return "HEREDOC";
+	switch (t)
+	{
+	case	T_WORD: return "WORD";
+	case	T_PIPE: return "PIPE";
+	case	T_REDIR_IN: return "REDIR_IN";
+	case	T_REDIR_OUT: return "REDIR_OUT";
+	case	T_REDIR_APPEND: return "REDIR_APPEND";
+	case	T_HEREDOC: return "HEREDOC";
 	default: return "UNKNOWN";
 	}
 }
@@ -62,12 +63,13 @@ static void	free_tokens(t_token	*head)
 	}
 }
 //other
-int main(void)
+int	main(void)
 {
-	int i;
+	int		i;
 	t_token	*tokens;
 	t_token	*head_tok;
-	const char *tests[] = {
+	char	*tests[] =
+	{
 		"echo hello world",
 		"echo \"a b\" c",
 		"cmd \"\" ''",
@@ -89,7 +91,7 @@ int main(void)
 		if (!tokens)
 		{
 			printf("lexer returned NULL (syntax error / OOM)\n\n");
-			continue;
+			continue ;
 		}
 		head_tok = tokens;
 		while (head_tok)
