@@ -22,6 +22,7 @@ SRCS = 	main.c\
 		history.c\
 		signaling.c\
 		lexer.c\
+		lexer_fts.c\
 
 
 
