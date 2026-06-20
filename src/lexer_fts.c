@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 13:48:47 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/20 15:09:47 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/20 17:23:34 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	pipe_(char *str, int *i, t_token **head, t_token **tail)
 
 int	pipe_less_more_(char *str, int *i, t_token **head, t_token **tail)
 {
-	int res;
+	int	res;
 
 	res = pipe_(str, i, head, tail);
 	if (res != 0)
-		return res;
+		return (res);
 	if (str[*i] == '<' || str[*i] == '>')
 	{
 		if (str[*i] == '<' && str[*i + 1] == '<')
