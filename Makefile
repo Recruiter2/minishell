@@ -23,6 +23,9 @@ SRCS = 	main.c\
 		signaling.c\
 		lexer.c\
 		lexer_fts.c\
+		lexer_functions.c\
+		lexer_pipe_redir.c\
+
 
 
 
