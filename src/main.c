@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/20 15:22:47 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/21 20:18:03 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main(void)
 /* reuse t_token	and lexer() from lexer.c above */
 
 /* helper to show type name */
-static const char	*type_name(token_type t)
+static const char	*type_name(t_token_type t)
 {
 	switch (t)
 	{
@@ -78,7 +78,7 @@ int	main(void)
 		"ls -l | grep '^d' ",
 		"echo arg with spaces backslash",
 		"echo \"unclosed",
-		"a\"b",
+		"a\"|<>\"b",
 		NULL
 	};
 
