@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/20 17:13:59 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/22 00:21:22 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "../includes/minishell.h"
 
-t_token	*tok_new(token_type type, char *text, char quote)
+t_token	*tok_new(t_token_type type, char *text, char quote)
 {
 	t_token	*token;
 
