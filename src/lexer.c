@@ -31,11 +31,11 @@ t_token	*tok_new(t_token_type type, char *text, char quote)
 	return (token);
 }
 
-// Consume quoted string starting at s[i] (quote char q). 
+// Consume quoted string starting at s[i] (quote char q aka " or '). 
 // Returns new i (after closing quote) and sets out text (malloced).
-// skip opening quote
-// contents only
-// a revoir
+// code comments : skip opening quote
+// contents only end of in code comment
+// ft has the pointer to the word (out) so it's as if we return word.
 int	consume_quoted(const char *s, int i, char **out)
 {
 	char	q;
@@ -130,8 +130,13 @@ void	init_lex(int *i, t_token **head, t_token **tail)
 // skip escaped char
 // take substring start..i-1 doesn't make sense since there is no start i -1
 
-// the whole point of lexer is to give the type of the input and for now just remove spaces
+// the whole point of lexer is to give the type of the input 
+// and for now just remove spaces
 // but by return type we already can see it return a linked list of tokens
+// code comment : what is head and tail
+// head is is the head of linked list and tail is the last element of it
+// we wrote them for convenience so we don't have to reinvent each time
+// head and tail so we can use it without thinking too much right away
 t_token	*lexer(char *str)
 {
 	int		i;
