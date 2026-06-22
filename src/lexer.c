@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/22 00:21:22 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/06/22 10:04:39 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,6 @@ void	free_tokens_list(t_token	*head)
 	}
 }
 // free the token struct allocated in tok_new
-
-// foreign extract unquoted
-/* Assumes:
-	- consume_quoted(const char *s, int idx,
-	char **out) returns index after closing quote (>=0) or -1 on error,
-	allocates *out on success.
-	- ft_isspace, ft_strndup, tok_new, append_token exist.
-	- t_token	is your token type.
-*/
-
-// skip escaped char
-// take substring start..i-1 doesn't make sense since there is no start i -1
 
 // the whole point of lexer is to give the type of the input 
 // and for now just remove spaces
