@@ -159,7 +159,7 @@ t_token	*lexer(char *str)
 			return (NULL);
 		if (res == 1)
 			continue ;
-		if (extract_unquoted_word(str, &i, &head, &tail) == -1)
+		if (get_unquoted_word(str, &i, &head, &tail) == -1)
 			return (NULL);
 	}
 	return (head);
