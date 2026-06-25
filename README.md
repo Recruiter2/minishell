@@ -74,8 +74,10 @@ https://harm-smits.github.io/42docs/projects/minishell<br>
 https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf<br>
 https://dev.to/elipie/intro-to-parsing-lexing-3g01<br>
 
+
 Other resources <br>
 https://gist.github.com/Alinaprotsyuk/3d58f8cd52eb03a11283d64beb0e083e
+https://stackoverflow.com/questions/12902627/whats-the-difference-between-stdout-and-stdout-fileno
 
 ## Contribution guidelines
 To add/contribute new functionality (obviously there is almost no point to contribute otherwise) you create a new branch and add this new functionality to main by mergining your branch.
