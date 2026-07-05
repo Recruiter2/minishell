@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 21:44:32 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/28 19:58:16 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/05 12:11:48 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_lstadd_back(t_list **ptlst, t_list *new)
 	{
 		last = ft_lstlast(*ptlst);
 		last->next = new;
-	}	
+	}
 	else
 		*ptlst = new;
 }

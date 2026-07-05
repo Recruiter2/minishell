@@ -6,10 +6,11 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:34:54 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/13 15:25:54 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/05 12:12:16 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <unistd.h>
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -35,4 +36,14 @@ void	putstrfd(const char *s, int fd)
 		write(fd, s, 1);
 		s++;
 	}
+}
+
+size_t	ft_strlen(const char *s)
+{
+	const char	*it;
+
+	it = s;
+	while (*it)
+		it++;
+	return (it - s);
 }

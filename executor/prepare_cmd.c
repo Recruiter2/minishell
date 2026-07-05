@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/28 20:41:51 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/05 12:27:28 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,60 +22,62 @@ t_full_cmd	*initialize_cmd(void)
 	ret = malloc(sizeof(*ret));
 	if (!ret)
 		return (NULL); // perror?
-	ret->file_in = NULL;
-	ret->file_out = NULL;
+	ret->redir = NULL;
 	ret->cmd = NULL;
 	return (ret);
 }
 
-int	add_file_in(t_full_cmd *cmd, char* filename)
+int	add_file_in(t_full_cmd *cmd, char *filename)
 {
-	t_file_in		*content;
-	t_list_file_in	*tmp;
+	t_redir			*content;
+	t_list_redir	*tmp;
 
 	content = malloc (sizeof(*content));
 	if (!content)
 		return (1); // perror?
+	content->is_input = 1;
+	content->is_here_doc = 0;
 	content->name = filename;
-	content->here_doc = 0;
 	tmp = ft_lstnew(content);
 	if (!(tmp))
-		return (1); 
-	ft_lstadd_back(&cmd->file_in, tmp);
+		return (1);
+	ft_lstadd_back(&cmd->redir, tmp);
 	return (0);
 }
 
-int	add_here_doc(t_full_cmd *cmd, char* delimiter)
+int	add_here_doc(t_full_cmd *cmd, char *delimiter)
 {
-	t_file_in		*content;
-	t_list_file_in	*tmp;
+	t_redir			*content;
+	t_list_redir	*tmp;
 
 	content = malloc (sizeof(*content));
 	if (!content)
 		return (1); // perror?
+	content->is_input = 1;
+	content->is_here_doc = 1;
 	content->name = delimiter;
-	content->here_doc = 1;
 	tmp = ft_lstnew(content);
 	if (!(tmp))
-		return (1); 
-	ft_lstadd_back(&cmd->file_in, tmp);
+		return (1);
+	ft_lstadd_back(&cmd->redir, tmp);
 	return (0);
 }
 
-int	add_file_out(t_full_cmd *cmd, char* filename, int append)
+int	add_file_out(t_full_cmd *cmd, char *filename, int append)
 {
-	t_file_out		*content;
-	t_list_file_out	*tmp;
+	t_redir			*content;
+	t_list_redir	*tmp;
 
 	content = malloc (sizeof(*content));
 	if (!content)
 		return (1); // perror?
-	content->filename = filename;
-	content->append = append;
+	content->is_input = 0;
+	content->append_mode = append;
+	content->name = filename;
 	tmp = ft_lstnew(content);
 	if (!(tmp))
-		return (1); 
-	ft_lstadd_back(&cmd->file_out, tmp);
+		return (1);
+	ft_lstadd_back(&cmd->redir, tmp);
 	return (0);
 }
 
@@ -90,7 +92,7 @@ int	add_single_cmd(t_full_cmd *cmd, char **argv)
 	content->argv = argv;
 	tmp = ft_lstnew(content);
 	if (!(tmp))
-		return (1); 
+		return (1);
 	ft_lstadd_back(&cmd->cmd, tmp);
 	return (0);
 }

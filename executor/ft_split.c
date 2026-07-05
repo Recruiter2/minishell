@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <falcino@gmail.com>               +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 21:34:21 by marhuber          #+#    #+#             */
-/*   Updated: 2026/02/06 18:25:37 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/06/28 14:34:51 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,18 @@ void	free_all(char ***strs)
 	*strs = 0;
 }
 
+/**
+* Reads a string composed by words separated by a given character
+* Returns a collection of substrings, each containing a word
+* Orders substrings as they appear in the input string
+* Repeats words if they appear multiple times in the input string
+* Does not create empty strings
+* Malloc's each string in the collection separatedly
+*
+* @param s points to the beginning of a 0-terminated string
+* @param c is a character that might be contained in s
+* @return a NULL-terminated array of pointers to the substrings
+*/
 char	**ft_split(char const *s, char c)
 {
 	char	**ret;

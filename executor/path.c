@@ -6,26 +6,17 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 13:48:13 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/06 15:51:57 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/05 12:12:45 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "executor.h"
+#include "prepare_execution.h"
 
 char	**ft_split(char const *s, char c);
 void	free_all(char ***strs);
-
-static size_t	ft_strlen(const char *s)
-{
-	const char	*it;
-
-	it = s;
-	while (*it)
-		it++;
-	return (it - s);
-}
+size_t	ft_strlen(const char *s);
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -107,4 +98,37 @@ int	read_envp(char **envp, t_ctx *ctx)
 	if (!ctx->path)
 		return (1);
 	return (add_backslash(ctx->path));
+}
+
+/**
+* tries to find the executable in the current working directory [...]
+* if not found tries to find it in PATH
+* if found in PATH, the executable is given an absolute PATH 
+* if not found in PATH does not do anything
+*/
+int	find_cmd(char **path, char **argv)
+{
+	char	*tmp;
+
+	if (access(*argv, F_OK))
+	{
+		while (*path)
+		{
+			tmp = ft_strjoin(*path, *argv);
+			if (!tmp)
+				return (1);
+			if (access(tmp, F_OK))
+			{
+				free(tmp);
+				path++;
+			}
+			else
+			{
+				free(*argv);
+				*argv = tmp;
+				return (0);
+			}
+		}
+	}
+	return (0);
 }
