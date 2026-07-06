@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/06 09:34:27 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/06 09:47:00 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	// example to run: < txt.txt grep et | wc -l > out.txt
 
 	// first we create an instance of t_full_cmd named full_cmd
-	// at the beginning this is just and empty container
+	// at the beginning this is just an empty container
 	full_cmd = initialize_cmd();
 	// we add a redirection to full_cmd
 	add_file_in(full_cmd, "txt.txt");
@@ -51,18 +51,22 @@ int	main(int argc, char **argv, char **envp)
 	// the same for "wc -l"
 	second_cmd = ft_split("wc -l", ' ');
 	add_single_cmd(full_cmd, second_cmd);
-	// we add another redirection
+	// we add another redirection to full_cmd
 	add_file_out(full_cmd, "out.txt", 0);
 	// now all the information in "< txt.txt grep et | wc -l > out.txt" is linked with full_cmd
 
 	// we ask the executor to execute full_cmd
 	execute_cmd(&ctx, full_cmd);
+
 	// we free the ressources used to set up full_cmd
 	destroy(&full_cmd);
 	// we free the ressources used to create the two argv 
 	free_all(&first_cmd);
 	free_all(&second_cmd);
+
 	// example to run: < txt.txt tail --lines=5 | grep et | wc -l >> out.txt
+	// same as above but the input line contains three simple commands
+	// morevoer the redirection of the output appends content (>>)
 	full_cmd = initialize_cmd();
 	add_file_in(full_cmd, "txt.txt");
 	first_cmd = ft_split("tail --lines=5", ' ');
@@ -77,7 +81,9 @@ int	main(int argc, char **argv, char **envp)
 	free_all(&first_cmd);
 	free_all(&second_cmd);
 	free_all(&third_cmd);
+
 	// example to run: < txt.txt << END grep ipsum | wc -l > out2.txt >> out.txt
+	// same as above, but we have redirections that override other
 	full_cmd = initialize_cmd();
 	add_file_in(full_cmd, "txt.txt");
 	add_here_doc(full_cmd, "END");
@@ -91,6 +97,7 @@ int	main(int argc, char **argv, char **envp)
 	destroy(&full_cmd);
 	free_all(&first_cmd);
 	free_all(&second_cmd);
+	
 	// finish clean up
 	free_all(&ctx.path);
 }
