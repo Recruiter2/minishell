@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/20 23:59:45 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/07 12:02:50 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,3 +71,6 @@ int		extract_quoted_word(char *str, int *i, t_token **head, t_token **tail);
 int		get_unquoted_word(char *str, int *i, t_token **head, t_token **tail);
 int		ft_isspace_pp(char c, int *i);
 void	init_lex(int *i, t_token **head, t_token **tail);
+
+//helper functions 
+int		redirect_choice(t_token **head, t_token **tail, char c);
