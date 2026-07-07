@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/06 22:17:11 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/07 16:10:55 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main(void)
 /* reuse t_token	and lexer() from lexer.c above */
 
 /* helper to show type name */
-static const char	*type_name(t_token_type t)
+/*static const char	*type_name(t_token_type t)
 {
 	switch (t)
 	{
@@ -49,7 +49,7 @@ static const char	*type_name(t_token_type t)
 	case	T_HEREDOC: return "HEREDOC";
 	default: return "UNKNOWN";
 	}
-}
+}//*/
 
 //it seems this function was written twice check in lexer.... however this is test section so it will be deleted
 static void	free_tokens(t_token	*head)
@@ -62,7 +62,49 @@ static void	free_tokens(t_token	*head)
 		p = n;
 	}
 }
-//other
+//tests for argument concat
+int main(void)
+{
+	int     i = 0;
+	t_token *tokens;
+	//t_token *head_tok;
+	char    *tests[] =
+	{
+		"cat < in.txt | wc -l",
+		"< txt.txt grep et | wc -l > out.txt",
+		"echo \"hello world\"",
+		"ls -l | grep '^d' ",
+		"cat < infile >> outfile",
+		"cmd <<'EOF' other",
+		NULL
+	};
+
+	while (tests[i])
+	{
+		printf("=== input %d: %s\n", i, tests[i]);
+		tokens = lexer(tests[i]);
+		if (!tokens)
+		{
+			printf("lexer returned NULL\n\n");
+			i++;
+			continue ;
+		}
+
+		int ncmd = 0;
+		t_cmd *cmds = parse_pipeline(tokens, &ncmd);  // <-- implement signature
+		printf("pipeline commands: %d\n", ncmd);
+		print_cmds(cmds, ncmd);
+		printf("\n");
+
+		free_cmds(cmds, ncmd);
+		free_tokens(tokens);
+		i++;
+	}
+	return 0;
+}
+
+//tests for token
+/*
 int	main(void)
 {
 	int		i;
@@ -70,7 +112,7 @@ int	main(void)
 	t_token	*head_tok;
 	char	*tests[] =
 	{
-		"echo hello world",
+		"echo \"hello world\"",
 		"echo \"a b\" c",
 		"cmd \"\" ''",
 		"cat < infile >> outfile",
@@ -79,6 +121,8 @@ int	main(void)
 		"echo arg with spaces backslash",
 		"echo \"unclosed",
 		"a\"|<>\"b",
+		"cat < in.txt | wc -l",
+		"< txt.txt grep et | wc -l > out.txt",
 		NULL
 	};
 
@@ -109,7 +153,7 @@ int	main(void)
 	}
 	return 0;
 }
-
+//*/
 /* tools to work with later on and functionality we 'd like to add
 if (debug)
 		{					// optional debug output

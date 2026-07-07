@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/07 12:08:04 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/07 16:09:45 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_cmd
+{
+    char **argv;  // NULL-terminated: argv[0] is program, argv[1...] are args
+    int    argc;   // optional helper
+    // optionally you’ll also store redirections/fds info here
+} t_cmd;
+
 
 //function for user input or parsing...
 // this function check if readline is empty
@@ -74,3 +81,13 @@ void	init_lex(int *i, t_token **head, t_token **tail);
 
 //helper functions 
 int		redirect_choice(t_token **head, t_token **tail, char c);
+
+
+//helper functions for concatenating cmd and args 
+t_cmd *parse_pipeline(t_token *tok, int *out_count);
+t_cmd *new_cmd(void);
+void add_arg(t_cmd *cmd, char *word);
+
+//helper functions for test of cmd and args concatenation
+void print_cmds(t_cmd *cmds, int n);
+void free_cmds(t_cmd *cmds, int n);
