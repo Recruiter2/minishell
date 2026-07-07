@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	redirect_choice(t_token	*head, t_token	*tail, char c)
+int	redirect_choice(t_token	**head, t_token	**tail, char c)
 {
 	t_token_type	res;
 
@@ -20,7 +20,7 @@ int	redirect_choice(t_token	*head, t_token	*tail, char c)
 		res = T_REDIR_IN;
 	else
 		res = T_REDIR_OUT;
-	return (push_op(&head, &tail, res));
+	return (push_op(head, tail, res));
 }
 
 int	pipe_(char *str, int *i, t_token **head, t_token **tail)
@@ -62,7 +62,7 @@ int	pipe_less_more_(char *str, int *i, t_token **head, t_token **tail)
 				return (free_tokens_list(*head), -1);
 			return (*i += 2, 1);
 		}
-		if (!redirect_choice(*head, *tail, str[*i]))
+		if (!redirect_choice(head, tail, str[*i]))
 			return (free_tokens_list(*head), -1);
 		return ((*i)++, 1);
 	}
