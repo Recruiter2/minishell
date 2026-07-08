@@ -1,60 +1,70 @@
 #include "../includes/minishell.h"
 
-void add_arg(t_cmd *cmd, char *word)
+
+void append_word(char **seg, const char *w)
 {
-	cmd->argc++;
-	cmd->argv = realloc(cmd->argv, sizeof(char *) * (cmd->argc + 1));
-	cmd->argv[cmd->argc - 1] = word; // assume token->text ownership stays valid
-	cmd->argv[cmd->argc] = NULL;
+	size_t seglen = (*seg) ? strlen(*seg) : 0;
+	size_t wlen = strlen(w);
+
+	// grow: existing + (space if needed) + word + '\0'
+	size_t add = wlen + (seglen ? 1 : 0);
+	char *newseg = realloc(*seg, seglen + add + 1);
+	if (!newseg) exit(1);
+
+	*seg = newseg;
+	if (seglen) strcat(*seg, " ");
+	strcat(*seg, w);
 }
 
-t_cmd *new_cmd(void)
+int is_redir(t_token_type t)
 {
-	t_cmd *cmd = calloc(1, sizeof(*cmd));
-	cmd->argv = NULL;
-	cmd->argc = 0;
-	return cmd;
+	return (t == T_REDIR_IN || t == T_REDIR_OUT || t == T_REDIR_APPEND || t == T_HEREDOC);
 }
 
-t_cmd *parse_pipeline(t_token *tok, int *out_count)
+// returns a NULL-terminated array of strings: e.g. {"grep et","wc -l",NULL}
+char **build_res_list(t_token *head)
 {
-	t_cmd  *cmds = NULL;
-	int	 n = 0;
+	// First pass: count how many pipeline segments (pipes split segments)
+	int nseg = 0;
+	for (t_token *t = head; t; t = t->next) {
+		if (t->type == T_PIPE) nseg++;
+	}
+	nseg++; // segments = pipes + 1 (assuming at least one token)
 
-	t_cmd *cur = new_cmd();
+	char **res = calloc(nseg + 1, sizeof(char*)); // +1 for NULL terminator
+	int idx = 0;
 
-	for (; tok; tok = tok->next)
+	char *seg = NULL;
+
+	for (t_token *t = head; t; t = t->next)
 	{
-		if (tok->type == T_PIPE)
-		{
-			// finalize current command
-			cmds = realloc(cmds, sizeof(t_cmd) * (n + 1));
-			cmds[n++] = *cur;
-			free(cur);
-
-			cur = new_cmd();
+		if (t->type == T_PIPE) {
+			res[idx++] = seg ? seg : strdup("");
+			seg = NULL;
 			continue;
 		}
 
-		// Redirections should be handled separately (not argv)
-		if (tok->type == T_REDIR_IN || tok->type == T_REDIR_OUT
-			|| tok->type == T_REDIR_APPEND || tok->type == T_HEREDOC)
-		{
-			// skip operator token already tokenized as its own T_... with tok->next
-			// then consume the target WORD (filename/limiter) as part of redirection parsing
-			// (You’ll implement: parse_redir(tok, &cur, &tok) that advances tok.)
+		/*if (t->type == T_WORD) {
+			append_word(&seg, t->text);
+			continue;
+		}*/
+		if (t->type == T_WORD) {
+		if (!t->text || t->text[0] == '\0')
+			continue;
+		append_word(&seg, t->text);
+		continue;
+}
+
+
+		if (is_redir(t->type)) {
+			// skip redirection target token (typically the next T_WORD)
+			if (t->next && t->next->type == T_WORD)
+				t = t->next;
 			continue;
 		}
-
-		if (tok->type == T_WORD)
-			add_arg(cur, tok->text);
 	}
 
-	// push last command
-	cmds = realloc(cmds, sizeof(t_cmd) * (n + 1));
-	cmds[n++] = *cur;
-	free(cur);
-
-	*out_count = n;
-	return cmds;
+	// last segment
+	res[idx] = seg ? seg : strdup("");
+	return res; // caller frees each res[i] and res itself
 }

@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/07 16:09:45 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/08 00:01:06 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,13 @@ int		redirect_choice(t_token **head, t_token **tail, char c);
 
 
 //helper functions for concatenating cmd and args 
-t_cmd *parse_pipeline(t_token *tok, int *out_count);
-t_cmd *new_cmd(void);
-void add_arg(t_cmd *cmd, char *word);
+char **build_res_list(t_token *head);
+int is_redir(t_token_type t);
+void append_word(char **seg, const char *w);
+
+
 
 //helper functions for test of cmd and args concatenation
-void print_cmds(t_cmd *cmds, int n);
-void free_cmds(t_cmd *cmds, int n);
+void	print_res(char **res);
+void	free_res(char **res);
+int	str_arr_eq(char **a, char **b);

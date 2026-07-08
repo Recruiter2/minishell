@@ -1,40 +1,45 @@
 #include "../includes/minishell.h"
 
-static void print_argv(char **argv)
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+
+int	str_arr_eq(char **a, char **b)
 {
 	int i = 0;
-	if (!argv)
+
+	if (!a && !b) return 1;
+	if (!a || !b) return 0;
+	while (a[i] || b[i])
 	{
-		printf("argv=NULL");
-		return;
-	}
-	while (argv[i])
-	{
-		printf("%s%s", argv[i], argv[i + 1] ? ", " : "");
+		if (!a[i] || !b[i]) return 0;
+		if (strcmp(a[i], b[i]) != 0) return 0;
 		i++;
 	}
-	printf("\n");
+	return 1;
 }
 
-void print_cmds(t_cmd *cmds, int n)
+void	free_res(char **res)
 {
-	int i;
-	for (i = 0; i < n; i++)
-	{
-		printf("cmd[%d].argc=%d argv=[", i, cmds[i].argc);
-		print_argv(cmds[i].argv);
-	}
+	int i = 0;
+	if (!res) return;
+	while (res[i])
+		free(res[i++]);
+	free(res);
 }
 
-void free_cmds(t_cmd *cmds, int n)
+void	print_res(char **res)
 {
-	int i;
-	if (!cmds) return;
-	for (i = 0; i < n; i++)
+	int i = 0;
+	if (!res) { printf("res=NULL\n"); return; }
+	printf("[");
+	while (res[i])
 	{
-		// If your t_cmd argv reuses token->text pointers, do NOT free argv[i].
-		// Only free the argv array itself (and cmds array).
-		free(cmds[i].argv);
+		printf("\"%s\"", res[i]);
+		if (res[i + 1]) printf(", ");
+		i++;
 	}
-	free(cmds);
+	printf("]\n");
 }

@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/07 16:10:55 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/08 11:53:16 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,45 +63,55 @@ static void	free_tokens(t_token	*head)
 	}
 }
 //tests for argument concat
+
 int main(void)
 {
-	int     i = 0;
+	int     i;
 	t_token *tokens;
 	//t_token *head_tok;
-	char    *tests[] =
-	{
+
+	char *tests[] = {
 		"cat < in.txt | wc -l",
-		"< txt.txt grep et | wc -l > out.txt",
-		"echo \"hello world\"",
-		"ls -l | grep '^d' ",
+		"echo \"a b\" c",
+		"cmd \"\" ''",
 		"cat < infile >> outfile",
 		"cmd <<'EOF' other",
+		"ls -l | grep '^d' ",
+		"echo arg with spaces backslash",
+		"echo \"unclosed",
+		"a\"|<>\"b",
+		"cat < in.txt | wc -l",
+		"< txt.txt grep et | wc -l > out.txt",
 		NULL
 	};
 
-	while (tests[i])
+	for (i = 0; tests[i]; i++)
 	{
-		printf("=== input %d: %s\n", i, tests[i]);
+		printf("=== test %d: %s\n", i, tests[i]);
+
+		/* this MUST match your working call style */
 		tokens = lexer(tests[i]);
 		if (!tokens)
 		{
 			printf("lexer returned NULL\n\n");
-			i++;
-			continue ;
+			continue;
 		}
 
-		int ncmd = 0;
-		t_cmd *cmds = parse_pipeline(tokens, &ncmd);  // <-- implement signature
-		printf("pipeline commands: %d\n", ncmd);
-		print_cmds(cmds, ncmd);
-		printf("\n");
+		char **res = build_res_list(tokens);
 
-		free_cmds(cmds, ncmd);
+		/* Print res for now (so you can see if grouping matches). */
+		printf("res: ");
+		for (int k = 0; res && res[k]; k++)
+			printf("\"%s\" ", res[k]);
+		printf("\n\n");
+
+		/* free both */
+		/* free_res(res);  // if you have it */
 		free_tokens(tokens);
-		i++;
 	}
 	return 0;
 }
+
 
 //tests for token
 /*
