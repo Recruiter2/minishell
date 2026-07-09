@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/08 11:53:16 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/09 19:10:49 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int main(void)
 }//*/
 
 //it seems this function was written twice check in lexer.... however this is test section so it will be deleted
-static void	free_tokens(t_token	*head)
+/*static void	free_tokens(t_token	*head)
 {
 	t_token	*p = head;
 	while (p) {
@@ -61,8 +61,12 @@ static void	free_tokens(t_token	*head)
 		free(p);
 		p = n;
 	}
-}
-//tests for argument concat
+}//*/
+
+
+
+
+//tests for argument concat (failed btw or not)
 
 int main(void)
 {
@@ -89,29 +93,31 @@ int main(void)
 	{
 		printf("=== test %d: %s\n", i, tests[i]);
 
-		/* this MUST match your working call style */
+		// this MUST match your working call style 
 		tokens = lexer(tests[i]);
 		if (!tokens)
 		{
 			printf("lexer returned NULL\n\n");
 			continue;
 		}
+		dispatch_lexer_to_full_cmd(tokens);
 
-		char **res = build_res_list(tokens);
+		/*char **res = build_res_list(tokens);
 
-		/* Print res for now (so you can see if grouping matches). */
+		// Print res for now (so you can see if grouping matches).
 		printf("res: ");
 		for (int k = 0; res && res[k]; k++)
 			printf("\"%s\" ", res[k]);
 		printf("\n\n");
 
-		/* free both */
-		/* free_res(res);  // if you have it */
+		// free both 
+		// free_res(res);  // if you have it 
 		free_tokens(tokens);
+		//*/
 	}
 	return 0;
 }
-
+//*/
 
 //tests for token
 /*

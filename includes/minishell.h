@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/08 00:01:06 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/09 18:10:41 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
+
 
 typedef enum e_token
 {
@@ -52,6 +53,41 @@ typedef struct s_cmd
 } t_cmd;
 
 
+
+//test from executor struct
+
+typedef struct s_redirection
+{
+	int		is_input;
+	int		is_here_doc;
+	int		append_mode;
+	char	*name;
+}			t_redir;
+
+/**
+* This is an element within a list of redirections
+* @param content points at an instance of t_redir
+*/
+typedef t_list	t_list_redir;
+
+typedef struct s_simple_cmd
+{
+	char	**argv;
+	int		fdin;
+	int		fdout;
+	pid_t	id;
+}			t_single_cmd;
+
+typedef t_list	t_list_single_cmd;
+typedef struct s_full_command
+{
+	t_list_redir		*redir;
+	t_list_single_cmd	*cmd;
+	int					fdin;
+	int					fdout;
+}						t_full_cmd;
+//end of test from executor struct
+
 //function for user input or parsing...
 // this function check if readline is empty
 int		is_blank(const char *s);
@@ -83,14 +119,15 @@ void	init_lex(int *i, t_token **head, t_token **tail);
 int		redirect_choice(t_token **head, t_token **tail, char c);
 
 
-//helper functions for concatenating cmd and args 
+//helper function for adding  cmd and its args (ls + -la); has issue does beyond what is asked
 char **build_res_list(t_token *head);
-int is_redir(t_token_type t);
-void append_word(char **seg, const char *w);
+
+//dispacher 
+t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens);
+
+//helper functions for dispatcher
 
 
 
-//helper functions for test of cmd and args concatenation
-void	print_res(char **res);
-void	free_res(char **res);
-int	str_arr_eq(char **a, char **b);
+//misc
+t_full_cmd	*initialize_cmd(void);
