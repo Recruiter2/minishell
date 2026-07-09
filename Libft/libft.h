@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:42:10 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/08 14:44:34 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/09 18:28:43 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 //checks if c is printable
 int		ft_isprint(int c);
-size_t	ft_strlen(const char *str);
+//size_t	ft_strlen(const char *str);
 void	*ft_memset(void *buffer, int c, size_t SIZE);
 void	ft_bzero(void *b, size_t SIZE);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
@@ -112,7 +112,6 @@ char	*ft_strjoin(char const *str, char const *str0);
 char	*extract_line(char *buffer);
 char	*trim_buffer(char *buffer);
 char	*ft_strchr(const char *str, int c);
-size_t	ft_strlen(const char *str);
 
 char	*get_next_line(int fd);
 

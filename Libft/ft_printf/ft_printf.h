@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 21:15:45 by tzinaliy          #+#    #+#             */
-/*   Updated: 2025/11/13 21:15:48 by tzinaliy         ###   ###########       */
+/*   Updated: 2026/07/09 18:29:16 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 #include <stdarg.h>
 #include <limits.h>
 
+
 int	ft_printf(const char *str, ...);
 
 int	ft_putchar(char c);
 
 int	ft_putstr(const char *str);
+
+size_t	ft_strlen(const char *str);
 
 int	ft_putptr(void *ptr);
 
