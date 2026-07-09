@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:42:10 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/09 18:28:43 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/09 22:50:28 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ size_t	count_words(const char *str, char c);
 
 // splits str into array of strs and more specifically returns an memory 
 // allocated array of memory allocated strings;
-char	**ft_split(char const *str, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *str, char (*f)(unsigned int, char));
 void	ft_striteri(char *str, void (*f)(unsigned int, char*));
