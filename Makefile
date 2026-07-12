@@ -27,6 +27,15 @@ SRCS = 	main.c\
 		lexer_pipe_redir.c\
 		dispatcher.c\
 		misc.c\
+		executor/redirections.c\
+		executor/prepare_cmd.c\
+		executor/path.c\
+		executor/lists.c\
+		executor/get_next_line.c\
+		executor/ft_split.c\
+		executor/exec_utils.c\
+		executor/exec.c\
+		executor/clean_up.c\
 
 
 
