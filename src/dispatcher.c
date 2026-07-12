@@ -1,9 +1,9 @@
 #include "../includes/minishell.h"
 
-/* you already have these in your project (from your snippet) */
+// you already have these in your project (from your snippet) 
 int is_redir(t_token_type t);
 
-/* --------- subfunctions --------- */
+// --------- subfunctions --------- 
 
 static void apply_single_redir(t_full_cmd *full, t_token *op)
 {
@@ -50,12 +50,12 @@ static void add_pipeline_cmds_from_segments(t_full_cmd *full, t_token *tokens)
 		argv = ft_split(res[i], ' ');
 		if (argv)
 			add_single_cmd(full, argv);
-		/* free_res(res); is project-specific; free res[i] + res itself if needed */
+		// free_res(res); //is project-specific; free res[i] + res itself if needed 
 		i++;
 	}
 }
 
-/* --------- public dispatcher --------- */
+// --------- public dispatcher --------- 
 
 t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens)
 {
@@ -71,9 +71,11 @@ t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens)
 	return full;
 }
 
-/******************debug code or code to do tests******************** */
+//*/
 
+/******************debug code or code to do tests******************** */
 /*
+
 // you already have these in your project (from your snippet) 
 int is_redir(t_token_type t);
 
