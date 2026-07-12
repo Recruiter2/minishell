@@ -25,8 +25,6 @@ SRCS = 	main.c\
 		lexer_fts.c\
 		lexer_functions.c\
 		lexer_pipe_redir.c\
-		tester_helper_parser.c\
-		parser.c\
 		dispatcher.c\
 		misc.c\
 
