@@ -89,6 +89,9 @@ typedef struct s_full_command
 	int					fdin;
 	int					fdout;
 }						t_full_cmd;
+//*/
+char	**ft_split(char const *s, char c);
+
 //end of test from executor struct
 
 //function for user input or parsing...
