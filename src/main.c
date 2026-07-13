@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/13 15:51:10 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:57:42 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int main(void)
 {
-	
+	//the commented out line are here for signal hanling
 	/*struct sigaction sa;
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
