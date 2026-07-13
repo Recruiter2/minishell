@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lists.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 21:44:32 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/05 12:11:48 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:27:18 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "executor.h"
+#include "../includes/minishell.h"
 
 t_list	*ft_lstnew(void *content)
 {

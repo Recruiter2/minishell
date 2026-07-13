@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/05 12:15:24 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:26:47 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "../includes/minishell.h"
 #include <sys/wait.h>
-#include "prepare_execution.h"
 
 int		prepare_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out);
 int		find_cmd(char **path, char **argv);

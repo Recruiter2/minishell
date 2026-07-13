@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 13:48:13 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/05 12:12:45 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:27:30 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "prepare_execution.h"
+#include "../includes/minishell.h"
 
 char	**ft_split(char const *s, char c);
 void	free_all(char ***strs);

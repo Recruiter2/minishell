@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/05 12:27:28 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:27:43 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "executor.h"
+#include "../includes/minishell.h"
 
 // char	*ft_strdup(const char *src);
 

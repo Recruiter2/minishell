@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   clean_up.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/05 12:12:29 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:25:58 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "prepare_execution.h"
+#include "../includes/minishell.h"
 
 void	free_all(char ***strs);
 

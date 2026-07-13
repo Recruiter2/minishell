@@ -1,44 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/06 15:34:54 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/13 14:26:07 by tzinaliy         ###   ########.fr       */
+/*   Created: 2026/06/05 14:09:22 by tzinaliy          #+#    #+#             */
+/*   Updated: 2026/06/05 14:09:43 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	while (*s1 || *s2)
+	int	i;
+
+	i = 0;
+	while (s1[i])
 	{
-		if (*s1 - *s2)
-			return (*(unsigned char *)s1 - *(unsigned char *)s2);
-		s1++;
-		s2++;
+		if (s1[i] != s2[i])
+		{
+			return (s1[i] - s2[i]);
+		}
+		i++;
 	}
-	return (0);
-}
-
-void	putstrfd(const char *s, int fd)
-{
-	while (*s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
-}
-
-size_t	ft_strlen(const char *s)
-{
-	const char	*it;
-
-	it = s;
-	while (*it)
-		it++;
-	return (it - s);
+	return (s1[i] - s2[i]);
 }

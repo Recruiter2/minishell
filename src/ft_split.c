@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 21:34:21 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/28 14:34:51 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:26:55 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "../includes/minishell.h"
 
 static size_t	count_entries(char const *s, char c)
 {

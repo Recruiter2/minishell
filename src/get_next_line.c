@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <falcino@gmail.com>               +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 11:57:26 by marhuber          #+#    #+#             */
-/*   Updated: 2026/01/23 17:05:43 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:27:18 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/minishell.h"
 
 // walks throuh the buffer
 // ret: 1 means found nl
