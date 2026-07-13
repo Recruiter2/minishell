@@ -89,7 +89,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 
 	// If your project needs ctx cleanup, do it here.
-	// destroy_ctx(&ctx);
+	//destroy_ctx(&ctx);
 
 	return (0);
 }
