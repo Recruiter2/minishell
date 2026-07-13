@@ -33,7 +33,6 @@ int main(int argc, char **argv, char **envp)
 }
 //*/
 	
-#include <stdio.h>
 
 /* reuse t_token	and lexer() from lexer.c above */
 
