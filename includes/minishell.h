@@ -58,7 +58,7 @@ typedef struct s_cmd
 
 
 //test from executor struct
-
+/*
 typedef struct s_redirection
 {
 	int		is_input;
