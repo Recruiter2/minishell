@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/13 17:22:55 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/13 17:31:25 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	run_line(t_ctx *ctx, char *line)
 	if (cmd)
 	{
 		execute_cmd(ctx, cmd);
-		//destroy(cmd);
+		//destroy(&cmd);
 	}
 	free_tokens(tokens);
 	return (0);
