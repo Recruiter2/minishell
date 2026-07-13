@@ -49,7 +49,7 @@ int	run_line(t_ctx *ctx, char *line)
 	{
 		execute_cmd(ctx, cmd);
 		//destroy(&cmd);
-		//free_all(&cmd); // have trouble freeing because idk what the full cmd is made out o
+		//free_all(&cmd); // have trouble freeing because idk what the full cmd is made out of
 	}
 	free_tokens(tokens);
 	return (0);
