@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/13 17:54:18 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/13 17:56:26 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	run_line(t_ctx *ctx, char *line)
 	{
 		execute_cmd(ctx, cmd);
 		//destroy(&cmd);
+		//free_all(&cmd); // have trouble freeing because idk what the full cmd is made out o
 	}
 	free_tokens(tokens);
 	return (0);
