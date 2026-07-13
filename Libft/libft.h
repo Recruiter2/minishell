@@ -112,6 +112,5 @@ char	*extract_line(char *buffer);
 char	*trim_buffer(char *buffer);
 char	*ft_strchr(const char *str, int c);
 
-char	*get_next_line(int fd);
 
 #endif
