@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/20 13:21:03 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:49:00 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,35 @@ int	is_blank(const char *s)
 	return (1);
 }
 
+void	handle_input(void)
+{
+	char	*line;
+	t_token	*tokens;
+
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if (!line)
+		{
+			write(1, "\n", 1);
+			break ;
+		}
+		if (!is_blank(line))
+		{
+			add_shell_history(line);
+			tokens = lexer(line);
+			if (tokens)
+				dispatch_lexer_to_full_cmd(tokens);
+			else
+			{
+// lexer returned NULL -> usually means parse error / invalid quotes // do nothing here unless your project requires a specific error print
+			}
+		}
+		free(line);
+	}
+}
+
+/*
 //history command is not needed so we won't further improve it to handle spaces
 void	handle_input(void)
 {
@@ -48,3 +77,4 @@ void	handle_input(void)
 		free(line);
 	}
 }
+//*/
