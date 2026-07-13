@@ -39,10 +39,14 @@ static void apply_single_redir(t_full_cmd *full, t_token *op)
 
 static void apply_redirs_from_tokens(t_full_cmd *full, t_token *tokens)
 {
-	for (t_token *t = tokens; t; t = t->next)
+	t_token	*t;
+
+	t = tokens;
+	while (t)
 	{
 		if (is_redir(t->type))
 			apply_single_redir(full, t);
+		t = t->next;
 	}
 }
 
