@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/09 19:10:49 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:51:10 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@
 	/* Parent: set handlers for interactive prompt */
 /* restart interrupted syscalls if appropriate */
 	/* Ignore SIGQUIT in parent (Ctrl-\ does nothing) */
-/*
+
 int main(void)
 {
 	
-	struct sigaction sa;
+	/*struct sigaction sa;
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART; 
 	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);//*/
 	handle_input();
 	return 0;
 }
-*/
+//*/
 	
 #include <stdio.h>
 
@@ -67,7 +67,7 @@ int main(void)
 
 
 //tests for argument concat (failed btw or not)
-
+/*
 int main(void)
 {
 	int     i;
@@ -102,19 +102,19 @@ int main(void)
 		}
 		dispatch_lexer_to_full_cmd(tokens);
 
-		/*char **res = build_res_list(tokens);
+		//char **res = build_res_list(tokens);
 
 		// Print res for now (so you can see if grouping matches).
-		printf("res: ");
-		for (int k = 0; res && res[k]; k++)
-			printf("\"%s\" ", res[k]);
-		printf("\n\n");
+		//printf("res: ");
+		//for (int k = 0; res && res[k]; k++)
+		//	printf("\"%s\" ", res[k]);
+		//printf("\n\n");
 
 		// free both 
 		// free_res(res);  // if you have it 
-		free_tokens(tokens);
-		//*/
-	}
+		//free_tokens(tokens);
+		//
+	//}
 	return 0;
 }
 //*/
