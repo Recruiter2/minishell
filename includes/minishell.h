@@ -66,11 +66,11 @@ typedef struct s_redirection
 	int		append_mode;
 	char	*name;
 }			t_redir;
-
-/**
-* This is an element within a list of redirections
-* @param content points at an instance of t_redir
-*/
+//
+//
+ //This is an element within a list of redirections
+ //@param content points at an instance of t_redir
+//
 typedef t_list	t_list_redir;
 
 typedef struct s_simple_cmd
