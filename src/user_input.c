@@ -23,8 +23,40 @@ int	is_blank(const char *s)
 	}
 	return (1);
 }
+int	run_line(t_ctx *ctx, char *line)
+{
+	t_token		*tokens;
+	t_full_cmd	*cmd;
 
-void	handle_input(void)
+	if (!line || is_blank(line))
+		return (0);
+
+	add_shell_history(line);
+
+	// Optional (if your project expects it before parsing)
+	if (ft_strncmp(line, "history", 7) == 0)
+		return (builtin_history(), 0);
+
+	tokens = lexer(line);
+	if (!tokens)
+		return (1);
+
+	cmd = dispatch_lexer_to_full_cmd(tokens);
+	// ^ if your dispatch currently returns void, change it to return cmd,
+	//   or build cmd inside dispatch and execute there.
+
+	if (cmd)
+	{
+		execute_cmd(ctx, cmd);
+		//destroy(cmd);
+	}
+	free_tokens(tokens);
+	return (0);
+}
+
+
+/*
+void	handle_input(char **argv, char **envp)
 {
 	char	*line;
 	t_token	*tokens;
