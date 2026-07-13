@@ -84,7 +84,7 @@ void	handle_input(char **argv, char **envp)
 			}
 			else
 			{
-// lexer returned NULL -> usually means parse error / invalid quotes // do nothing here unless your project requires a specific error print
+				// lexer returned NULL -> usually means parse error / invalid quotes // do nothing here unless your project requires a specific error print
 			}
 		}
 		free(line);
