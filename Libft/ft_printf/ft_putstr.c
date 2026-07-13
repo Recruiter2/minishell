@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
+#include "../../includes/minishell.h"
+/*
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
@@ -21,7 +21,7 @@ size_t	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
-
+//*/
 int	ft_putstr(const char *str)
 {
 	size_t	len;
