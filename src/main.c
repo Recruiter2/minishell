@@ -20,14 +20,15 @@
 /*
 int main(int argc, char **argv, char **envp)
 {
-	//the commented out line are here for signal hanling
-	/*struct sigaction sa;
+
+	struct sigaction sa;
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART; 
 	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);//*/
-	handle_input();
+	signal(SIGQUIT, SIG_IGN);
+	handle_input(argv, envp);
+	
 	return 0;
 }
 //*/
