@@ -78,6 +78,7 @@ https://dev.to/elipie/intro-to-parsing-lexing-3g01<br>
 Other resources <br>
 https://gist.github.com/Alinaprotsyuk/3d58f8cd52eb03a11283d64beb0e083e
 https://stackoverflow.com/questions/12902627/whats-the-difference-between-stdout-and-stdout-fileno
+https://www.youtube.com/watch?v=HosPml1qkrg
 
 ## Contribution guidelines
 To add/contribute new functionality (obviously there is almost no point to contribute otherwise) you create a new branch and add this new functionality to main by mergining your branch.
