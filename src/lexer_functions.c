@@ -45,3 +45,14 @@ void	init_lex(int *i, t_token **head, t_token **tail)
 	*head = NULL;
 	*tail = NULL;
 }
+
+void	free_tokens(t_token	*head)
+{
+	t_token	*p = head;
+	while (p) {
+		t_token	*n = p->next;
+		free(p->text);
+		free(p);
+		p = n;
+	}
+}
