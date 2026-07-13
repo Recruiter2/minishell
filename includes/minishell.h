@@ -109,6 +109,8 @@ void	sigint_handler(int sig);
 //lexer
 
 t_token	*lexer(char *s);
+void	free_tokens(t_token	*head);
+
 
 t_token	*tok_new(t_token_type type, char *text, char quote);
 int		consume_quoted(const char *s, int i, char **out);
@@ -137,3 +139,5 @@ t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens);
 
 //misc
 t_full_cmd	*initialize_cmd(void);
+void	destroy(t_full_cmd **ptr_cmd);
+int	run_line(t_ctx *ctx, char *line);
