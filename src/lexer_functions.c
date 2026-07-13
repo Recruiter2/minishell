@@ -26,6 +26,7 @@ int	push_op(t_token	**head, t_token	**tail, t_token_type type)
 	return (1);
 }
 
+//functions seems useless at this point
 int	ft_isspace_pp(char c, int *i)
 {
 	if (ft_isspace(c))
