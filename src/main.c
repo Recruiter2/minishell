@@ -52,7 +52,7 @@ int main(int argc, char **argv, char **envp)
 }//*/
 
 //it seems this function was written twice check in lexer.... however this is test section so it will be deleted
-/*static void	free_tokens(t_token	*head)
+void	free_tokens(t_token	*head)
 {
 	t_token	*p = head;
 	while (p) {
