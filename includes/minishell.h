@@ -18,7 +18,10 @@
 #include <readline/history.h>
 #include <signal.h>
 
-
+//include executor
+#include "get_next_line.h"
+#include "executor.h"
+#include "prepare_execution.h"
 typedef enum e_token
 {
 	T_WORD,
