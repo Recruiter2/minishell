@@ -28,21 +28,28 @@ void	handle_input(void)
 {
 	char	*line;
 	t_token	*tokens;
+	t_ctx ctx;
+	t_full_cmd *cmd;
 
+	argc = 0;
+	argc++;
+	**argv = 0;
+	if (read_envp(envp, &ctx))
+		return (1);
 	while (1)
 	{
 		line = readline("minishell$ ");
-		if (!line)
-		{
-			write(1, "\n", 1);
-			break ;
-		}
+		
 		if (!is_blank(line))
 		{
 			add_shell_history(line);
 			tokens = lexer(line);
 			if (tokens)
-				dispatch_lexer_to_full_cmd(tokens);
+			{
+				cmd = dispatch_lexer_to_full_cmd(tokens);
+				execute_cmd(&ctx, cmd);
+				destroy(&cmd);
+			}
 			else
 			{
 // lexer returned NULL -> usually means parse error / invalid quotes // do nothing here unless your project requires a specific error print
@@ -50,8 +57,14 @@ void	handle_input(void)
 		}
 		free(line);
 	}
+	// we ask the executor to execute full_cmd
+    // we free the ressources used to set up full_cmd
+    destroy(&cmd);
+    // we free the ressources used to create the two argv 
+    //free_all(&cmd);
+    //free_all(&cmd);
 }
-
+//*/
 /*
 //history command is not needed so we won't further improve it to handle spaces
 void	handle_input(void)
