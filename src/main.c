@@ -63,6 +63,47 @@ void	free_tokens(t_token	*head)
 	}
 }//*/
 
+int	main(int argc, char **argv, char **envp)
+{
+	t_ctx		ctx;
+	char		*line;
+	struct sigaction sa;
+
+	(void)argc;
+	(void)argv;
+
+	if (read_envp(envp, &ctx))
+		return (1);
+
+	sa.sa_handler = sigint_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
+
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if (!line)
+		{
+			write(1, "\n", 1);
+			break ;
+		}
+
+		if (run_line(&ctx, line))
+		{
+			// If you need a specific error status, set it here
+		}
+		free(line);
+	}
+
+	// If your project needs ctx cleanup, do it here.
+	// destroy_ctx(&ctx);
+
+	return (0);
+}
+
+
 
 
 
