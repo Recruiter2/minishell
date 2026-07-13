@@ -17,8 +17,8 @@
 	/* Parent: set handlers for interactive prompt */
 /* restart interrupted syscalls if appropriate */
 	/* Ignore SIGQUIT in parent (Ctrl-\ does nothing) */
-
-int main(void)
+/*
+int main(int argc, char **argv, char **envp)
 {
 	//the commented out line are here for signal hanling
 	/*struct sigaction sa;
