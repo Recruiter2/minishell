@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/13 14:27:43 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/14 13:49:52 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_full_cmd	*initialize_cmd(void)
 		return (NULL); // perror?
 	ret->redir = NULL;
 	ret->cmd = NULL;
+	ret->fdin = 0;
+	ret->fdout = 1;
 	return (ret);
 }
 
