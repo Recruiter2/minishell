@@ -20,7 +20,7 @@ int			apply_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out);
 int			find_cmd(char **path, char **argv);
 int			ft_lstsize(t_list *lst);
 t_builtin	*is_builtin(char *name, t_list_bi *builtins);
-int			exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx);
+int			exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd);
 int			extract_path(t_ctx *ctx);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
 
@@ -55,7 +55,7 @@ static int	run_step(t_ctx *ctx, t_full_cmd *full_cmd, t_single_cmd *this_cmd)
 		if (dup2(this_cmd->fdout, 1) < 0)
 			exit((perror("dup2 fdout=1"), end(ctx, full_cmd), EXIT_FAILURE));
 		if (this_cmd->builtin)
-			exit((end(ctx, full_cmd), exec_builtin(this_cmd, ctx)));
+			exit((end(ctx, full_cmd), exec_builtin(this_cmd, ctx, full_cmd)));
 		find_cmd(ctx->path, this_cmd->argv);
 		//
 		if (execve(*this_cmd->argv, this_cmd->argv, ctx->env_strs) < 0)
@@ -145,7 +145,7 @@ int	execute_cmd(t_ctx *ctx, t_full_cmd *full_cmd)
 		sole_cmd = full_cmd->cmd->content;
 		if (sole_cmd->builtin)
 		{
-			ctx->exit_status = exec_builtin(sole_cmd, ctx);
+			ctx->exit_status = exec_builtin(sole_cmd, ctx, full_cmd);
 			return (0);
 		}
 	}

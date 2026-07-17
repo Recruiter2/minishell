@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:58:40 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 18:16:59 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 int	ft_strcmp(const char *s1, const char *s2);
 const char	*ft_strchr(const char *str, char c);
+void	end(t_ctx *ctx, t_full_cmd *cmd);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **lst, t_list *newelem);
@@ -51,6 +52,13 @@ int	bi_echo(char **argv, t_list_ev *env_lst)
 	}
 	printf ("%s", trailing);
 	return (0);
+}
+
+int	bi_exit(char **argv, t_list_ev *env_lst)
+{
+	(void)argv;
+	(void)env_lst;
+	exit(0);
 }
 
 int	add_one_bi(char *name, int (*ft)(char **, t_list_ev *), t_list_bi **builtins)
@@ -77,7 +85,8 @@ int	add_all_bi(t_list_bi **builtins)
 	*builtins = NULL;
 	err = 0;
 	err += add_one_bi("echo", &bi_echo, builtins);
-	
+	err += add_one_bi("exit", &bi_exit, builtins);
+
 	if(err)
 		return(1);
 	else
@@ -103,7 +112,15 @@ t_builtin	*is_builtin(char *name, t_list_bi *builtins)
 	return (NULL);
 }
 
-int	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx)
+int	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
 {
-	return((*single_cmd->builtin->ft)(single_cmd->argv, ctx->env_lst));
+	int	ret;
+
+	ret = (*single_cmd->builtin->ft)(single_cmd->argv, ctx->env_lst);
+	if (ft_strcmp(single_cmd->builtin->name, "exit") == 0)
+	{
+		end(ctx, full_cmd);
+		exit (0);
+	}
+	return (ret);
 }
