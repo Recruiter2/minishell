@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 21:34:21 by marhuber          #+#    #+#             */
-/*   Updated: 2026/06/28 14:34:51 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/16 18:45:52 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	free_all(char ***strs)
 {
 	char	**it;
 
+	if (!*strs)
+		return ;
 	it = *strs;
 	while (*it)
 	{
@@ -95,6 +97,7 @@ void	free_all(char ***strs)
 	}
 	free(*strs);
 	*strs = 0;
+	return ;
 }
 
 /**

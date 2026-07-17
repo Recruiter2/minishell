@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/06 09:47:00 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/16 18:36:46 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	**argv = 0;
 	// This transfers the information about the environment to ctx
 	// For the time being it is mostly about the PATH
-	if (read_envp(envp, &ctx))
+	if (init_ctx(&ctx, envp))
 		return (1);
 	
 	// example to run: < txt.txt grep et | wc -l > out.txt
@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	execute_cmd(&ctx, full_cmd);
 
 	// we free the ressources used to set up full_cmd
-	destroy(&full_cmd);
+	destroy_cmd(&full_cmd);
 	// we free the ressources used to create the two argv 
 	free_all(&first_cmd);
 	free_all(&second_cmd);
@@ -77,7 +77,7 @@ int	main(int argc, char **argv, char **envp)
 	add_single_cmd(full_cmd, third_cmd);
 	add_file_out(full_cmd, "out.txt", 1);
 	execute_cmd(&ctx, full_cmd);
-	destroy(&full_cmd);
+	destroy_cmd(&full_cmd);
 	free_all(&first_cmd);
 	free_all(&second_cmd);
 	free_all(&third_cmd);
@@ -94,7 +94,7 @@ int	main(int argc, char **argv, char **envp)
 	add_file_out(full_cmd, "out2.txt", 0);
 	add_file_out(full_cmd, "out.txt", 1);
 	execute_cmd(&ctx, full_cmd);
-	destroy(&full_cmd);
+	destroy_cmd(&full_cmd);
 	free_all(&first_cmd);
 	free_all(&second_cmd);
 	
