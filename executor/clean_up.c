@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/14 13:35:08 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 08:54:38 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	free_ctx_ressources(t_ctx *ctx)
 {
 	ft_lstclear(&ctx->env_lst, &delete_evar);
 	free_all(&ctx->env_strs);
-	// free_all(&ctx->path);
+	ft_lstclear(&ctx->builtins, &free);
+	free_all(&ctx->path);
 }
 
 void	end(t_ctx *ctx, t_full_cmd *cmd)
