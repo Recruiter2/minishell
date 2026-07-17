@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/13 16:14:01 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:56:50 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void add_pipeline_cmds_from_segments(t_full_cmd *full, t_token *tokens)
 	res = build_res_list(tokens);
 	if (!res)
 		return ;
-
+	i = 0;
 	while (res[i])
 	{
 		char **argv;
