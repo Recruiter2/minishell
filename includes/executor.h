@@ -6,25 +6,14 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/05 12:31:49 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/15 18:40:25 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 # include <unistd.h>
-
-/**
-* this is an element of a linked list
-* @param content points at the content, eg. a string or another construct
-* @param next points at the next element in the list or is NULL, if none exists
-* the variable and element pointed at exist outside of this element
-*/
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}					t_list;
+# include "environment.h"
 
 /**
 * This represents a redirection: an input file, a here document or an output file
@@ -57,11 +46,12 @@ typedef t_list	t_list_redir;
 */
 typedef struct s_simple_cmd
 {
-	char	**argv;
-	int		fdin;
-	int		fdout;
-	pid_t	id;
-}			t_single_cmd;
+	char		**argv;
+	t_builtin	*builtin;
+	int			fdin;
+	int			fdout;
+	pid_t		id;
+}				t_single_cmd;
 
 /**
 * This is an element within a list of simple commands
@@ -72,8 +62,8 @@ typedef t_list	t_list_single_cmd;
 /**
 * This contains all information on a full command
 * @param redir points at the beginning of a list of redirections to be applied
-* @param cmd points at the beginning of a list of comments to be executed
-* @param
+* @param cmd points at the beginning of a list of commands to be executed
+* @param fdin is the file descriptor for the initial input
 */
 typedef struct s_full_command
 {
@@ -82,10 +72,5 @@ typedef struct s_full_command
 	int					fdin;
 	int					fdout;
 }						t_full_cmd;
-
-t_list	*ft_lstnew(void *content);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *newelem);
-void	ft_lstclear(t_list **lst, void (*del)(void*));
 
 #endif

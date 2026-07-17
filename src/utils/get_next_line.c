@@ -6,11 +6,11 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 11:57:26 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:26:36 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 17:03:01 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/get_next_line.h"
 
 // walks throuh the buffer
 // ret: 1 means found nl

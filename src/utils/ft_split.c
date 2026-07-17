@@ -6,11 +6,13 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 21:34:21 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:25:59 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/16 18:45:52 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 static size_t	count_entries(char const *s, char c)
 {
@@ -84,6 +86,8 @@ void	free_all(char ***strs)
 {
 	char	**it;
 
+	if (!*strs)
+		return ;
 	it = *strs;
 	while (*it)
 	{
@@ -93,6 +97,7 @@ void	free_all(char ***strs)
 	}
 	free(*strs);
 	*strs = 0;
+	return ;
 }
 
 /**

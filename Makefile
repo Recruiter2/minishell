@@ -28,8 +28,10 @@ SRCS = 	main.c\
 		dispatcher_helper.c\
 		dispatcher.c\
 		executor/prepare_cmd.c\
+		executor/environment.c\
 		executor/path.c\
 		executor/redirections.c\
+		executor/builtins1.c\
 		executor/exec.c\
 		executor/clean_up.c\
 		utils/lists.c\

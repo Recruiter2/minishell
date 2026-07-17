@@ -6,11 +6,12 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 21:44:32 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:22:48 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 17:02:59 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include <stdlib.h>
+#include "../../includes/lists.h"
 
 t_list	*ft_lstnew(void *content)
 {
@@ -22,6 +23,19 @@ t_list	*ft_lstnew(void *content)
 	ret->content = content;
 	ret->next = 0;
 	return (ret);
+}
+
+int	ft_lstsize(t_list *lst)
+{
+	int	re;
+
+	re = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		re++;
+	}
+	return (re);
 }
 
 t_list	*ft_lstlast(t_list *lst)
@@ -47,6 +61,12 @@ void	ft_lstadd_back(t_list **ptlst, t_list *new)
 	}
 	else
 		*ptlst = new;
+}
+
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	(*del)(lst->content);
+	free(lst);
 }
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))

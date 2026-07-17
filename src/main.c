@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/14 13:13:27 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 17:07:09 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	if (read_envp(envp, &ctx))
+	if (init_ctx(&ctx, envp))
 		return (1);
 
 	sa.sa_handler = sigint_handler;

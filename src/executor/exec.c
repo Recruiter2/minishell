@@ -6,16 +6,24 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:33:31 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:58:40 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/wait.h>
+#include "../../includes/executor.h"
+#include "../../includes/prepare_execution.h"
 
-int		prepare_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out);
-int		find_cmd(char **path, char **argv);
-void	end(t_ctx *ctx, t_full_cmd *cmd);
+int			apply_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out);
+int			find_cmd(char **path, char **argv);
+int			ft_lstsize(t_list *lst);
+t_builtin	*is_builtin(char *name, t_list_bi *builtins);
+int			exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx);
+int			extract_path(t_ctx *ctx);
+void		end(t_ctx *ctx, t_full_cmd *cmd);
+
 
 static int	close_pipes_before(t_full_cmd *full_cmd, t_single_cmd *this_cmd)
 {
@@ -46,8 +54,11 @@ static int	run_step(t_ctx *ctx, t_full_cmd *full_cmd, t_single_cmd *this_cmd)
 			exit((perror("dup2 fdin=0"), end(ctx, full_cmd), EXIT_FAILURE));
 		if (dup2(this_cmd->fdout, 1) < 0)
 			exit((perror("dup2 fdout=1"), end(ctx, full_cmd), EXIT_FAILURE));
+		if (this_cmd->builtin)
+			exit((end(ctx, full_cmd), exec_builtin(this_cmd, ctx)));
 		find_cmd(ctx->path, this_cmd->argv);
-		if (execve(*this_cmd->argv, this_cmd->argv, ctx->envp) < 0)
+		//
+		if (execve(*this_cmd->argv, this_cmd->argv, ctx->env_strs) < 0)
 			exit((perror("execve"), end(ctx, full_cmd), EXIT_FAILURE));
 	}
 	return (0);
@@ -97,19 +108,49 @@ static void	waits(t_list_single_cmd *it_cmd)
 	}
 }
 
+int	prepare_execution(t_ctx *ctx, t_full_cmd *full_cmd)
+{
+	t_list_redir		*it_redir;
+	t_list_single_cmd	*it_cmd;
+	t_single_cmd		*single_cmd;
+
+	it_redir = full_cmd->redir;
+	while (it_redir)
+	{
+		if (apply_redir(it_redir->content, &full_cmd->fdin, &full_cmd->fdout))
+			return (1);
+		it_redir = it_redir->next;
+	}
+	it_cmd = full_cmd->cmd;
+	while(it_cmd)
+	{
+		single_cmd = it_cmd->content;
+		single_cmd->builtin = is_builtin(*single_cmd->argv, ctx->builtins);
+		it_cmd = it_cmd->next;
+	}
+	return (0);
+}
+
 /*
 executes the command saved in *full_cmd
 */
 int	execute_cmd(t_ctx *ctx, t_full_cmd *full_cmd)
 {
-	t_list_redir	*it_redir;
+	t_single_cmd	*sole_cmd;
 
-	it_redir = full_cmd->redir;
-	while (it_redir)
+	if (prepare_execution(ctx, full_cmd))
+		return (1);
+	if (ft_lstsize(full_cmd->cmd) == 1)
 	{
-		prepare_redir(it_redir->content, &full_cmd->fdin, &full_cmd->fdout);
-		it_redir = it_redir->next;
+		sole_cmd = full_cmd->cmd->content;
+		if (sole_cmd->builtin)
+		{
+			ctx->exit_status = exec_builtin(sole_cmd, ctx);
+			return (0);
+		}
 	}
+	if (extract_path(ctx))
+		return (1);
 	if (start(ctx, full_cmd))
 		return (1);
 	waits(full_cmd->cmd);

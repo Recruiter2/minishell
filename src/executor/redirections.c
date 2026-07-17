@@ -6,16 +6,27 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 21:19:01 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:35:38 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:58:40 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "../../includes/executor.h"
 
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
-void	putstrfd(const char *s, int fd);
+
+static void	putstrfd(const char *s, int fd)
+{
+	while (*s)
+	{
+		write(fd, s, 1);
+		s++;
+	}
+}
 
 static int	read_here_doc(char *delim, int *fd_pipe)
 {
@@ -40,7 +51,7 @@ static int	read_here_doc(char *delim, int *fd_pipe)
 	return (free(delim), 0);
 }
 
-int	prepare_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out)
+int	apply_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out)
 {
 	int	o_flag_out;
 
