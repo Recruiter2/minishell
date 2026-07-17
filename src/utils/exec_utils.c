@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:34:54 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 08:42:50 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 18:37:25 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*ft_strdup(const char *src)
 
 	dup = malloc(sizeof(*src) * (ft_strlen(src) + 1));
 	if (!dup)
-		return (0);
+		return (perror("malloc error"), NULL);
 	it = dup;
 	while (*src)
 	{
@@ -116,7 +116,7 @@ int	split_in_two(char *str, char c, char *result[2])
 		return (1);
 	result[0] = malloc(sizeof(char) * (separator - str + 1));
 	if (!result[0])
-		return (free(result[1]), 1);
+		return (perror("malloc error"), free(result[1]), 1);
 	it = result[0];
 	while (str < separator)
 		*it++ = *str++;

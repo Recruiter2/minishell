@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:58:40 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 18:21:15 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	run_step(t_ctx *ctx, t_full_cmd *full_cmd, t_single_cmd *this_cmd)
 		find_cmd(ctx->path, this_cmd->argv);
 		//
 		if (execve(*this_cmd->argv, this_cmd->argv, ctx->env_strs) < 0)
-			exit((perror("execve"), end(ctx, full_cmd), EXIT_FAILURE));
+			exit((perror(*this_cmd->argv), end(ctx, full_cmd), EXIT_FAILURE));
 	}
 	return (0);
 }

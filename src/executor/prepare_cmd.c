@@ -6,10 +6,11 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:58:40 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 18:34:03 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "../../includes/executor.h"
 
@@ -22,7 +23,7 @@ t_full_cmd	*initialize_cmd(void)
 
 	ret = malloc(sizeof(*ret));
 	if (!ret)
-		return (NULL); // perror?
+		return (perror("malloc error"), NULL);
 	ret->redir = NULL;
 	ret->cmd = NULL;
 	ret->fdin = 0;
@@ -37,7 +38,7 @@ int	add_file_in(t_full_cmd *cmd, char *filename)
 
 	content = malloc (sizeof(*content));
 	if (!content)
-		return (1); // perror?
+		return (perror("malloc error"), 1);
 	content->is_input = 1;
 	content->is_here_doc = 0;
 	content->name = filename;
@@ -55,7 +56,7 @@ int	add_here_doc(t_full_cmd *cmd, char *delimiter)
 
 	content = malloc (sizeof(*content));
 	if (!content)
-		return (1); // perror?
+		return (perror("malloc error"), 1);
 	content->is_input = 1;
 	content->is_here_doc = 1;
 	content->name = delimiter;
@@ -73,7 +74,7 @@ int	add_file_out(t_full_cmd *cmd, char *filename, int append)
 
 	content = malloc (sizeof(*content));
 	if (!content)
-		return (1); // perror?
+		return (perror("malloc error"), 1);
 	content->is_input = 0;
 	content->append_mode = append;
 	content->name = filename;
@@ -91,7 +92,7 @@ int	add_single_cmd(t_full_cmd *cmd, char **argv)
 
 	content = malloc (sizeof(*content));
 	if (!content)
-		return (1); // perror?
+		return (perror("malloc error"), 1);
 	content->argv = argv;
 	tmp = ft_lstnew(content);
 	if (!tmp)

@@ -6,13 +6,14 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 21:40:05 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/16 19:57:00 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 18:36:14 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "environment.h"
+#include "../../includes/environment.h"
 
 char	**ft_split(char const *s, char c);
 void	free_all(char ***strs);
@@ -36,7 +37,7 @@ static int	evar_strs_to_lst(t_list_ev **ptr_env_lst, char **envp)
 	{
 		content = malloc (sizeof(*content));
 		if (!content)
-			return (1); // perror?
+			return (perror("malloc error"), 1);
 		if (split_in_two(*strs, '=', single_evar))
 			return (1);
 		content->name = single_evar[0];
@@ -61,7 +62,7 @@ int	evar_lst_to_strs(t_ctx *ctx)
 	free_all(&ctx->env_strs);
 	ctx->env_strs = malloc(sizeof(*ctx->env_strs) * (n + 1));
 	if (!ctx->env_strs)
-		return (1);
+		return (perror("malloc error"), 1);
 	it_lst = ctx->env_lst;
 	it_strs = ctx->env_strs;
 	while (n--)

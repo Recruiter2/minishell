@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 18:16:59 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 18:33:59 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	add_one_bi(char *name, int (*ft)(char **, t_list_ev *), t_list_bi **builtins
 
 	content = malloc (sizeof(*content));
 	if (!content)
-		return (1); // perror?
+		return (perror("malloc error"), 1);
 	content->name = name;
 	content->ft = ft;
 	tmp = ft_lstnew(content);

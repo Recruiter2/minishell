@@ -6,10 +6,11 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 21:44:32 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 17:02:59 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 18:38:20 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "../../includes/lists.h"
 
@@ -19,7 +20,7 @@ t_list	*ft_lstnew(void *content)
 
 	ret = malloc(sizeof(t_list));
 	if (!ret)
-		return (NULL);
+		return (perror("malloc error"), NULL);
 	ret->content = content;
 	ret->next = 0;
 	return (ret);
