@@ -25,18 +25,17 @@ SRCS = 	main.c\
 		lexer_fts.c\
 		lexer_functions.c\
 		lexer_pipe_redir.c\
-		redirections.c\
-		prepare_cmd.c\
-		path.c\
-		lists.c\
-		get_next_line.c\
-		ft_split.c\
-		exec_utils.c\
-		exec.c\
-		clean_up.c\
 		dispatcher_helper.c\
 		dispatcher.c\
-
+		executor/prepare_cmd.c\
+		executor/path.c\
+		executor/redirections.c\
+		executor/exec.c\
+		executor/clean_up.c\
+		utils/lists.c\
+		utils/get_next_line.c\
+		utils/ft_split.c\
+		utils/exec_utils.c\
 
 
 
@@ -56,7 +55,8 @@ $(NAME):  $(OBJS)
 	$(CC) -no-pie $(OBJS) -L$(LIBFT_DIR) -lft ${FT_PRINTF} $(READLINE_LIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/executor
+	mkdir -p $(OBJ_DIR)/utils
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:

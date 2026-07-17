@@ -56,8 +56,7 @@ dkms.conf
 
 pipex
 executor/meta/testing/test
-executor/meta/testing/out.txt
-executor/meta/testing/out2.txt
+out*.txt
 executor/meta/testing/t1.txt
 executor/meta/testing/t2.txt
 minishell

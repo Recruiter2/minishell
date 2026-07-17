@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   clean_up.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/13 14:25:58 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:35:13 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	free_all(char ***strs);
 

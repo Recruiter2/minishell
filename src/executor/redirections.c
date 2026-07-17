@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 21:19:01 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/13 14:27:56 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:35:38 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*get_next_line(int fd);

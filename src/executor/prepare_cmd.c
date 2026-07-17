@@ -6,11 +6,11 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/14 13:49:52 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:35:32 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 // char	*ft_strdup(const char *src);
 

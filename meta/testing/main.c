@@ -6,11 +6,11 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/06 09:34:27 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:37:58 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../prepare_execution.h"
+#include "../../includes/prepare_execution.h"
 
 char	**ft_split(char const *s, char c);
 void	end(t_ctx *ctx, t_full_cmd *cmd);

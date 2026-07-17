@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/13 14:26:47 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:33:31 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 #include <sys/wait.h>
 
 int		prepare_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out);

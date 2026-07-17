@@ -6,7 +6,7 @@
 #    By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/06 16:56:26 by marhuber          #+#    #+#              #
-#    Updated: 2026/07/05 10:06:19 by marhuber         ###   ########.fr        #
+#    Updated: 2026/07/17 16:41:12 by marhuber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,16 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 # Name of all sources files to be passed to the CC command
-MY_SOURCES = main.c ../../exec_utils.c ../../exec.c ../../ft_split.c \
-	../../path.c ../../get_next_line.c ../../prepare_cmd.c ../../clean_up.c \
-	../../redirections.c ../../lists.c
+MY_SOURCES = main.c \
+	../../src/executor/exec.c \
+	../../src/executor/path.c \
+	../../src/executor/prepare_cmd.c \
+	../../src/executor/clean_up.c \
+	../../src/executor/redirections.c \
+	../../src/utils/lists.c \
+	../../src/utils/get_next_line.c \
+	../../src/utils/exec_utils.c \
+	../../src/utils/ft_split.c 
 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 
