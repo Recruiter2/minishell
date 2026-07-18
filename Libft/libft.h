@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:42:10 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/13 14:21:03 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/18 21:22:52 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_putnbr_fd(int n, int fd);
 # endif
 
 void	cy(char *dest, const char *src);
-size_t	ft_strcat(char *dest, const char *src, size_t size);
+char	*ft_strcat(char *dest, char *src);
 char	*ft_strjoin(char const *str, char const *str0);
 char	*extract_line(char *buffer);
 char	*trim_buffer(char *buffer);
