@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 18:21:15 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/19 21:15:28 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	close_pipes_before(t_full_cmd *full_cmd, t_single_cmd *this_cmd)
 	{
 		earlier_cmd = it_step->content;
 		if (close(earlier_cmd->fdout))
-			return (1);
+			return (perror("close in close_pipes_before"), printf("fd: %d", earlier_cmd->fdout), 1);
 		it_step = it_step->next;
 	}
 	return (0);
@@ -100,10 +100,16 @@ static void	waits(t_list_single_cmd *it_cmd)
 	{
 		step = it_cmd->content;
 		waitpid(step->id, 0, 0);
-		if (-1 < step->fdin)
-			close(step->fdin);
-		if (-1 < step->fdout)
-			close(step->fdout);
+		if (2 < step->fdin)
+		{
+			if (close(step->fdin))
+				perror("close fdin in waits");
+		}
+		if (2 < step->fdout)
+		{
+			if (close(step->fdout))
+				perror("close fdout in waits");
+		}
 		it_cmd = it_cmd->next;
 	}
 }
