@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:58:40 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/19 20:14:52 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/environment.h"
 #include "../../includes/prepare_execution.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*));
+void	ft_lstclear(t_list **ptlst, void (*del)(void*));
 void	free_all(char ***strs);
 
 void	destroy_cmd(t_full_cmd **ptr_cmd)

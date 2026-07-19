@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 21:44:32 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 18:38:20 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/19 20:13:24 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_list	*ft_lstnew(void *content)
 	if (!ret)
 		return (perror("malloc error"), NULL);
 	ret->content = content;
-	ret->next = 0;
+	ret->next = NULL;
 	return (ret);
 }
 
@@ -70,11 +70,14 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 	free(lst);
 }
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_lstclear(t_list **ptlst, void (*del)(void*))
 {
-	(*del)((*lst)->content);
-	if ((*lst)->next)
-		ft_lstclear(&((*lst)->next), del);
-	free(*lst);
-	*lst = 0;
+	if (!*ptlst)
+		return ;
+	(*del)((*ptlst)->content);
+	if ((*ptlst)->next)
+		ft_lstclear(&((*ptlst)->next), del);
+	free(*ptlst);
+	*ptlst = NULL;
+	return ;
 }
