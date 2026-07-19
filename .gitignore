@@ -54,10 +54,7 @@ dkms.conf
 # debug information files
 *.dwo
 
-pipex
-executor/meta/testing/test
-out*.txt
-executor/meta/testing/t1.txt
-executor/meta/testing/t2.txt
-minishell
 obj
+out*.txt
+minishell
+meta/testing/test

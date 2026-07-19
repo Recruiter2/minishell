@@ -6,14 +6,14 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 16:37:58 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/19 21:15:53 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/prepare_execution.h"
+#include <stdio.h>
 
 char	**ft_split(char const *s, char c);
-void	end(t_ctx *ctx, t_full_cmd *cmd);
 void	free_all(char ***strs);
 
 
@@ -29,68 +29,99 @@ int	main(int argc, char **argv, char **envp)
 	char	**second_cmd;
 	char	**third_cmd;
 
-	argc = 0;
-	argc++;
-	**argv = 0;
+	(void)argc;
+	(void)argv;
 	// This transfers the information about the environment to ctx
 	// For the time being it is mostly about the PATH
-	if (read_envp(envp, &ctx))
+	if (init_ctx(&ctx, envp))
 		return (1);
+	printf("debug signal 0\n");
 	
 	// example to run: < txt.txt grep et | wc -l > out.txt
+	if (1)
+	{
+		// first we create an instance of t_full_cmd named full_cmd
+		// at the beginning this is just and empty container
+		full_cmd = initialize_cmd();
+		// we add a redirection to full_cmd
+		add_file_in(full_cmd, "txt.txt");
+		// we create an argv for "grep et"
+		first_cmd = ft_split("grep et", ' ');
+		// we add this argv to full_cmd
+		add_single_cmd(full_cmd, first_cmd);
+		// the same for "wc -l"
+		second_cmd = ft_split("wc -l", ' ');
+		add_single_cmd(full_cmd, second_cmd);
+		// we add another redirection
+		add_file_out(full_cmd, "out.txt", 0);
+		// now all the information in "< txt.txt grep et | wc -l > out.txt" is linked with full_cmd
 
-	// first we create an instance of t_full_cmd named full_cmd
-	// at the beginning this is just and empty container
-	full_cmd = initialize_cmd();
-	// we add a redirection to full_cmd
-	add_file_in(full_cmd, "txt.txt");
-	// we create an argv for "grep et"
-	first_cmd = ft_split("grep et", ' ');
-	// we add this argv to full_cmd
-	add_single_cmd(full_cmd, first_cmd);
-	// the same for "wc -l"
-	second_cmd = ft_split("wc -l", ' ');
-	add_single_cmd(full_cmd, second_cmd);
-	// we add another redirection
-	add_file_out(full_cmd, "out.txt", 0);
-	// now all the information in "< txt.txt grep et | wc -l > out.txt" is linked with full_cmd
-
-	// we ask the executor to execute full_cmd
-	execute_cmd(&ctx, full_cmd);
-	// we free the ressources used to set up full_cmd
-	destroy(&full_cmd);
-	// we free the ressources used to create the two argv 
-	free_all(&first_cmd);
-	free_all(&second_cmd);
+		// we ask the executor to execute full_cmd
+		execute_cmd(&ctx, full_cmd);
+		// we free the ressources used to set up full_cmd
+		destroy_cmd(&full_cmd);
+		// we free the ressources used to create the two argv 
+		free_all(&first_cmd);
+		free_all(&second_cmd);
+	}
 	// example to run: < txt.txt tail --lines=5 | grep et | wc -l >> out.txt
-	full_cmd = initialize_cmd();
-	add_file_in(full_cmd, "txt.txt");
-	first_cmd = ft_split("tail --lines=5", ' ');
-	add_single_cmd(full_cmd, first_cmd);
-	second_cmd = ft_split("grep et", ' ');
-	add_single_cmd(full_cmd, second_cmd);
-	third_cmd = ft_split("wc -l", ' ');
-	add_single_cmd(full_cmd, third_cmd);
-	add_file_out(full_cmd, "out.txt", 1);
-	execute_cmd(&ctx, full_cmd);
-	destroy(&full_cmd);
-	free_all(&first_cmd);
-	free_all(&second_cmd);
-	free_all(&third_cmd);
-	// example to run: < txt.txt << END grep ipsum | wc -l > out2.txt >> out.txt
-	full_cmd = initialize_cmd();
-	add_file_in(full_cmd, "txt.txt");
-	add_here_doc(full_cmd, "END");
-	first_cmd = ft_split("grep ipsum", ' ');
-	add_single_cmd(full_cmd, first_cmd);
-	second_cmd = ft_split("wc -l", ' ');
-	add_single_cmd(full_cmd, second_cmd);
-	add_file_out(full_cmd, "out2.txt", 0);
-	add_file_out(full_cmd, "out.txt", 1);
-	execute_cmd(&ctx, full_cmd);
-	destroy(&full_cmd);
-	free_all(&first_cmd);
-	free_all(&second_cmd);
+	if (1)
+	{
+		full_cmd = initialize_cmd();
+		add_file_in(full_cmd, "txt.txt");
+		first_cmd = ft_split("tail --lines=5", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		second_cmd = ft_split("grep et", ' ');
+		add_single_cmd(full_cmd, second_cmd);
+		third_cmd = ft_split("wc -l", ' ');
+		add_single_cmd(full_cmd, third_cmd);
+		add_file_out(full_cmd, "out.txt", 1);
+		execute_cmd(&ctx, full_cmd);
+		destroy_cmd(&full_cmd);
+		free_all(&first_cmd);
+		free_all(&second_cmd);
+		free_all(&third_cmd);
+	}
+	// example to run: < txt.txt << END grep hi | wc -l > out2.txt >> out.txt
+	if (0)
+	{
+		full_cmd = initialize_cmd();
+		add_file_in(full_cmd, "txt.txt");
+		add_here_doc(full_cmd, "END");
+		first_cmd = ft_split("grep hi", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		second_cmd = ft_split("wc -l", ' ');
+		add_single_cmd(full_cmd, second_cmd);
+		add_file_out(full_cmd, "out2.txt", 0);
+		add_file_out(full_cmd, "out.txt", 1);
+		execute_cmd(&ctx, full_cmd);
+		destroy_cmd(&full_cmd);
+		free_all(&first_cmd);
+		free_all(&second_cmd);
+	}
+	if (1)
+	{
+		full_cmd = initialize_cmd();
+		first_cmd = ft_split("cat -e txt.txt", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		// add_file_in(full_cmd, "txt.txt");
+		execute_cmd(&ctx, full_cmd);
+		printf("debug signal 21\n");
+		destroy_cmd(&full_cmd);
+		free_all(&first_cmd);
+	}
+	// example to run: echo hi ha hu "1 2 3"
+	if (1)
+	{
+		full_cmd = initialize_cmd();
+		first_cmd = ft_split("echo hi", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		execute_cmd(&ctx, full_cmd);
+		printf("debug signal 20\n");
+		destroy_cmd(&full_cmd);
+		free_all(&first_cmd);
+	}
+
 	// finish clean up
-	free_all(&ctx.path);
+	free_ctx_ressources(&ctx);
 }
