@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 18:33:59 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/19 17:45:09 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,27 @@ void	ft_lstadd_back(t_list **lst, t_list *newelem);
 
 int	bi_echo(char **argv, t_list_ev *env_lst)
 {
+	char	**start;
+	char	**it;
 	char	*trailing;
 
 	(void)env_lst;
 	trailing = "\n";
-	argv++;
-	if (*argv)
+	start = argv + 1;
+	if (*start)
 	{
-		if (ft_strcmp(*argv, "-n") == 0)
+		if (ft_strcmp(*start, "-n") == 0)
 		{
 			trailing = "";
-			argv++;
+			start++;
 		}
-		while (*argv)
-			printf("%s", *argv++);
+		it = start;
+		while (*it)
+		{
+			if (it != start)
+				printf(" ");
+			printf("%s", *it++);
+		}
 	}
 	printf ("%s", trailing);
 	return (0);
