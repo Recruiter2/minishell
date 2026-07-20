@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 21:40:05 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 18:36:14 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/20 21:11:14 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **lst, t_list *newelem);
 int		ft_lstsize(t_list *lst);
 int		add_all_bi(t_list_bi **builtins);
+int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strdup(const char *src);
 
 static int	evar_strs_to_lst(t_list_ev **ptr_env_lst, char **envp)
 {
@@ -90,4 +92,27 @@ int	init_ctx(t_ctx *ctx, char **envp)
 		return (1);
 	ctx->exit_status = 0;
 	return (0);
+}
+
+/*
+* E.g. if in env USER=marhuber, "makedir $USER" should expand to
+*	"makedir marhuber"
+*	To implement this use this fonction:
+*	evar_expansion(USER) points at a malloc'd *	string containing "marhuber"
+	evar_expansion(INEXISTEN_VAR) will return the NULL-pointer
+*/
+char	*evar_expansion(t_ctx *ctx, char *name)
+{
+	t_list_ev	*it;
+	t_evar		*evar;
+
+	it = ctx->env_lst;
+	while (it)
+	{
+		evar = it->content;
+		if (ft_strcmp(evar->name, name) == 0)
+			return (ft_strdup(evar->value));
+		it = it->next;
+	}
+	return (NULL);
 }

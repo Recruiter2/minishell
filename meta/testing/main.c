@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/19 21:15:53 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/20 21:09:03 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int	main(int argc, char **argv, char **envp)
 	char	**first_cmd;
 	char	**second_cmd;
 	char	**third_cmd;
+
+	char	*name;
+	char	*value;
 
 	(void)argc;
 	(void)argv;
@@ -120,6 +123,18 @@ int	main(int argc, char **argv, char **envp)
 		printf("debug signal 20\n");
 		destroy_cmd(&full_cmd);
 		free_all(&first_cmd);
+	}
+	if (1)
+	{
+		name = "USER";
+		value = evar_expansion(&ctx, name);
+		printf("%s=%s\n", name, value);
+		name = "LANG";
+		value = evar_expansion(&ctx, name);
+		printf("%s=%s\n", name, value);
+		name = "USER";
+		value = evar_expansion(&ctx, name);
+		printf("%s=%s\n", name, value);	
 	}
 
 	// finish clean up
