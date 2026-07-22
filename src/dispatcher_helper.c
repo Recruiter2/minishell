@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/22 01:16:23 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/22 23:09:30 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	number_of_segments(t_token *head)
 	return (nseg);
 }
 // returns a NULL-terminated array of strings: e.g. {"grep et","wc -l",NULL}
-char **build_res_list(t_token *head)
+char **build_res_list(t_token *head, t_ctx *ctx)
 {
 	// First pass: count how many pipeline segments (pipes split segments)
 	t_token *t = head;
@@ -98,9 +98,11 @@ char **build_res_list(t_token *head)
 				t = t->next;// advance before continue
 				continue;
 			}
-			//printf("t->text[0] = %c\n", t->text[0]);
+			//printf("t->text = %s\n", t->text);
 			
-			if (t->text[0] != '$')
+			if (t->text[0] == '$')
+				append_word(&seg, evar_expansion(ctx, &t->text[1]));
+			else
 				append_word(&seg, t->text);
 			t = t->next;// advance before continue
 			continue;

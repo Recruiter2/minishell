@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/22 01:12:30 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/22 23:04:53 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,10 @@ int		redirect_choice(t_token **head, t_token **tail, char c);
 
 
 //helper function for adding  cmd and its args (ls + -la); has issue does beyond what is asked
-char **build_res_list(t_token *head);
+char **build_res_list(t_token *head, t_ctx *ctx);
 
 //dispacher 
-t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens);
+t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens, t_ctx *ctx);
 
 //helper functions for dispatcher
 void	add_expandable_var(t_ctx *ctx, t_token *head);

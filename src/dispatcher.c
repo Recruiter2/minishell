@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/22 01:24:15 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/22 23:06:16 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static void apply_redirs_from_tokens(t_full_cmd *full, t_token *tokens)
 	}
 }
 
-static void add_pipeline_cmds_from_segments(t_full_cmd *full, t_token *tokens)
+static void add_pipeline_cmds_from_segments(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 {
 	char **res;
 	int i;
 	char **argv;
 
 
-	res = build_res_list(tokens);
+	res = build_res_list(tokens, ctx);
 	if (!res)
 		return ;
 	i = 0;
@@ -75,7 +75,7 @@ static void add_pipeline_cmds_from_segments(t_full_cmd *full, t_token *tokens)
 
 // --------- public dispatcher --------- 
 
-t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens)
+t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens, t_ctx *ctx)
 {
 	t_full_cmd *full;
 
@@ -84,7 +84,7 @@ t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens)
 		return NULL;
 
 	apply_redirs_from_tokens(full, tokens);
-	add_pipeline_cmds_from_segments(full, tokens);
+	add_pipeline_cmds_from_segments(full, tokens, ctx);
 
 	return full;
 }

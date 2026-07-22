@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/22 01:15:20 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/22 23:07:23 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	run_line(t_ctx *ctx, char *line)
 	tokens = lexer(line);
 	if (!tokens)
 		return (1);
-	add_expandable_var(ctx, tokens);
-	cmd = dispatch_lexer_to_full_cmd(tokens);
+	//add_expandable_var(ctx, tokens);
+	cmd = dispatch_lexer_to_full_cmd(tokens, ctx);
 	// ^ if your dispatch currently returns void, change it to return cmd,
 	//   or build cmd inside dispatch and execute there.
 
