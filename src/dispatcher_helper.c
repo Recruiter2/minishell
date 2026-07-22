@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/13 14:22:03 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/22 01:16:23 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ char **build_res_list(t_token *head)
 				t = t->next;// advance before continue
 				continue;
 			}
-			append_word(&seg, t->text);
+			//printf("t->text[0] = %c\n", t->text[0]);
+			
+			if (t->text[0] != '$')
+				append_word(&seg, t->text);
 			t = t->next;// advance before continue
 			continue;
 		}
@@ -115,7 +118,7 @@ char **build_res_list(t_token *head)
 		t = t->next;
 	}
 
-	// last segment
+	// last segment I mean what code doing?
 	if (seg)
 		res[idx] = seg;
 	else

@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/13 17:23:28 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/22 01:12:30 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 //include executor
 #include "get_next_line.h"
 #include "executor.h"
+#include "environment.h"
 #include "prepare_execution.h"
 typedef enum e_token
 {
@@ -134,7 +135,7 @@ char **build_res_list(t_token *head);
 t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens);
 
 //helper functions for dispatcher
-
+void	add_expandable_var(t_ctx *ctx, t_token *head);
 
 
 //misc
