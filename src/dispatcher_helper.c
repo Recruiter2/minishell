@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/22 23:09:30 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/23 23:15:13 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void append_word(char **seg, char *word)
 {
 	char	*temp;
 	size_t	seglen = 0;
-	size_t	wlen = ft_strlen(word);
+	size_t	wlen;
 	size_t	add = 0;
 
-
+	if (word == NULL)
+		return;
+	wlen = ft_strlen(word);
 	// grow: existing + (space if needed) + word + '\0'
 	if (*seg)
 	{
@@ -43,7 +45,7 @@ void append_word(char **seg, char *word)
 	}
 	*seg = temp;
 	if (seglen) //seems logic is flawed should add space if seglen so not so flawed
-		ft_strcat(*seg, " "); //do we have an str cat function?  
+		ft_strcat(*seg, " "); //do we have an str cat function?
 	ft_strcat(*seg, word);
 }
 
