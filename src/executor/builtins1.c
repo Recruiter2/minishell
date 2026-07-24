@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/19 17:45:09 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/24 23:17:19 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	ft_strcmp(const char *s1, const char *s2);
+int			ft_strcmp(const char *s1, const char *s2);
 const char	*ft_strchr(const char *str, char c);
-void	end(t_ctx *ctx, t_full_cmd *cmd);
+void		end(t_ctx *ctx, t_full_cmd *cmd);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **lst, t_list *newelem);
@@ -65,10 +65,10 @@ int	bi_exit(char **argv, t_list_ev *env_lst)
 {
 	(void)argv;
 	(void)env_lst;
-	exit(0);
+	return (0);
 }
 
-int	add_one_bi(char *name, int (*ft)(char **, t_list_ev *), t_list_bi **builtins)
+int	add_one_bi(char *name, int (*ft)(char **, t_list_ev *), t_list_bi **list)
 {
 	t_builtin	*content;
 	t_list_bi	*tmp;
@@ -81,8 +81,8 @@ int	add_one_bi(char *name, int (*ft)(char **, t_list_ev *), t_list_bi **builtins
 	tmp = ft_lstnew(content);
 	if (!tmp)
 		return (1);
-	ft_lstadd_back(builtins, tmp);
-	return (0);	
+	ft_lstadd_back(list, tmp);
+	return (0);
 }
 
 int	add_all_bi(t_list_bi **builtins)
@@ -93,9 +93,8 @@ int	add_all_bi(t_list_bi **builtins)
 	err = 0;
 	err += add_one_bi("echo", &bi_echo, builtins);
 	err += add_one_bi("exit", &bi_exit, builtins);
-
-	if(err)
-		return(1);
+	if (err)
+		return (1);
 	else
 		return (0);
 }
@@ -109,7 +108,7 @@ t_builtin	*is_builtin(char *name, t_list_bi *builtins)
 		return (NULL);
 	it_bi = builtins;
 	while (it_bi)
-	{	
+	{
 		builtin_cmd = it_bi->content;
 		if (ft_strcmp(name, builtin_cmd->name))
 			it_bi = it_bi->next;

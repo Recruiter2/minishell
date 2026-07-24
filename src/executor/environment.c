@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 21:40:05 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/20 21:11:14 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/24 23:08:38 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ int	init_ctx(t_ctx *ctx, char **envp)
 * E.g. if in env USER=marhuber, "makedir $USER" should expand to
 *	"makedir marhuber"
 *	To implement this use this fonction:
-*	evar_expansion(USER) points at a malloc'd *	string containing "marhuber"
-	evar_expansion(INEXISTEN_VAR) will return the NULL-pointer
+*	evar_expansion("USER") points at a malloc'd string containing "marhuber"
+	evar_expansion("INEXISTENT_VAR") will return the NULL-pointer
 */
 char	*evar_expansion(t_ctx *ctx, char *name)
 {
