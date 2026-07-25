@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 18:34:03 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/25 14:27:34 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	add_single_cmd(t_full_cmd *cmd, char **argv)
 	if (!content)
 		return (perror("malloc error"), 1);
 	content->argv = argv;
+	content->fdin = -1;
+	content->fdout = -1;
 	tmp = ft_lstnew(content);
 	if (!tmp)
 		return (1);

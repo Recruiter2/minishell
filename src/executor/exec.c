@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/19 21:15:28 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/25 19:55:56 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,42 +24,51 @@ int			exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd);
 int			extract_path(t_ctx *ctx);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
 
-
-static int	close_pipes_before(t_full_cmd *full_cmd, t_single_cmd *this_cmd)
+static int	close_pipe_ends(t_full_cmd *full_cmd)
 {
-	t_list_single_cmd	*it_step;
-	t_single_cmd		*earlier_cmd;
+	t_list_single_cmd	*it_cmd;
+	t_single_cmd		*step;
 
-	it_step = full_cmd->cmd;
-	while (it_step->content != this_cmd)
+	it_cmd = full_cmd->cmd;
+	if (!it_cmd)
+		return (0);
+	while (it_cmd)
 	{
-		earlier_cmd = it_step->content;
-		if (close(earlier_cmd->fdout))
-			return (perror("close in close_pipes_before"), printf("fd: %d", earlier_cmd->fdout), 1);
-		it_step = it_step->next;
+		step = it_cmd->content;
+		if (step->fdin > 2)
+		{
+			if (close(step->fdin))
+				return (perror("close fdin in close_pipe_ends"), 1);
+		}
+		if (step->fdout > 2)
+		{
+			if (close(step->fdout))
+				return (perror("close fdout in close_pipe_ends"), 1);
+		}
+		it_cmd = it_cmd->next;
 	}
 	return (0);
 }
 
-static int	run_step(t_ctx *ctx, t_full_cmd *full_cmd, t_single_cmd *this_cmd)
+static int	run_step(t_ctx *ctx, t_full_cmd *full_cmd, t_single_cmd *step)
 {
-	this_cmd->id = fork();
-	if (this_cmd->id < 0)
+	step->id = fork();
+	if (step->id < 0)
 		return (perror ("err fork in runstep"), 1);
-	if (!this_cmd->id)
+	if (!step->id)
 	{
-		if (close_pipes_before(full_cmd, this_cmd))
-			exit((end(ctx, full_cmd), EXIT_FAILURE));
-		if (dup2(this_cmd->fdin, 0) < 0)
+		if (dup2(step->fdin, 0) < 0)
 			exit((perror("dup2 fdin=0"), end(ctx, full_cmd), EXIT_FAILURE));
-		if (dup2(this_cmd->fdout, 1) < 0)
+		if (dup2(step->fdout, 1) < 0)
 			exit((perror("dup2 fdout=1"), end(ctx, full_cmd), EXIT_FAILURE));
-		if (this_cmd->builtin)
-			exit((end(ctx, full_cmd), exec_builtin(this_cmd, ctx, full_cmd)));
-		find_cmd(ctx->path, this_cmd->argv);
-		//
-		if (execve(*this_cmd->argv, this_cmd->argv, ctx->env_strs) < 0)
-			exit((perror(*this_cmd->argv), end(ctx, full_cmd), EXIT_FAILURE));
+		if (close_pipe_ends(full_cmd))
+			exit((end(ctx, full_cmd), EXIT_FAILURE));
+		if (step->builtin)
+			exit((exec_builtin(step, ctx, full_cmd), end(ctx, full_cmd), EXIT_SUCCESS));
+		find_cmd(ctx->path, step->argv);
+		// There is still a problem here
+		if (execve(*step->argv, step->argv, ctx->env_strs) < 0)
+			exit((perror(*step->argv), end(ctx, full_cmd), EXIT_FAILURE));
 	}
 	return (0);
 }
@@ -92,26 +101,22 @@ static int	start(t_ctx *ctx, t_full_cmd *full_cmd)
 	return (0);
 }
 
-static void	waits(t_list_single_cmd *it_cmd)
+static int	waits(t_ctx *ctx, t_full_cmd *full_cmd)
 {
+	t_list_single_cmd	*it_cmd;
 	t_single_cmd		*step;
 
+	if (close_pipe_ends(full_cmd))
+		return ((end(ctx, full_cmd), 1));
+	it_cmd = full_cmd->cmd;
 	while (it_cmd)
 	{
 		step = it_cmd->content;
-		waitpid(step->id, 0, 0);
-		if (2 < step->fdin)
-		{
-			if (close(step->fdin))
-				perror("close fdin in waits");
-		}
-		if (2 < step->fdout)
-		{
-			if (close(step->fdout))
-				perror("close fdout in waits");
-		}
+		if (waitpid(step->id, 0, 0) == -1)
+			return (perror("error waitpid"), 1);
 		it_cmd = it_cmd->next;
 	}
+	return (1);
 }
 
 int	prepare_execution(t_ctx *ctx, t_full_cmd *full_cmd)
@@ -128,7 +133,7 @@ int	prepare_execution(t_ctx *ctx, t_full_cmd *full_cmd)
 		it_redir = it_redir->next;
 	}
 	it_cmd = full_cmd->cmd;
-	while(it_cmd)
+	while (it_cmd)
 	{
 		single_cmd = it_cmd->content;
 		single_cmd->builtin = is_builtin(*single_cmd->argv, ctx->builtins);
@@ -159,6 +164,7 @@ int	execute_cmd(t_ctx *ctx, t_full_cmd *full_cmd)
 		return (1);
 	if (start(ctx, full_cmd))
 		return (1);
-	waits(full_cmd->cmd);
+	if (waits(ctx, full_cmd))
+		return (1);
 	return (0);
 }

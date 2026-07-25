@@ -6,12 +6,13 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/20 21:09:03 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/25 19:57:05 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/prepare_execution.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 char	**ft_split(char const *s, char c);
 void	free_all(char ***strs);
@@ -66,6 +67,7 @@ int	main(int argc, char **argv, char **envp)
 		// we free the ressources used to create the two argv 
 		free_all(&first_cmd);
 		free_all(&second_cmd);
+		printf("debug signal 1\n");
 	}
 	// example to run: < txt.txt tail --lines=5 | grep et | wc -l >> out.txt
 	if (1)
@@ -84,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 		free_all(&first_cmd);
 		free_all(&second_cmd);
 		free_all(&third_cmd);
+		printf("debug signal 2\n");
 	}
 	// example to run: < txt.txt << END grep hi | wc -l > out2.txt >> out.txt
 	if (0)
@@ -109,32 +112,50 @@ int	main(int argc, char **argv, char **envp)
 		add_single_cmd(full_cmd, first_cmd);
 		// add_file_in(full_cmd, "txt.txt");
 		execute_cmd(&ctx, full_cmd);
-		printf("debug signal 21\n");
+		printf("debug signal 20\n");
 		destroy_cmd(&full_cmd);
 		free_all(&first_cmd);
 	}
-	// example to run: echo hi ha hu "1 2 3"
+	// example to run: echo hi
 	if (1)
 	{
 		full_cmd = initialize_cmd();
 		first_cmd = ft_split("echo hi", ' ');
 		add_single_cmd(full_cmd, first_cmd);
 		execute_cmd(&ctx, full_cmd);
-		printf("debug signal 20\n");
+		printf("debug signal 21\n");
 		destroy_cmd(&full_cmd);
 		free_all(&first_cmd);
 	}
+	// example to run: echo hello fellow kids | wc
+	if (1)
+	{
+		full_cmd = initialize_cmd();
+		first_cmd = ft_split("echo hello fellow kids", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		second_cmd = ft_split("wc", ' ');
+		add_single_cmd(full_cmd, second_cmd);
+		execute_cmd(&ctx, full_cmd);
+		printf("debug signal 22\n");
+		destroy_cmd(&full_cmd);
+		free_all(&first_cmd);
+		free_all(&second_cmd);
+	}
+	// testing evar_expansio
 	if (1)
 	{
 		name = "USER";
 		value = evar_expansion(&ctx, name);
 		printf("%s=%s\n", name, value);
+		free(value);
 		name = "LANG";
 		value = evar_expansion(&ctx, name);
 		printf("%s=%s\n", name, value);
-		name = "USER";
+		free(value);
+		name = "NON_EXISTANT";
 		value = evar_expansion(&ctx, name);
 		printf("%s=%s\n", name, value);	
+		free(value);
 	}
 
 	// finish clean up

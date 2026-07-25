@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/22 23:07:23 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/25 19:54:38 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ int	run_line(t_ctx *ctx, char *line)
 	if (cmd)
 	{
 		execute_cmd(ctx, cmd);
-		printf("Debug: execute_cmd finalized \n");
-		//destroy(&cmd);
-		//free_all(&cmd); // have trouble freeing because idk what the full cmd is made out of
+		destroy_cmd(&cmd);
 	}
 	free_tokens(tokens);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/17 17:07:09 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/25 19:54:16 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	main(int argc, char **argv, char **envp)
 		{
 			// If you need a specific error status, set it here
 		}
-		printf("Debug: run_line finalized \n");
 		free(line);
 	}
 
