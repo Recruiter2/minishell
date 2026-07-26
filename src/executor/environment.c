@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 21:40:05 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/24 23:08:38 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 22:55:46 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	init_ctx(t_ctx *ctx, char **envp)
 	if (evar_strs_to_lst(&ctx->env_lst, envp))
 		return (1);
 	ctx->env_strs = NULL;
-	if (evar_lst_to_strs(ctx))
-		return (1);
 	ctx->path = NULL;
 	if (add_all_bi(&ctx->builtins))
 		return (1);

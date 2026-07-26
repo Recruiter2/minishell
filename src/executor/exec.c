@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/25 19:55:56 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 22:57:32 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int			find_cmd(char **path, char **argv);
 int			ft_lstsize(t_list *lst);
 t_builtin	*is_builtin(char *name, t_list_bi *builtins);
 int			exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd);
+int			evar_lst_to_strs(t_ctx *ctx);
 int			extract_path(t_ctx *ctx);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
 
@@ -160,6 +161,8 @@ int	execute_cmd(t_ctx *ctx, t_full_cmd *full_cmd)
 			return (0);
 		}
 	}
+	if (evar_lst_to_strs(ctx))
+		return (1);
 	if (extract_path(ctx))
 		return (1);
 	if (start(ctx, full_cmd))
