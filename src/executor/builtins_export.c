@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 18:19:18 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/26 19:12:36 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 21:58:30 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ static int	is_valid_identifier(char *str)
 	return (1);
 }
 
-static int	export_valid_var(char *name, char *value, t_list_ev *env_lst)
+static int	export_valid_var(char *name, char *value, t_list_ev **ptr_env_lst)
 {
 	t_list_ev	*it_lst;
 	t_list_ev	*new;
 	t_evar		*evar;
 
-	it_lst = env_lst;
+	it_lst = *ptr_env_lst;
 	while (it_lst)
 	{
 		evar = it_lst->content;
@@ -94,10 +94,10 @@ static int	export_valid_var(char *name, char *value, t_list_ev *env_lst)
 	new = ft_lstnew(evar);
 	if (!new)
 		return (free(name), free(value), free(evar), 1);
-	return (ft_lstadd_back(&env_lst, new), 0);
+	return (ft_lstadd_back(ptr_env_lst, new), 0);
 }
 
-static int	export_var(char *str, t_list_ev *env_lst)
+static int	export_var(char *str, t_list_ev **ptr_env_lst)
 {
 	char		*tmp[2];
 	const char	*separing;
@@ -113,7 +113,7 @@ static int	export_var(char *str, t_list_ev *env_lst)
 		if (split_in_two(str, '=', tmp))
 			return (1);
 		if (is_valid_identifier(tmp[0]))
-			return (export_valid_var(tmp[0], tmp[1], env_lst));
+			return (export_valid_var(tmp[0], tmp[1], ptr_env_lst));
 	}
 	put_str_fd("minishell: export: `", 2);
 	put_str_fd(str, 2);
@@ -121,16 +121,16 @@ static int	export_var(char *str, t_list_ev *env_lst)
 	return (1);
 }
 
-int	bi_export(char **argv, t_list_ev *env_lst)
+int	bi_export(char **argv, t_ctx *ctx)
 {
 	int			ret;
 
 	if (!*++argv)
-		return (display_env(env_lst));
+		return (display_env(ctx->env_lst));
 	ret = 0;
 	while (*argv)
 	{
-		ret += export_var(*argv, env_lst);
+		ret += export_var(*argv, &ctx->env_lst);
 		argv++;
 	}
 	if (ret)

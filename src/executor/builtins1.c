@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/26 21:21:41 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 21:54:53 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ const char	*ft_strchr(const char *str, char c);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_back(t_list **lst, t_list *newelem);
-int			bi_export(char **argv, t_list_ev *env_lst);
+int			bi_export(char **argv, t_ctx *ctx);
 
-int	bi_echo(char **argv, t_list_ev *env_lst)
+int	bi_echo(char **argv, t_ctx *ctx)
 {
 	char	**start;
 	char	**it;
 	char	*trailing;
 
-	(void)env_lst;
+	(void)ctx;
 	trailing = "\n";
 	start = argv + 1;
 	if (*start)
@@ -61,14 +61,14 @@ int	bi_echo(char **argv, t_list_ev *env_lst)
 	return (0);
 }
 
-int	bi_exit(char **argv, t_list_ev *env_lst)
+int	bi_exit(char **argv, t_ctx *ctx)
 {
 	(void)argv;
-	(void)env_lst;
+	(void)ctx;
 	return (0);
 }
 
-int	add_one_bi(char *name, int (*ft)(char **, t_list_ev *), t_list_bi **list)
+int	add_one_bi(char *name, int (*ft)(char **, t_ctx *), t_list_bi **list)
 {
 	t_builtin	*content;
 	t_list_bi	*tmp;
@@ -123,7 +123,7 @@ int	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
 {
 	int	ret;
 
-	ret = (*single_cmd->builtin->ft)(single_cmd->argv, ctx->env_lst);
+	ret = (*single_cmd->builtin->ft)(single_cmd->argv, ctx);
 	if (ft_strcmp(single_cmd->builtin->name, "exit") == 0)
 	{
 		end(ctx, full_cmd);
