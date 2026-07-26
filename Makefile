@@ -32,6 +32,7 @@ SRCS = 	main.c\
 		executor/path.c\
 		executor/redirections.c\
 		executor/builtins1.c\
+		executor/builtins_bis.c\
 		executor/builtins_export.c\
 		executor/exec.c\
 		executor/clean_up.c\

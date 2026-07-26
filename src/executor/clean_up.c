@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/19 20:14:52 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 22:18:17 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	destroy_cmd(t_full_cmd **ptr_cmd)
 	cmd = NULL;
 }
 
-void	delete_evar(void *content)
+void	destroy_evar(void *content)
 {
 	t_evar	*evar;
 
@@ -40,7 +40,7 @@ void	delete_evar(void *content)
 
 void	free_ctx_ressources(t_ctx *ctx)
 {
-	ft_lstclear(&ctx->env_lst, &delete_evar);
+	ft_lstclear(&ctx->env_lst, &destroy_evar);
 	free_all(&ctx->env_strs);
 	ft_lstclear(&ctx->builtins, &free);
 	free_all(&ctx->path);
