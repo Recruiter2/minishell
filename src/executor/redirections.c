@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 21:19:01 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/24 23:09:28 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 17:08:41 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 
-static void	put_str_fd(const char *s, int fd)
+void	put_str_fd(const char *s, int fd)
 {
 	while (*s)
 	{

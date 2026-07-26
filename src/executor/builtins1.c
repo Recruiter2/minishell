@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/24 23:17:19 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 21:21:41 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 int			ft_strcmp(const char *s1, const char *s2);
 const char	*ft_strchr(const char *str, char c);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
-
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_back(t_list **lst, t_list *newelem);
+t_list		*ft_lstnew(void *content);
+void		ft_lstadd_back(t_list **lst, t_list *newelem);
+int			bi_export(char **argv, t_list_ev *env_lst);
 
 int	bi_echo(char **argv, t_list_ev *env_lst)
 {
@@ -93,6 +93,7 @@ int	add_all_bi(t_list_bi **builtins)
 	err = 0;
 	err += add_one_bi("echo", &bi_echo, builtins);
 	err += add_one_bi("exit", &bi_exit, builtins);
+	err += add_one_bi("export", &bi_export, builtins);
 	if (err)
 		return (1);
 	else

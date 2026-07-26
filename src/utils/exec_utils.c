@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:34:54 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/17 18:37:25 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 21:24:02 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ int	split_in_two(char *str, char c, char *result[2])
 	separator = str;
 	while (*separator != 0 && *separator != c)
 		separator++;
-	result[1] = ft_strdup(separator + 1);
+	if (*separator)
+		result[1] = ft_strdup(separator + 1);
+	else
+		result[1] = ft_strdup("");
 	if (!result[1])
 		return (1);
 	result[0] = malloc(sizeof(char) * (separator - str + 1));
@@ -161,4 +164,34 @@ const char	*ft_strchr(const char *str, char c)
 		return (str);
 	else
 		return (NULL);
+}
+
+int	ft_isalpha(char c)
+{
+	if (65 <= c && c <= 90)
+	{
+		return (1);
+	}
+	if (97 <= c && c <= 122)
+	{
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_isalnum(char c)
+{
+	if (48 <= c && c <= 57)
+	{
+		return (1);
+	}
+	if (65 <= c && c <= 90)
+	{
+		return (1);
+	}
+	if (97 <= c && c <= 122)
+	{
+		return (1);
+	}
+	return (0);
 }
