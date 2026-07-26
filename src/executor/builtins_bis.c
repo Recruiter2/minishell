@@ -6,9 +6,15 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/26 22:23:54 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 22:45:43 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../includes/environment.h"
+
+int		ft_strcmp(const char *s1, const char *s2);
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
+void	destroy_evar(void *content);
 
 /*
 ◦ unset with no options
@@ -18,12 +24,6 @@ Remove each variable name.
 When variables or functions are removed, they are also removed from the 
 	environment passed to subsequent commands.
 */
-
-#include "../../includes/environment.h"
-
-int		ft_strcmp(const char *s1, const char *s2);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	destroy_evar(void *content);
 
 int	bi_unset(char **argv, t_ctx *ctx)
 {

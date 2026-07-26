@@ -6,9 +6,45 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 18:19:18 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/26 21:58:30 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/26 22:45:09 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "../../includes/environment.h"
+
+int			ft_isalpha(char c);
+int			ft_isalnum(char c);
+int			ft_strcmp(const char *s1, const char *s2);
+t_list		*ft_lstnew(void *content);
+void		ft_lstadd_back(t_list **lst, t_list *newelem);
+const char	*ft_strchr(const char *str, char c);
+int			split_in_two(char *str, char c, char *result[2]);
+void		put_str_fd(const char *s, int fd);
+int			bi_env(char **argv, t_ctx *ctx);
+
+/*
+◦ env with no options or arguments
+
+print the environment
+*/
+
+int	bi_env(char **argv, t_ctx *ctx)
+{
+	t_list_ev	*it_lst;
+	t_evar		*evar;
+
+	(void)argv;
+	it_lst = ctx->env_lst;
+	while (it_lst)
+	{
+		evar = it_lst->content;
+		printf("%s=%s\n", evar->name, evar->value);
+		it_lst = it_lst->next;
+	}
+	return (0);
+}
 
 /*
 ◦ export with no options
@@ -27,32 +63,6 @@ name	A word consisting solely of letters, numbers, and underscores, and
 	beginning with a letter or underscore. Names are used as shell variable and 
 	function names.
 */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include "../../includes/environment.h"
-
-int			ft_isalpha(char c);
-int			ft_isalnum(char c);
-int			ft_strcmp(const char *s1, const char *s2);
-t_list		*ft_lstnew(void *content);
-void		ft_lstadd_back(t_list **lst, t_list *newelem);
-const char	*ft_strchr(const char *str, char c);
-int			split_in_two(char *str, char c, char *result[2]);
-void		put_str_fd(const char *s, int fd);
-
-int	display_env(t_list *env_lst)
-{
-	t_evar	*variable;
-
-	while (env_lst)
-	{
-		variable = env_lst->content;
-		printf("%s=%s\n", variable->name, variable->value);
-		env_lst = env_lst->next;
-	}
-	return (0);
-}
 
 static int	is_valid_identifier(char *str)
 {
@@ -126,7 +136,7 @@ int	bi_export(char **argv, t_ctx *ctx)
 	int			ret;
 
 	if (!*++argv)
-		return (display_env(ctx->env_lst));
+		return (bi_env(argv, ctx));
 	ret = 0;
 	while (*argv)
 	{
