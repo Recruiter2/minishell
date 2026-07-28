@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 18:19:18 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/26 22:45:09 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/27 23:14:40 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	is_valid_identifier(char *str)
 	return (1);
 }
 
-static int	export_valid_var(char *name, char *value, t_list_ev **ptr_env_lst)
+int	export_valid_var(char *name, char *value, t_list_ev **ptr_env_lst)
 {
 	t_list_ev	*it_lst;
 	t_list_ev	*new;

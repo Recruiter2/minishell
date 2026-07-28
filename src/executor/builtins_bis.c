@@ -6,15 +6,21 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/26 22:45:43 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/28 21:34:35 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "../../includes/environment.h"
 
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	destroy_evar(void *content);
+char	*ft_strdup(const char *src);
+int		export_valid_var(char *name, char *value, t_list_ev **ptr_env_lst);
+void	put_str_fd(const char *s, int fd);
 
 /*
 ◦ unset with no options
@@ -50,5 +56,80 @@ int	bi_unset(char **argv, t_ctx *ctx)
 		}
 		argv++;
 	}
+	return (0);
+}
+
+/*
+◦ pwd with no options
+
+pwd
+Print the absolute pathname of the current working directory.
+*/
+int	bi_pwd(char **argv, t_ctx *ctx)
+{
+	char	*path;
+
+	(void)argv;
+	(void)ctx;
+	path = getcwd(NULL, 0);
+	if (!path)
+		return (perror("minishell: pwd"), 1);
+	printf("%s\n", path);
+	free(path);
+	return (0);
+}
+
+/*
+◦ cd with only a relative or absolute path
+
+cd [directory]
+Change the current working directory to directory.
+If directory is not supplied, the value of the HOME shell variable is used as 
+	directory.
+If the directory change is successful, cd sets the value of the PWD environment
+	variable to the new directory name, and sets the OLDPWD environment 
+	variable to the value of the current working directory before the change.
+The return status is zero if the directory is successfully changed, non-zero 
+	otherwise.
+*/
+
+static int	cd_valid_path(char *new_pwd, t_ctx *ctx)
+{
+	char	*incumbent_pwd;
+	char	*varname_oldpwd;
+	char	*varname_pwd;
+	int		err;
+
+	incumbent_pwd = getcwd(NULL, 0);
+	varname_oldpwd = ft_strdup("OLDPWD");
+	varname_pwd = ft_strdup("PWD");
+	if (! incumbent_pwd || !varname_oldpwd || !varname_pwd)
+	{
+		free(incumbent_pwd);
+		free(varname_oldpwd);
+		free(varname_pwd);
+		return (1);
+	}
+	chdir(new_pwd);
+	new_pwd = getcwd(NULL, 0);
+	err = 0;
+	err += export_valid_var(varname_oldpwd, incumbent_pwd, &ctx->env_lst);
+	err += export_valid_var(varname_pwd, new_pwd, &ctx->env_lst);
+	if (err)
+		return (1);
+	else
+		return (0);
+}
+
+int	bi_cd(char **argv, t_ctx *ctx)
+{
+	if (argv[1] == NULL || argv[2] != NULL)
+	{
+		put_str_fd("minishell: cd: use with one argument\n", 2);
+		return (1);
+	}
+	if (access(argv[1], F_OK))
+		return (perror(argv[1]), 1);
+	cd_valid_path(argv[1], ctx);
 	return (0);
 }
