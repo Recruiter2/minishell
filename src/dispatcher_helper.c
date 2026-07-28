@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/23 23:15:13 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/28 14:24:21 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char **build_res_list(t_token *head, t_ctx *ctx)
 			}
 			//printf("t->text = %s\n", t->text);
 			
-			if (t->text[0] == '$')
+			if (t->text[0] == '$' && t->quote != '\'')
 				append_word(&seg, evar_expansion(ctx, &t->text[1]));
 			else
 				append_word(&seg, t->text);
