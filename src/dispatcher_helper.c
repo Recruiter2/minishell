@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/28 14:24:21 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/30 00:41:37 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,20 @@ char **build_res_list(t_token *head, t_ctx *ctx)
 				t = t->next;// advance before continue
 				continue;
 			}
-			//printf("t->text = %s\n", t->text);
+			printf("before enting if t->text = %s\n", t->text);
 			
-			if (t->text[0] == '$' && t->quote != '\'')
-				append_word(&seg, evar_expansion(ctx, &t->text[1]));
+			if (detect_var_expan(t->text) && t->quote != '\'')
+			{
+				//printf("entered if");
+				detect_start(t->text, ctx, &seg);//append_word(&seg, evar_expansion(ctx, &t->text[1]));
+			}
 			else
 				append_word(&seg, t->text);
 			t = t->next;// advance before continue
 			continue;
 		}
+		printf(" seg=%s\n", seg);
+
 		//printf("t->type=%d text='%s' is_redir=%d\n", (int)t->type, t->text, is_redir(t->type));
 
 		if (is_redir(t->type))

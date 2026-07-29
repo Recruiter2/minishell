@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 23:25:40 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/13 17:43:11 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/29 03:21:08 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	push_op(t_token	**head, t_token	**tail, t_token_type type)
 }
 
 //functions seems useless at this point
+//this function skips space
 int	ft_isspace_pp(char c, int *i)
 {
 	if (ft_isspace(c))

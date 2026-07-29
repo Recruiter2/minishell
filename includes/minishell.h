@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/22 23:04:53 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/29 23:03:39 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,3 +142,11 @@ void	add_expandable_var(t_ctx *ctx, t_token *head);
 t_full_cmd	*initialize_cmd(void);
 void	destroy(t_full_cmd **ptr_cmd);
 int	run_line(t_ctx *ctx, char *line);
+//append word to the segment being built 
+void append_word(char **seg, char *word);
+//supposed to detect the var to expand but actually does everything
+//if var to expand no detected then adds up stuff
+void	detect_start(char *str, t_ctx *ctx, char **seg);
+//this function is used to know if we have a var to expand thus to call ft detect_start
+int	detect_var_expan(char *str);
+
