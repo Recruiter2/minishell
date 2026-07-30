@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/30 00:41:37 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/07/30 22:34:08 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ char **build_res_list(t_token *head, t_ctx *ctx)
 				t = t->next;// advance before continue
 				continue;
 			}
-			printf("before enting if t->text = %s\n", t->text);
 			
 			if (detect_var_expan(t->text) && t->quote != '\'')
 			{
