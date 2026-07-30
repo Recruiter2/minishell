@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 21:40:05 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/26 22:55:46 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/30 16:13:38 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,33 @@ char	*evar_expansion(t_ctx *ctx, char *name)
 		it = it->next;
 	}
 	return (NULL);
+}
+
+char	*exit_status_expansion(t_ctx *ctx)
+{
+	int		n;
+	int		i;
+	char	*ret;
+
+	n = ctx->exit_status;
+	if (n == 0)
+		return (ft_strdup("0"));
+	i = 0;
+	while (n)
+	{
+		n /= 10;
+		i++;
+	}
+	ret = malloc(sizeof(*ret) * (i + 1));
+	if (!ret)
+		return (perror("malloc error"), NULL);
+	n = ctx->exit_status;
+	ret[i] = 0;
+	while (i)
+	{
+		i--;
+		ret[i] = n % 10 + '0';
+		n /= 10;
+	}
+	return (ret);
 }

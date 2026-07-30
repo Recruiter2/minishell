@@ -6,7 +6,7 @@
 #    By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/06 16:56:26 by marhuber          #+#    #+#              #
-#    Updated: 2026/07/19 19:18:00 by marhuber         ###   ########.fr        #
+#    Updated: 2026/07/30 16:08:02 by marhuber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,10 @@ MY_SOURCES = main.c \
 	../../src/executor/exec.c \
 	../../src/executor/path.c \
 	../../src/executor/prepare_cmd.c \
-	../../src/executor/builtins1.c \
+	../../src/executor/builtins_ctx_exit.c \
+	../../src/executor/builtins_ctx_exit.c \
+	../../src/executor/builtins_echo_cd_pwd_unset.c \
+	../../src/executor/builtins_env_export.c \
 	../../src/executor/environment.c \
 	../../src/executor/clean_up.c \
 	../../src/executor/redirections.c \

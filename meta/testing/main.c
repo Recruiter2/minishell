@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/25 19:57:05 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/30 16:12:31 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,9 @@ int	main(int argc, char **argv, char **envp)
 		destroy_cmd(&full_cmd);
 		free_all(&first_cmd);
 		free_all(&second_cmd);
+		value = exit_status_expansion(&ctx);
+		printf("Exit status was %s\n",value);
+		free(value);
 	}
 	// testing evar_expansio
 	if (1)
@@ -157,7 +160,23 @@ int	main(int argc, char **argv, char **envp)
 		printf("%s=%s\n", name, value);	
 		free(value);
 	}
-
+	// example to run: echo hello fellow kids | ls /not_existant
+	if (1)
+	{
+		full_cmd = initialize_cmd();
+		first_cmd = ft_split("echo hello fellow kids", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		second_cmd = ft_split("ls /not_existant", ' ');
+		add_single_cmd(full_cmd, second_cmd);
+		execute_cmd(&ctx, full_cmd);
+		printf("debug signal 23\n");
+		destroy_cmd(&full_cmd);
+		free_all(&first_cmd);
+		free_all(&second_cmd);
+		value = exit_status_expansion(&ctx);
+		printf("Exit status was %s\n",value);
+		free(value);
+	}
 	// finish clean up
 	free_ctx_ressources(&ctx);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins1.c                                        :+:      :+:    :+:   */
+/*   builtins_ctx_exit.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 14:54:27 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:43:22 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,18 @@ exit
 Exit the shell, the exit status is that of the last command executed.
 */
 
-int	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
+void	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
 {
 	int	ret;
 
 	ret = (*single_cmd->builtin->ft)(single_cmd->argv, ctx);
+	ctx->exit_status = ret;
 	if (ft_strcmp(single_cmd->builtin->name, "exit") == 0)
 	{
 		end(ctx, full_cmd);
-		exit (ret);
+		exit(ret);
 	}
-	return (ret);
+	return ;
 }
 
 int	bi_exit(char **argv, t_ctx *ctx)
