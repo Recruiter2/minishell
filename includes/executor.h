@@ -6,13 +6,13 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/15 18:40:25 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/30 14:57:06 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
-# include <unistd.h>
+
 # include "environment.h"
 
 /**

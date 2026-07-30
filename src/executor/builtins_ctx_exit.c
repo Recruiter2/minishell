@@ -6,71 +6,28 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/28 00:44:03 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/30 14:54:27 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-◦ echo with option -n
-◦ cd with only a relative or absolute path
-◦ pwd with no options
-◦ export with no options
-◦ unset with no options
-◦ env with no options or arguments
-◦ exit with no options
-*/
-#include "../../includes/environment.h"
-#include "../../includes/executor.h"
-#include "../../includes/lists.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "../../includes/executor.h"
 
+t_list		*ft_lstnew(void *content);
+void		ft_lstadd_back(t_list **lst, t_list *newelem);
 int			ft_strcmp(const char *s1, const char *s2);
 const char	*ft_strchr(const char *str, char c);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
-t_list		*ft_lstnew(void *content);
-void		ft_lstadd_back(t_list **lst, t_list *newelem);
+// Builtin commands implemented:
+int			bi_echo(char **argv, t_ctx *ctx);
 int			bi_cd(char **argv, t_ctx *ctx);
 int			bi_pwd(char **argv, t_ctx *ctx);
 int			bi_export(char **argv, t_ctx *ctx);
 int			bi_unset(char **argv, t_ctx *ctx);
 int			bi_env(char **argv, t_ctx *ctx);
-
-int	bi_echo(char **argv, t_ctx *ctx)
-{
-	char	**start;
-	char	**it;
-	char	*trailing;
-
-	(void)ctx;
-	trailing = "\n";
-	start = argv + 1;
-	if (*start)
-	{
-		if (ft_strcmp(*start, "-n") == 0)
-		{
-			trailing = "";
-			start++;
-		}
-		it = start;
-		while (*it)
-		{
-			if (it != start)
-				printf(" ");
-			printf("%s", *it++);
-		}
-	}
-	printf ("%s", trailing);
-	return (0);
-}
-
-int	bi_exit(char **argv, t_ctx *ctx)
-{
-	(void)argv;
-	(void)ctx;
-	return (0);
-}
+int			bi_exit(char **argv, t_ctx *ctx);
 
 int	add_one_bi(char *name, int (*ft)(char **, t_ctx *), t_list_bi **list)
 {
@@ -127,6 +84,13 @@ t_builtin	*is_builtin(char *name, t_list_bi *builtins)
 	return (NULL);
 }
 
+/*
+◦ exit with no options
+
+exit 
+Exit the shell, the exit status is that of the last command executed.
+*/
+
 int	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
 {
 	int	ret;
@@ -135,7 +99,13 @@ int	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
 	if (ft_strcmp(single_cmd->builtin->name, "exit") == 0)
 	{
 		end(ctx, full_cmd);
-		exit (0);
+		exit (ret);
 	}
 	return (ret);
+}
+
+int	bi_exit(char **argv, t_ctx *ctx)
+{
+	(void)argv;
+	return (ctx->exit_status);
 }

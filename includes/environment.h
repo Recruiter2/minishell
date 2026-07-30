@@ -6,13 +6,13 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 11:47:38 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/26 21:46:43 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/30 14:57:24 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
-# include <unistd.h>
+
 # include "lists.h"
 
 /**

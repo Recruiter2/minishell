@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/28 21:34:35 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/07/30 13:08:19 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,66 +16,47 @@
 #include "../../includes/environment.h"
 
 int		ft_strcmp(const char *s1, const char *s2);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	destroy_evar(void *content);
 char	*ft_strdup(const char *src);
 int		export_valid_var(char *name, char *value, t_list_ev **ptr_env_lst);
 void	put_str_fd(const char *s, int fd);
+void	destroy_evar(void *content);
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
 
 /*
-◦ unset with no options
+◦ echo with option -n
 
-unset [name]
-Remove each variable name.
-When variables or functions are removed, they are also removed from the 
-	environment passed to subsequent commands.
+echo [-n] [arg ...]
+Output the args, separated by spaces, terminated with a newline. The return
+status is 0 unless a write error occurs. If -n is specified, the trailing 
+	newline is not printed.
 */
 
-int	bi_unset(char **argv, t_ctx *ctx)
+int	bi_echo(char **argv, t_ctx *ctx)
 {
-	t_list_ev	*it_lst;
-	t_list_ev	**ptr_to_it_lst;
-	t_evar		*evar;
+	char	**start;
+	char	**it;
+	char	*trailing;
 
-	argv++;
-	while (*argv)
-	{
-		ptr_to_it_lst = &ctx->env_lst;
-		it_lst = ctx->env_lst;
-		while (it_lst)
-		{
-			evar = it_lst->content;
-			if (ft_strcmp(evar->name, *argv) == 0)
-			{
-				*ptr_to_it_lst = it_lst->next;
-				ft_lstdelone(it_lst, &destroy_evar);
-				break ;
-			}
-			ptr_to_it_lst = &it_lst->next;
-			it_lst = it_lst->next;
-		}
-		argv++;
-	}
-	return (0);
-}
-
-/*
-◦ pwd with no options
-
-pwd
-Print the absolute pathname of the current working directory.
-*/
-int	bi_pwd(char **argv, t_ctx *ctx)
-{
-	char	*path;
-
-	(void)argv;
 	(void)ctx;
-	path = getcwd(NULL, 0);
-	if (!path)
-		return (perror("minishell: pwd"), 1);
-	printf("%s\n", path);
-	free(path);
+	trailing = "\n";
+	start = argv + 1;
+	if (*start)
+	{
+		if (ft_strcmp(*start, "-n") == 0)
+		{
+			trailing = "";
+			start++;
+		}
+		it = start;
+		while (*it)
+		{
+			if (it != start)
+				printf(" ");
+			printf("%s", *it);
+			it++;
+		}
+	}
+	printf ("%s", trailing);
 	return (0);
 }
 
@@ -84,8 +65,6 @@ int	bi_pwd(char **argv, t_ctx *ctx)
 
 cd [directory]
 Change the current working directory to directory.
-If directory is not supplied, the value of the HOME shell variable is used as 
-	directory.
 If the directory change is successful, cd sets the value of the PWD environment
 	variable to the new directory name, and sets the OLDPWD environment 
 	variable to the value of the current working directory before the change.
@@ -131,5 +110,62 @@ int	bi_cd(char **argv, t_ctx *ctx)
 	if (access(argv[1], F_OK))
 		return (perror(argv[1]), 1);
 	cd_valid_path(argv[1], ctx);
+	return (0);
+}
+
+/*
+◦ pwd with no options
+
+pwd
+Print the absolute pathname of the current working directory.
+*/
+int	bi_pwd(char **argv, t_ctx *ctx)
+{
+	char	*path;
+
+	(void)argv;
+	(void)ctx;
+	path = getcwd(NULL, 0);
+	if (!path)
+		return (perror("minishell: pwd"), 1);
+	printf("%s\n", path);
+	free(path);
+	return (0);
+}
+
+/*
+◦ unset with no options
+
+unset [name]
+Remove each variable name.
+When variables or functions are removed, they are also removed from the 
+	environment passed to subsequent commands.
+*/
+
+int	bi_unset(char **argv, t_ctx *ctx)
+{
+	t_list_ev	*it_lst;
+	t_list_ev	**ptr_to_it_lst;
+	t_evar		*evar;
+
+	argv++;
+	while (*argv)
+	{
+		ptr_to_it_lst = &ctx->env_lst;
+		it_lst = ctx->env_lst;
+		while (it_lst)
+		{
+			evar = it_lst->content;
+			if (ft_strcmp(evar->name, *argv) == 0)
+			{
+				*ptr_to_it_lst = it_lst->next;
+				ft_lstdelone(it_lst, &destroy_evar);
+				break ;
+			}
+			ptr_to_it_lst = &it_lst->next;
+			it_lst = it_lst->next;
+		}
+		argv++;
+	}
 	return (0);
 }
