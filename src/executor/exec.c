@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 10:56:19 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 13:07:39 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/wait.h>
 #include "../../includes/prepare_execution.h"
 
-int			apply_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out);
+int			apply_all_redir(t_list_redir *it_redir);
 int			find_cmd(char **path, char **argv);
 int			ft_lstsize(t_list *lst);
 t_builtin	*is_builtin(char *name, t_list_bi *builtins);
@@ -23,23 +23,7 @@ void		exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd);
 int			evar_lst_to_strs(t_ctx *ctx);
 int			extract_path(t_ctx *ctx);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
-
-static int	prepare_execution(t_ctx *ctx, t_full_cmd *full_cmd)
-{
-	t_list_redir		*it_redir;
-	t_list_single_cmd	*it_cmd;
-	t_single_cmd		*single_cmd;
-
-	it_redir = full_cmd->redir;
-	while (it_redir)
-	{
-		if (apply_redir(it_redir->content, &full_cmd->fdin, &full_cmd->fdout))
-			return (1);
-		it_redir = it_redir->next;
-	}
-
-	return (0);
-}
+const char	*ft_strchr(const char *str, char c);
 
 static int	close_pipe_ends(t_full_cmd *full_cmd)
 {
@@ -80,10 +64,13 @@ static int	run_step(t_ctx *ctx, t_full_cmd *full_cmd, t_single_cmd *step)
 			exit((perror("dup2 fdout=1"), end(ctx, full_cmd), EXIT_FAILURE));
 		if (close_pipe_ends(full_cmd))
 			exit((end(ctx, full_cmd), EXIT_FAILURE));
+		if (apply_all_redir(step->redir))
+			exit((end(ctx, full_cmd), EXIT_FAILURE));
 		if (step->builtin)
 			exit((exec_builtin(step, ctx, full_cmd), end(ctx, full_cmd), ctx->exit_status));
-		find_cmd(ctx->path, step->argv);
-		// There is still a problem here
+		if (!ft_strchr(step->argv[0], '/'))
+			if (find_cmd(ctx->path, step->argv))
+				exit((end(ctx, full_cmd), EXIT_FAILURE));			
 		if (execve(*step->argv, step->argv, ctx->env_strs) < 0)
 			exit((perror(*step->argv), end(ctx, full_cmd), EXIT_FAILURE));
 	}

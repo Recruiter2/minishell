@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 21:19:01 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/26 17:08:41 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 12:40:10 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	read_here_doc(char *delim, int *fd_pipe)
 	return (free(delim), 0);
 }
 
-int	apply_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out)
+static int	apply_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out)
 {
 	int	o_flag_out;
 
@@ -75,6 +75,36 @@ int	apply_redir(t_redir *redir, int *ptr_fd_in, int *ptr_fd_out)
 		*ptr_fd_out = open(redir->name, o_flag_out, 0664);
 		if (*ptr_fd_out < 0)
 			return (perror(redir->name), 1);
+	}
+	return (0);
+}
+
+int	apply_all_redir(t_list_redir *it_redir)
+{
+	int	fdin;
+	int	fdout;
+
+	while (it_redir)
+	{
+		fdin = 0;
+		fdout = 1;
+		if (apply_redir(it_redir->content, &fdin, &fdout))
+			return (1);
+		if (fdin > 2)
+		{
+			if (dup2(fdin, 0) < 0)
+				return(perror("dup2 fdin=0"), 1);
+			if (close(fdin))
+				return (perror("close fdin in apply_all_redir"), 1);			
+		}
+		if (fdout > 2)
+		{
+			if (dup2(fdout, 1) < 0)
+				return(perror("dup2 fdout=1"), 1);
+			if (close(fdout))
+				return (perror("close fdout in apply_all_redir"), 1);			
+		}
+		it_redir = it_redir->next;
 	}
 	return (0);
 }

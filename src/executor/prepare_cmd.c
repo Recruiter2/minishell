@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 10:36:37 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 12:25:38 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	add_single_cmd(t_full_cmd *cmd, char **argv)
 	tmp = ft_lstlast(cmd->cmd);
 	content = tmp->content;
 	if (content->argv)
-		return (put_str_fd("error second cmd without pipe in between", 2), 1);
+		return (put_str_fd("error new cmd without pipe in between\n", 2), 1);
 	content->argv = argv;
 	return (0);
 }

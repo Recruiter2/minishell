@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 11:47:38 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 14:57:24 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 12:35:31 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_contextual_information
 	char		**env_strs;
 	char		**path;
 	t_list_bi	*builtins;
-	int				exit_status;
+	int			exit_status;
 }			t_ctx;
 
 /**
