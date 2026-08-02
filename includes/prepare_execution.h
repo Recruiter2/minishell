@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 16:34:17 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 10:01:42 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int			add_file_in(t_full_cmd *cmd, char *filename);
 int			add_here_doc(t_full_cmd *cmd, char *delimiter);
 int			add_file_out(t_full_cmd *cmd, char *filename, int append);
 int			add_single_cmd(t_full_cmd *cmd, char **argv);
+int			add_pipe(t_full_cmd *cmd);
 int			execute_cmd(t_ctx *ctx, t_full_cmd *cmd);
 void		destroy_cmd(t_full_cmd **ptrcmd);
 

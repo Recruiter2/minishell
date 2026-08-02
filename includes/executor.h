@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 14:57:06 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 10:28:10 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,21 @@ typedef t_list	t_list_redir;
 /**
 * This represents a simple command with an exectuable and its arguments
 * @param argv is defined as usual, argv[0] is the executable, the args follow
+* @param redir points at the beginning of a list of redirections to be applied
+* @param builtin says if the command is a builtin and points to it
 * @param fdin stores the the fd for input
 * @param fdout stores the the fd for output
 * @param id stores the id of the subprocess in which argv is executed
 */
 typedef struct s_simple_cmd
 {
-	char		**argv;
-	t_builtin	*builtin;
-	int			fdin;
-	int			fdout;
-	pid_t		id;
-}				t_single_cmd;
+	t_list_redir	*redir;
+	char			**argv;
+	t_builtin		*builtin;
+	int				fdin;
+	int				fdout;
+	pid_t			id;
+}					t_single_cmd;
 
 /**
 * This is an element within a list of simple commands
@@ -61,16 +64,11 @@ typedef t_list	t_list_single_cmd;
 
 /**
 * This contains all information on a full command
-* @param redir points at the beginning of a list of redirections to be applied
 * @param cmd points at the beginning of a list of commands to be executed
-* @param fdin is the file descriptor for the initial input
 */
 typedef struct s_full_command
 {
-	t_list_redir		*redir;
 	t_list_single_cmd	*cmd;
-	int					fdin;
-	int					fdout;
 }						t_full_cmd;
 
 #endif

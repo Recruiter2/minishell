@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 15:47:45 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 10:56:19 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,7 @@ static int	prepare_execution(t_ctx *ctx, t_full_cmd *full_cmd)
 			return (1);
 		it_redir = it_redir->next;
 	}
-	it_cmd = full_cmd->cmd;
-	while (it_cmd)
-	{
-		single_cmd = it_cmd->content;
-		single_cmd->builtin = is_builtin(*single_cmd->argv, ctx->builtins);
-		it_cmd = it_cmd->next;
-	}
+
 	return (0);
 }
 
@@ -106,7 +100,7 @@ static int	start(t_ctx *ctx, t_full_cmd *full_cmd)
 	if (!it_cmd)
 		return (0);
 	step = it_cmd->content;
-	step->fdin = full_cmd->fdin;
+	step->fdin = 0;
 	while (it_cmd->next)
 	{
 		if (pipe(pipedes))
@@ -118,7 +112,7 @@ static int	start(t_ctx *ctx, t_full_cmd *full_cmd)
 		step = it_cmd->content;
 		step->fdin = pipedes[0];
 	}
-	step->fdout = full_cmd->fdout;
+	step->fdout = 1;
 	if (run_step(ctx, full_cmd, step))
 		return (1);
 	return (0);
@@ -150,18 +144,21 @@ executes the command saved in *full_cmd
 */
 int	execute_cmd(t_ctx *ctx, t_full_cmd *full_cmd)
 {
-	t_single_cmd	*sole_cmd;
+	t_list_single_cmd	*it_cmd;
+	t_single_cmd		*single_cmd;
 
-	if (prepare_execution(ctx, full_cmd))
-		return (1);
+	it_cmd = full_cmd->cmd;
+	while (it_cmd)
+	{
+		single_cmd = it_cmd->content;
+		single_cmd->builtin = is_builtin(*single_cmd->argv, ctx->builtins);
+		it_cmd = it_cmd->next;
+	}
 	if (ft_lstsize(full_cmd->cmd) == 1)
 	{
-		sole_cmd = full_cmd->cmd->content;
-		if (sole_cmd->builtin)
-		{
-			exec_builtin(sole_cmd, ctx, full_cmd);
-			return (0);
-		}
+		single_cmd = full_cmd->cmd->content;
+		if (single_cmd->builtin)
+			return (exec_builtin(single_cmd, ctx, full_cmd), 0);
 	}
 	if (evar_lst_to_strs(ctx))
 		return (1);
