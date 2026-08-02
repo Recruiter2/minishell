@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher_helper.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/30 22:34:08 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/02 17:15:31 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ void append_word(char **seg, char *word)
 	if (word == NULL)
 		return;
 	wlen = ft_strlen(word);
+	add = wlen;
 	// grow: existing + (space if needed) + word + '\0'
 	if (*seg)
 	{
 		seglen = ft_strlen(*seg);
-		add = wlen + 1;
+		add++;
 	}
 	temp = ft_calloc(seglen + add + 1, sizeof(char));
 	if (!temp)
