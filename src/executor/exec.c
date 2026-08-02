@@ -6,24 +6,24 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 13:07:39 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 16:32:31 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <sys/wait.h>
-#include "../../includes/prepare_execution.h"
+#include <unistd.h>
+#include "../../includes/executor.h"
 
-int			apply_all_redir(t_list_redir *it_redir);
+void		end(t_ctx *ctx, t_full_cmd *cmd);
+int			apply_all_redir(t_ctx *ctx, t_list_redir *it_redir);
+void		exec_bi(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd);
+const char	*ft_strchr(const char *str, char c);
 int			find_cmd(char **path, char **argv);
-int			ft_lstsize(t_list *lst);
 t_builtin	*is_builtin(char *name, t_list_bi *builtins);
-void		exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd);
+int			ft_lstsize(t_list *lst);
 int			evar_lst_to_strs(t_ctx *ctx);
 int			extract_path(t_ctx *ctx);
-void		end(t_ctx *ctx, t_full_cmd *cmd);
-const char	*ft_strchr(const char *str, char c);
 
 static int	close_pipe_ends(t_full_cmd *full_cmd)
 {
@@ -51,7 +51,7 @@ static int	close_pipe_ends(t_full_cmd *full_cmd)
 	return (0);
 }
 
-static int	run_step(t_ctx *ctx, t_full_cmd *full_cmd, t_single_cmd *step)
+static int	run_step(t_ctx *ctx, t_full_cmd *cmd, t_single_cmd *step)
 {
 	step->id = fork();
 	if (step->id < 0)
@@ -59,20 +59,20 @@ static int	run_step(t_ctx *ctx, t_full_cmd *full_cmd, t_single_cmd *step)
 	if (!step->id)
 	{
 		if (dup2(step->fdin, 0) < 0)
-			exit((perror("dup2 fdin=0"), end(ctx, full_cmd), EXIT_FAILURE));
+			exit((perror("dup2 fdin=0"), end(ctx, cmd), EXIT_FAILURE));
 		if (dup2(step->fdout, 1) < 0)
-			exit((perror("dup2 fdout=1"), end(ctx, full_cmd), EXIT_FAILURE));
-		if (close_pipe_ends(full_cmd))
-			exit((end(ctx, full_cmd), EXIT_FAILURE));
-		if (apply_all_redir(step->redir))
-			exit((end(ctx, full_cmd), EXIT_FAILURE));
+			exit((perror("dup2 fdout=1"), end(ctx, cmd), EXIT_FAILURE));
+		if (close_pipe_ends(cmd))
+			exit((end(ctx, cmd), EXIT_FAILURE));
+		if (apply_all_redir(ctx, step->redir))
+			exit((end(ctx, cmd), EXIT_FAILURE));
 		if (step->builtin)
-			exit((exec_builtin(step, ctx, full_cmd), end(ctx, full_cmd), ctx->exit_status));
+			exit((exec_bi(step, ctx, cmd), end(ctx, cmd), ctx->exit_status));
 		if (!ft_strchr(step->argv[0], '/'))
 			if (find_cmd(ctx->path, step->argv))
-				exit((end(ctx, full_cmd), EXIT_FAILURE));			
+				exit((end(ctx, cmd), 127));
 		if (execve(*step->argv, step->argv, ctx->env_strs) < 0)
-			exit((perror(*step->argv), end(ctx, full_cmd), EXIT_FAILURE));
+			exit((perror(*step->argv), end(ctx, cmd), EXIT_FAILURE));
 	}
 	return (0);
 }
@@ -145,7 +145,7 @@ int	execute_cmd(t_ctx *ctx, t_full_cmd *full_cmd)
 	{
 		single_cmd = full_cmd->cmd->content;
 		if (single_cmd->builtin)
-			return (exec_builtin(single_cmd, ctx, full_cmd), 0);
+			return (exec_bi(single_cmd, ctx, full_cmd), 0);
 	}
 	if (evar_lst_to_strs(ctx))
 		return (1);

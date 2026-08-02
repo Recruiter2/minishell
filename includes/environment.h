@@ -6,13 +6,14 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 11:47:38 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 12:35:31 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 16:30:57 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
 
+# include <stdlib.h>
 # include "lists.h"
 
 /**
@@ -41,6 +42,8 @@ typedef struct s_contextual_information
 	char		**env_strs;
 	char		**path;
 	t_list_bi	*builtins;
+	int			fd_stdin;
+	int			fd_stdout;
 	int			exit_status;
 }			t_ctx;
 

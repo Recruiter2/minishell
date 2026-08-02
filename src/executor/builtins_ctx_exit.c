@@ -6,13 +6,11 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 15:43:22 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 16:30:08 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "../../includes/executor.h"
 
 t_list		*ft_lstnew(void *content);
@@ -91,7 +89,7 @@ exit
 Exit the shell, the exit status is that of the last command executed.
 */
 
-void	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
+void	exec_bi(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
 {
 	int	ret;
 

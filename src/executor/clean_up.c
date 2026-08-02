@@ -6,11 +6,11 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 10:45:34 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 16:33:39 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <unistd.h>
 #include "../../includes/executor.h"
 
 void	ft_lstclear(t_list **ptlst, void (*del)(void*));
@@ -47,6 +47,8 @@ void	destroy_evar(void *content)
 
 void	free_ctx_ressources(t_ctx *ctx)
 {
+	close(ctx->fd_stdin);
+	close(ctx->fd_stdout);
 	ft_lstclear(&ctx->env_lst, &destroy_evar);
 	free_all(&ctx->env_strs);
 	ft_lstclear(&ctx->builtins, &free);

@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_bis.c                                     :+:      :+:    :+:   */
+/*   builtins_echo_cd_pwd_unset.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 13:08:19 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 16:30:18 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include "../../includes/environment.h"
 

@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 11:52:55 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 16:30:45 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 */
 typedef struct s_redirection
 {
-	int		is_input;
+	int		is_output;
 	int		is_here_doc;
 	int		append_mode;
 	char	*name;

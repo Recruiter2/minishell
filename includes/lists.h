@@ -6,13 +6,12 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 11:47:38 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 11:48:39 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 16:17:51 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LISTS_H
 # define LISTS_H
-# include <unistd.h>
 
 /**
 * this is an element of a linked list
