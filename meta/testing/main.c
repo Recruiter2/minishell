@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 14:54:44 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/03 15:34:06 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **envp)
 		printf("debug signal 3\n");
 	}
 	// example to run: < txt.txt << END grep sit | wc -l > out2.txt >> out.txt
-	if (1)
+	if (0)
 	{
 		full_cmd = initialize_cmd();
 		add_file_in(full_cmd, "txt.txt");
@@ -123,6 +123,27 @@ int	main(int argc, char **argv, char **envp)
 		free_all(&first_cmd);
 		free_all(&second_cmd);
 		printf("debug signal 4\n");
+	}
+	// example to run: ls > hi.txt | wc | echo hi > test.txt
+	if (1)
+	{
+		full_cmd = initialize_cmd();
+		first_cmd = ft_split("ls", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		add_file_out(full_cmd, "hi.txt", 0);
+		add_pipe(full_cmd);
+		second_cmd = ft_split("wc", ' ');
+		add_single_cmd(full_cmd, second_cmd);
+		add_pipe(full_cmd);
+		third_cmd = ft_split("echo hi", ' ');
+		add_single_cmd(full_cmd, third_cmd);
+		add_file_out(full_cmd, "test.txt", 0);
+		execute_cmd(&ctx, full_cmd);
+		destroy_full_cmd(&full_cmd);
+		free_all(&first_cmd);
+		free_all(&second_cmd);
+		free_all(&third_cmd);
+		printf("debug signal 5\n");
 	}
 	// cat -e txt.txt
 	if (1)
@@ -217,7 +238,7 @@ int	main(int argc, char **argv, char **envp)
 		free(value);
 	}
 	// example to run: < txt.txt << END grep sit
-	if (1)
+	if (0)
 	{
 		full_cmd = initialize_cmd();
 		add_file_in(full_cmd, "txt.txt");
