@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 21:00:20 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/03 22:05:52 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-    char **argv;  // NULL-terminated: argv[0] is program, argv[1...] are args
-    int    argc;   // optional helper
-    // optionally you’ll also store redirections/fds info here
+	char	**argv;  // NULL-terminated: argv[0] is program, argv[1...] are args
+	int		argc;   // optional helper
+	// optionally you’ll also store redirections/fds info here
 } t_cmd;
-
 
 char	**ft_split(char const *s, char c);
 
@@ -75,7 +74,6 @@ void	sigint_handler(int sig);
 t_token	*lexer(char *s);
 void	free_tokens(t_token	*head);
 
-
 t_token	*tok_new(t_token_type type, char *text, char quote);
 int		consume_quoted(const char *s, int i, char **out);
 t_token	*append_token(t_token	*tail, t_token	*t);
@@ -90,8 +88,8 @@ void	init_lex(int *i, t_token **head, t_token **tail);
 //helper functions 
 int		redirect_choice(t_token **head, t_token **tail, char c);
 
-
-//helper function for adding  cmd and its args (ls + -la); has issue does beyond what is asked
+//helper function for adding  cmd and its args 
+// (ls + -la); has issue does beyond what is asked
 char **build_res_list(t_token *head, t_ctx *ctx);
 
 //dispacher 
@@ -99,6 +97,7 @@ t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens, t_ctx *ctx);
 
 //helper functions for dispatcher
 void	add_expandable_var(t_ctx *ctx, t_token *head);
+int	is_redir(t_token_type t);
 
 //dispatcher_lib
 void add_segment(char **res, int *idx, char **seg);

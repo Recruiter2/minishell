@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 19:50:47 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/03 21:43:37 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,13 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-
 	if (init_ctx(&ctx, envp))
 		return (1);
-
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
-
 	while (1)
 	{
 		line = readline("minishell$ ");

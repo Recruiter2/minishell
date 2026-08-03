@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 19:55:09 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/03 22:04:04 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int is_redir(t_token_type t);
 // --------- subfunctions --------- 
 
 //building the cmd (made out of linked list) that will be send to executor
-static void apply_single_redir(t_full_cmd *full, t_token *op)
+void	apply_single_redir(t_full_cmd *full, t_token *op)
 {
 	if (!op || !op->next || op->next->type != T_WORD || !op->next->text)
 		return ;
@@ -32,7 +32,7 @@ static void apply_single_redir(t_full_cmd *full, t_token *op)
 		add_file_in(full, op->next->text);
 }
 
-static void apply_redirs_from_tokens(t_full_cmd *full, t_token *tokens)
+void	apply_redirs_from_tokens(t_full_cmd *full, t_token *tokens)
 {
 	t_token	*t;
 
@@ -46,13 +46,13 @@ static void apply_redirs_from_tokens(t_full_cmd *full, t_token *tokens)
 }
 
 // explicit boundary node 			add_pipe(full);
-// put after free_res(res); //is project-specific; free res[i] + res itself if needed 
-static void add_pipeline_cmds_from_segments(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
+// put after free_res(res);
+//is project-specific; free res[i] + res itself if needed 
+void	pipeline_from_seg(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 {
-	char **res;
-	int i;
-	char **argv;
-
+	char	**res;
+	int		i;
+	char	**argv;
 
 	res = build_res_list(tokens, ctx);
 	if (!res)
@@ -60,9 +60,7 @@ static void add_pipeline_cmds_from_segments(t_full_cmd *full, t_token *tokens, t
 	i = 0;
 	while (res[i])
 	{
-		//printf("print res[%d] : %s\n", i, res[i]);
 		argv = ft_split(res[i], ' ');
-
 		if (argv)
 			add_single_cmd(full, argv);
 		if (res[i + 1])
@@ -80,9 +78,7 @@ t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens, t_ctx *ctx)
 	full = initialize_cmd();
 	if (!full)
 		return NULL;
-
 	apply_redirs_from_tokens(full, tokens);
-	add_pipeline_cmds_from_segments(full, tokens, ctx);
-
-	return full;
+	pipeline_from_seg(full, tokens, ctx);
+	return (full);
 }

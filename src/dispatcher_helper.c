@@ -6,22 +6,23 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 21:16:48 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/03 22:04:49 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
 
-int is_redir(t_token_type t)
+int	is_redir(t_token_type t)
 {
-	return (t == T_REDIR_IN || t == T_REDIR_OUT || t == T_REDIR_APPEND || t == T_HEREDOC);
+	return (t == T_REDIR_IN || t == T_REDIR_OUT \
+|| t == T_REDIR_APPEND || t == T_HEREDOC);
 }
 
 //this function appends word to the segment that will be used obviously
 // no need to grow: existing + (space if needed) + word + '\0'
 //strlcpy copy old content obviously
-void append_word(char **seg, char *word)
+void	append_word(char **seg, char *word)
 {
 	char	*temp;
 	size_t	seglen = 0;
@@ -29,7 +30,7 @@ void append_word(char **seg, char *word)
 	size_t	add = 0;
 
 	if (word == NULL)
-		return;
+		return ;
 	wlen = ft_strlen(word);
 	add = wlen;
 	if (*seg)
@@ -53,20 +54,24 @@ void append_word(char **seg, char *word)
 
 //nseg increments so we count the number of segments
 //echo hi | text.txt two segments here
+//nseg++; segments = pipes + 1 (assuming at least one token)
+
 int	number_of_segments(t_token *head)
 {
-	t_token *t = head;
-	int nseg = 0;
+	t_token	*t;
+	int		nseg;
 
+	t = head;
+	nseg = 0;
 	if (!head)
-		return 0;
+		return (0);
 	while (t != NULL)
 	{
 		if (t->type == T_PIPE)
 			nseg++;
 		t = t->next;
 	}
-	nseg++; // segments = pipes + 1 (assuming at least one token)
+	nseg++;
 	return (nseg);
 }
 
@@ -75,34 +80,29 @@ int	number_of_segments(t_token *head)
 // +1 for NULL terminator
 //t = t->next; advance before continue
 //is_redir(t->type) skip redirection target token (typically the next T_WORD)
-char **build_res_list(t_token *head, t_ctx *ctx)
+char	**build_res_list(t_token *head, t_ctx *ctx)
 {
-	t_token *t;
-	int idx;
-	int nseg;
-	char **res;
-	char *seg;
+	t_token	*t;
+	int		idx;
+	int		nseg;
+	char	**res;
+	char	*seg;
 
 	t = head;
 	idx = 0;
 	nseg = number_of_segments(head);
 	res = ft_calloc(nseg + 1, sizeof(char *));
 	seg = NULL;
-
 	while (t != NULL)
 	{
 		if (t->type == T_PIPE)
-		{
 			add_segment(res, &idx, &seg);
-			t = t->next;
-		}
 		else if (t->type == T_WORD)
 			consume_word(&t, &seg, ctx);
 		else if (is_redir(t->type))
 			consume_redir(&t);
-		else
-			skip_other(&t);
+		skip_other(&t);
 	}
 	add_segment(res, &idx, &seg);
-	return res;
+	return (res);
 }
