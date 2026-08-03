@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/02 16:56:53 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/03 13:06:27 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static void add_pipeline_cmds_from_segments(t_full_cmd *full, t_token *tokens, t
 
 		if (argv)
 			add_single_cmd(full, argv);
+		if (res[i + 1])
+			add_pipe(full); // explicit boundary node
 		// free_res(res); //is project-specific; free res[i] + res itself if needed 
 		i++;
 	}
