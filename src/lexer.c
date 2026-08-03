@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/22 10:04:39 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/03 19:51:00 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,3 @@ t_token	*lexer(char *str)
 	return (head);
 }
 
-// in the end we will try to achieve something like this
-// char **cmds;
-/*	cmd[0][0] = grep;
-	cmd[0][1] = money;
-	cmd[1][2] = cl;
-	cmd[1][3] = -cw;
-*/
-// or else

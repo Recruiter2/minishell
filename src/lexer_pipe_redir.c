@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 23:34:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/07 12:03:54 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/03 19:51:30 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	pipe_(char *str, int *i, t_token **head, t_token **tail)
 	}
 	return (0);
 }
+
 // the whole point of this function is to determine if the current str[i]
 // is a pipe heredoc redir append, redir in, redir out
 // then it adds to our token res
@@ -40,7 +41,6 @@ int	pipe_(char *str, int *i, t_token **head, t_token **tail)
 // what is tail for probably to know the end...
 // head is needed for check it exist
 // tail is used to add in the end
-
 int	pipe_less_more_(char *str, int *i, t_token **head, t_token **tail)
 {
 	int	res;

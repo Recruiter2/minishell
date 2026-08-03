@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expansion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/02 16:57:01 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/03 19:52:36 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ while s != ' ' i ++
 #include <stdio.h>
 #include <stdlib.h>
 
-//detect if $ in target
+//detect if $ in target (variable expansion)
 int detect_var_expan(char *str)
 {
 	size_t i = 0;
@@ -98,6 +98,7 @@ int	get_one_word(char *str, char **seg)
 
 	return (start);
 }
+
 //it's not really detecting the start we scoop the varto expand n add it to seg
 /* altho it detects the var to expand
 and then if not detect just adds what needed
@@ -122,41 +123,3 @@ void	detect_start(char *str, t_ctx *ctx, char **seg)
 		i++;
 	}
 }
-/*so right now we write a parser in a parser or it looks like it 
-in fact lexer was already written it breaks down input into tokens but 
-smh we en up with this input "afs dfs sdaf" and it is count as one token 
-by the lexer so we need to process it further down in case we have 
-"$afs dfs $sdaf"
-to expand the vars
-so we need to loop through this magnificient code 
-if last one was space then expand the variable
-//*/
-
-/*//function to extract word but it's possible to write own so no much need in this
-int	get_unquoted_word(char *str, t_token **head, t_token **tail)
-{
-	int		start;
-	char	*inner;
-	char	*txt;
-	t_token	*token;
-	int		res;
-
-	start = *i;
-	txt = NULL;
-	token = NULL;
-	inner = NULL;
-	res = loop_word(str, i, inner, head);
-	if (res != 0)
-		return (-1);
-	txt = ft_strndup(str + start, *i - start);
-	if (!txt)
-		return (free_tokens_list(*head), -1);
-	token = tok_new(T_WORD, txt, 0);
-	if (!token)
-		return (free(txt), free_tokens_list(*head), -1);
-	if (*head == NULL)
-		*head = token;
-	*tail = append_token(*tail, token);
-	return (0);
-}
-//*/
