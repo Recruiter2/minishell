@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_bis.c                                     :+:      :+:    :+:   */
+/*   builtins_echo_cd_pwd_unset.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 13:08:19 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/03 16:13:25 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include "../../includes/environment.h"
 
@@ -26,9 +25,9 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 ◦ echo with option -n
 
 echo [-n] [arg ...]
-Output the args, separated by spaces, terminated with a newline. The return
-status is 0 unless a write error occurs. If -n is specified, the trailing 
-	newline is not printed.
+Output the args, separated by spaces, terminated with a newline.
+The return status is 0 unless a write error occurs.
+If -n is specified, the trailing newline is not printed.
 */
 
 int	bi_echo(char **argv, t_ctx *ctx)

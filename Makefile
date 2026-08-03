@@ -29,6 +29,7 @@ SRCS = 	main.c\
 		dispatcher.c\
 		handle_expansion.c\
 		executor/prepare_cmd.c\
+		executor/prepare_redirections.c\
 		executor/environment.c\
 		executor/path.c\
 		executor/redirections.c\
@@ -37,10 +38,12 @@ SRCS = 	main.c\
 		executor/builtins_env_export.c\
 		executor/exec.c\
 		executor/clean_up.c\
-		utils/lists.c\
+		utils/lists1.c\
+		utils/lists2.c\
 		utils/get_next_line.c\
 		utils/ft_split.c\
-		utils/exec_utils.c\
+		utils/exec_utils1.c\
+		utils/exec_utils2.c\
 
 
 

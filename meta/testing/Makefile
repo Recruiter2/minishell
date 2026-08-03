@@ -6,7 +6,7 @@
 #    By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/06 16:56:26 by marhuber          #+#    #+#              #
-#    Updated: 2026/07/30 16:08:02 by marhuber         ###   ########.fr        #
+#    Updated: 2026/08/02 16:44:58 by marhuber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ MY_SOURCES = main.c \
 	../../src/executor/exec.c \
 	../../src/executor/path.c \
 	../../src/executor/prepare_cmd.c \
+	../../src/executor/prepare_redirections.c \
 	../../src/executor/builtins_ctx_exit.c \
 	../../src/executor/builtins_ctx_exit.c \
 	../../src/executor/builtins_echo_cd_pwd_unset.c \
@@ -29,9 +30,11 @@ MY_SOURCES = main.c \
 	../../src/executor/environment.c \
 	../../src/executor/clean_up.c \
 	../../src/executor/redirections.c \
-	../../src/utils/lists.c \
 	../../src/utils/get_next_line.c \
-	../../src/utils/exec_utils.c \
+	../../src/utils/exec_utils1.c \
+	../../src/utils/exec_utils2.c \
+	../../src/utils/lists1.c \
+	../../src/utils/lists2.c \
 	../../src/utils/ft_split.c 
 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)

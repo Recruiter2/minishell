@@ -6,13 +6,11 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 15:43:22 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:03:05 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "../../includes/executor.h"
 
 t_list		*ft_lstnew(void *content);
@@ -20,6 +18,8 @@ void		ft_lstadd_back(t_list **lst, t_list *newelem);
 int			ft_strcmp(const char *s1, const char *s2);
 const char	*ft_strchr(const char *str, char c);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
+int			simple_atoi(int *ptr_to_n, const char *str);
+void		put_str_fd(const char *s, int fd);
 // Builtin commands implemented:
 int			bi_echo(char **argv, t_ctx *ctx);
 int			bi_cd(char **argv, t_ctx *ctx);
@@ -88,10 +88,10 @@ t_builtin	*is_builtin(char *name, t_list_bi *builtins)
 ◦ exit with no options
 
 exit 
-Exit the shell, the exit status is that of the last command executed.
+Exit the shell, returning a status of n to the shell’s parent. If n is omitted, 
+	the exit status is that of the last command executed.
 */
-
-void	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
+void	exec_bi(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
 {
 	int	ret;
 
@@ -107,6 +107,21 @@ void	exec_builtin(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
 
 int	bi_exit(char **argv, t_ctx *ctx)
 {
-	(void)argv;
+	int	n;
+
+	argv++;
+	if (*argv)
+	{
+		if (simple_atoi(&n, *argv))
+		{
+			put_str_fd("minishell: exit: ", 2);
+			put_str_fd(*argv, 2);
+			put_str_fd(": numeric argument required\n", 2);
+			return (2);
+		}
+		if (argv[1])
+			return (put_str_fd("minishell: exit: too many arguments\n", 2), 1);
+		return (n % 256);
+	}
 	return (ctx->exit_status);
 }

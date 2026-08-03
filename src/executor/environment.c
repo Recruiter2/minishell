@@ -6,16 +6,14 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 21:40:05 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 16:13:38 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 16:32:08 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include "../../includes/environment.h"
 
-char	**ft_split(char const *s, char c);
 void	free_all(char ***strs);
 int		split_in_two(char *str, char c, char *result[2]);
 char	*join_str_c_str(char const *s1, char c, char const *s2);
@@ -88,6 +86,10 @@ int	init_ctx(t_ctx *ctx, char **envp)
 	ctx->path = NULL;
 	if (add_all_bi(&ctx->builtins))
 		return (1);
+	ctx->fd_stdin = dup(0);
+	ctx->fd_stdout = dup(1);
+	if (ctx->fd_stdin < 0 || ctx->fd_stdout < 0)
+		return (perror("error dup in init_ctx"), 1);
 	ctx->exit_status = 0;
 	return (0);
 }

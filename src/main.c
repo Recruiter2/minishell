@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/25 19:54:16 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 17:01:11 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,9 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(line);
 	}
-
-	// If your project needs ctx cleanup, do it here.
-	//destroy_ctx(&ctx);
-
+	free_ctx_ressources(&ctx);
 	return (0);
 }
-
-
-
-
 
 //tests for argument concat (failed btw or not)
 /*

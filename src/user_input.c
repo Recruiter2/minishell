@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/25 19:54:38 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 16:56:16 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	run_line(t_ctx *ctx, char *line)
 	if (cmd)
 	{
 		execute_cmd(ctx, cmd);
-		destroy_cmd(&cmd);
+		destroy_full_cmd(&cmd);
 	}
 	free_tokens(tokens);
 	return (0);

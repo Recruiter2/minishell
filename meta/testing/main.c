@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/30 16:12:31 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/03 15:34:06 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	main(int argc, char **argv, char **envp)
 		first_cmd = ft_split("grep et", ' ');
 		// we add this argv to full_cmd
 		add_single_cmd(full_cmd, first_cmd);
+		// we notify that there is a pipe
+		add_pipe(full_cmd);
 		// the same for "wc -l"
 		second_cmd = ft_split("wc -l", ' ');
 		add_single_cmd(full_cmd, second_cmd);
@@ -63,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 		// we ask the executor to execute full_cmd
 		execute_cmd(&ctx, full_cmd);
 		// we free the ressources used to set up full_cmd
-		destroy_cmd(&full_cmd);
+		destroy_full_cmd(&full_cmd);
 		// we free the ressources used to create the two argv 
 		free_all(&first_cmd);
 		free_all(&second_cmd);
@@ -76,44 +78,82 @@ int	main(int argc, char **argv, char **envp)
 		add_file_in(full_cmd, "txt.txt");
 		first_cmd = ft_split("tail --lines=5", ' ');
 		add_single_cmd(full_cmd, first_cmd);
+		add_pipe(full_cmd);
 		second_cmd = ft_split("grep et", ' ');
 		add_single_cmd(full_cmd, second_cmd);
+		add_pipe(full_cmd);
 		third_cmd = ft_split("wc -l", ' ');
 		add_single_cmd(full_cmd, third_cmd);
 		add_file_out(full_cmd, "out.txt", 1);
 		execute_cmd(&ctx, full_cmd);
-		destroy_cmd(&full_cmd);
+		destroy_full_cmd(&full_cmd);
 		free_all(&first_cmd);
 		free_all(&second_cmd);
 		free_all(&third_cmd);
 		printf("debug signal 2\n");
 	}
-	// example to run: < txt.txt << END grep hi | wc -l > out2.txt >> out.txt
+	// example to run: < txt.txt wc >> out.txt
+	if (1)
+	{
+		full_cmd = initialize_cmd();
+		add_file_in(full_cmd, "txt.txt");
+		first_cmd = ft_split("wc", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		add_file_out(full_cmd, "out.txt", 1);
+		execute_cmd(&ctx, full_cmd);
+		destroy_full_cmd(&full_cmd);
+		free_all(&first_cmd);
+		printf("debug signal 3\n");
+	}
+	// example to run: < txt.txt << END grep sit | wc -l > out2.txt >> out.txt
 	if (0)
 	{
 		full_cmd = initialize_cmd();
 		add_file_in(full_cmd, "txt.txt");
 		add_here_doc(full_cmd, "END");
-		first_cmd = ft_split("grep hi", ' ');
+		first_cmd = ft_split("grep sit", ' ');
 		add_single_cmd(full_cmd, first_cmd);
+		add_pipe(full_cmd);
 		second_cmd = ft_split("wc -l", ' ');
 		add_single_cmd(full_cmd, second_cmd);
 		add_file_out(full_cmd, "out2.txt", 0);
 		add_file_out(full_cmd, "out.txt", 1);
 		execute_cmd(&ctx, full_cmd);
-		destroy_cmd(&full_cmd);
+		destroy_full_cmd(&full_cmd);
 		free_all(&first_cmd);
 		free_all(&second_cmd);
+		printf("debug signal 4\n");
 	}
+	// example to run: ls > hi.txt | wc | echo hi > test.txt
+	if (1)
+	{
+		full_cmd = initialize_cmd();
+		first_cmd = ft_split("ls", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		add_file_out(full_cmd, "hi.txt", 0);
+		add_pipe(full_cmd);
+		second_cmd = ft_split("wc", ' ');
+		add_single_cmd(full_cmd, second_cmd);
+		add_pipe(full_cmd);
+		third_cmd = ft_split("echo hi", ' ');
+		add_single_cmd(full_cmd, third_cmd);
+		add_file_out(full_cmd, "test.txt", 0);
+		execute_cmd(&ctx, full_cmd);
+		destroy_full_cmd(&full_cmd);
+		free_all(&first_cmd);
+		free_all(&second_cmd);
+		free_all(&third_cmd);
+		printf("debug signal 5\n");
+	}
+	// cat -e txt.txt
 	if (1)
 	{
 		full_cmd = initialize_cmd();
 		first_cmd = ft_split("cat -e txt.txt", ' ');
 		add_single_cmd(full_cmd, first_cmd);
-		// add_file_in(full_cmd, "txt.txt");
 		execute_cmd(&ctx, full_cmd);
 		printf("debug signal 20\n");
-		destroy_cmd(&full_cmd);
+		destroy_full_cmd(&full_cmd);
 		free_all(&first_cmd);
 	}
 	// example to run: echo hi
@@ -124,7 +164,7 @@ int	main(int argc, char **argv, char **envp)
 		add_single_cmd(full_cmd, first_cmd);
 		execute_cmd(&ctx, full_cmd);
 		printf("debug signal 21\n");
-		destroy_cmd(&full_cmd);
+		destroy_full_cmd(&full_cmd);
 		free_all(&first_cmd);
 	}
 	// example to run: echo hello fellow kids | wc
@@ -133,11 +173,12 @@ int	main(int argc, char **argv, char **envp)
 		full_cmd = initialize_cmd();
 		first_cmd = ft_split("echo hello fellow kids", ' ');
 		add_single_cmd(full_cmd, first_cmd);
+		add_pipe(full_cmd);
 		second_cmd = ft_split("wc", ' ');
 		add_single_cmd(full_cmd, second_cmd);
 		execute_cmd(&ctx, full_cmd);
 		printf("debug signal 22\n");
-		destroy_cmd(&full_cmd);
+		destroy_full_cmd(&full_cmd);
 		free_all(&first_cmd);
 		free_all(&second_cmd);
 		value = exit_status_expansion(&ctx);
@@ -160,22 +201,54 @@ int	main(int argc, char **argv, char **envp)
 		printf("%s=%s\n", name, value);	
 		free(value);
 	}
-	// example to run: echo hello fellow kids | ls /not_existant
+	// example to run: echo hello world! | ls /not_existant
 	if (1)
 	{
 		full_cmd = initialize_cmd();
-		first_cmd = ft_split("echo hello fellow kids", ' ');
+		first_cmd = ft_split("echo hello world!", ' ');
 		add_single_cmd(full_cmd, first_cmd);
+		add_pipe(full_cmd);
 		second_cmd = ft_split("ls /not_existant", ' ');
 		add_single_cmd(full_cmd, second_cmd);
 		execute_cmd(&ctx, full_cmd);
 		printf("debug signal 23\n");
-		destroy_cmd(&full_cmd);
+		destroy_full_cmd(&full_cmd);
 		free_all(&first_cmd);
 		free_all(&second_cmd);
 		value = exit_status_expansion(&ctx);
 		printf("Exit status was %s\n",value);
 		free(value);
+	}
+	// example to run: echo hello kitty | non_existing_cmd arg1 arg2
+	if (1)
+	{
+		full_cmd = initialize_cmd();
+		first_cmd = ft_split("echo hello kitty", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		add_pipe(full_cmd);
+		second_cmd = ft_split("non_existing_cmd arg1 arg2", ' ');
+		add_single_cmd(full_cmd, second_cmd);
+		execute_cmd(&ctx, full_cmd);
+		printf("debug signal 24\n");
+		destroy_full_cmd(&full_cmd);
+		free_all(&first_cmd);
+		free_all(&second_cmd);
+		value = exit_status_expansion(&ctx);
+		printf("Exit status was %s\n",value);
+		free(value);
+	}
+	// example to run: < txt.txt << END grep sit
+	if (0)
+	{
+		full_cmd = initialize_cmd();
+		add_file_in(full_cmd, "txt.txt");
+		add_here_doc(full_cmd, "END");
+		first_cmd = ft_split("grep sit", ' ');
+		add_single_cmd(full_cmd, first_cmd);
+		execute_cmd(&ctx, full_cmd);
+		destroy_full_cmd(&full_cmd);
+		free_all(&first_cmd);
+		printf("debug signal 25\n");
 	}
 	// finish clean up
 	free_ctx_ressources(&ctx);
