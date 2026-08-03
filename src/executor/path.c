@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 13:48:13 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:32:56 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/03 18:22:34 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,24 @@ cf section "3.7.2 Command Search and Execution" in bash manual
 int	find_cmd(char **path, char **argv)
 {
 	char	*tmp;
-
-	while (*path)
-	{
-		tmp = join_str_c_str(*path, '/', *argv);
-		if (!tmp)
-			return (1);
-		if (access(tmp, F_OK))
+	if (path)
+		while (*path)
 		{
-			free(tmp);
-			path++;
+			tmp = join_str_c_str(*path, '/', *argv);
+			if (!tmp)
+				return (1);
+			if (access(tmp, F_OK))
+			{
+				free(tmp);
+				path++;
+			}
+			else
+			{
+				free(*argv);
+				*argv = tmp;
+				return (0);
+			}
 		}
-		else
-		{
-			free(*argv);
-			*argv = tmp;
-			return (0);
-		}
-	}
 	put_str_fd("minishell: command not found: ", 2);
 	put_str_fd(*argv, 2);
 	put_str_fd("\n", 2);
