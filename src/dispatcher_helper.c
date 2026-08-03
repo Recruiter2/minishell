@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 20:07:26 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/03 21:16:48 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,56 +77,32 @@ int	number_of_segments(t_token *head)
 //is_redir(t->type) skip redirection target token (typically the next T_WORD)
 char **build_res_list(t_token *head, t_ctx *ctx)
 {
-	t_token *t = head;
-	int nseg = number_of_segments(head);
-
-	char **res = ft_calloc(nseg + 1, sizeof(char*));
-	int idx = 0;
-
-	char *seg = NULL;
+	t_token *t;
+	int idx;
+	int nseg;
+	char **res;
+	char *seg;
 
 	t = head;
+	idx = 0;
+	nseg = number_of_segments(head);
+	res = ft_calloc(nseg + 1, sizeof(char *));
+	seg = NULL;
+
 	while (t != NULL)
 	{
 		if (t->type == T_PIPE)
 		{
-			if (seg)
-				res[idx++] = seg;
-			else
-				res[idx++] = strdup("");
-			seg = NULL;
+			add_segment(res, &idx, &seg);
 			t = t->next;
-			continue;
 		}
-		if (t->type == T_WORD)
-		{
-			if (!t->text || t->text[0] == '\0')
-			{
-				t = t->next;
-				continue;
-			}
-			
-			if (detect_var_expan(t->text) && t->quote != '\'')
-				detect_start(t->text, ctx, &seg);
-			else
-				append_word(&seg, t->text);
-			t = t->next;
-			continue;
-		}
-		if (is_redir(t->type))
-		{
-			if (t->next && t->next->type == T_WORD)
-				t = t->next;
-			t = t->next;
-			continue;
-		}
-		t = t->next;
+		else if (t->type == T_WORD)
+			consume_word(&t, &seg, ctx);
+		else if (is_redir(t->type))
+			consume_redir(&t);
+		else
+			skip_other(&t);
 	}
-
-	// last segment I mean what code doing?
-	if (seg)
-		res[idx] = seg;
-	else
-		res[idx] = strdup("");
-	return res; // caller frees each res[i] and res itself
+	add_segment(res, &idx, &seg);
+	return res;
 }

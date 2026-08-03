@@ -26,6 +26,7 @@ SRCS = 	main.c\
 		lexer_functions.c\
 		lexer_pipe_redir.c\
 		dispatcher_helper.c\
+		dispatcher_lib.c\
 		dispatcher.c\
 		handle_expansion.c\
 		executor/prepare_cmd.c\

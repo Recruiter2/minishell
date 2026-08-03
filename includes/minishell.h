@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/29 23:03:39 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/03 21:00:20 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 #include "executor.h"
 #include "environment.h"
 #include "prepare_execution.h"
+
+// <
+// >
+// >>
+// <<
 typedef enum e_token
 {
 	T_WORD,
@@ -32,14 +37,6 @@ typedef enum e_token
 	T_REDIR_APPEND,
 	T_HEREDOC
 }	t_token_type;
-// <
-// >
-// >>
-// <<
-
-// raw text (without surrounding quotes)
-// 0 = none, '\'' or '"' if entire token was quoted
-
 
 typedef struct s_token
 {
@@ -57,40 +54,6 @@ typedef struct s_cmd
 } t_cmd;
 
 
-
-//test from executor struct
-/*
-typedef struct s_redirection
-{
-	int		is_input;
-	int		is_here_doc;
-	int		append_mode;
-	char	*name;
-}			t_redir;
-//
-//
- //This is an element within a list of redirections
- //@param content points at an instance of t_redir
-//
-typedef t_list	t_list_redir;
-
-typedef struct s_simple_cmd
-{
-	char	**argv;
-	int		fdin;
-	int		fdout;
-	pid_t	id;
-}			t_single_cmd;
-
-typedef t_list	t_list_single_cmd;
-typedef struct s_full_command
-{
-	t_list_redir		*redir;
-	t_list_single_cmd	*cmd;
-	int					fdin;
-	int					fdout;
-}						t_full_cmd;
-//*/
 char	**ft_split(char const *s, char c);
 
 //end of test from executor struct
@@ -136,6 +99,12 @@ t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens, t_ctx *ctx);
 
 //helper functions for dispatcher
 void	add_expandable_var(t_ctx *ctx, t_token *head);
+
+//dispatcher_lib
+void add_segment(char **res, int *idx, char **seg);
+void consume_word(t_token **t, char **seg, t_ctx *ctx);
+void consume_redir(t_token **t);
+void skip_other(t_token **t);
 
 
 //misc
