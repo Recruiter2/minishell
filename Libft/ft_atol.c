@@ -6,14 +6,12 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:36:26 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/05/27 19:01:32 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 00:24:13 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* helpers - put these in a .c (or .h) alongside your libft functions */
 #include <errno.h>
 #include <limits.h>
-#include <stdio.h>
 
 static char	skip_spaces(const char *s)
 {

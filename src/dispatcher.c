@@ -6,17 +6,12 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 22:04:04 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 00:26:35 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// you already have these in your project (from your snippet) 
-int is_redir(t_token_type t);
-
 // --------- subfunctions --------- 
-
 //building the cmd (made out of linked list) that will be send to executor
 void	apply_single_redir(t_full_cmd *full, t_token *op)
 {
@@ -73,11 +68,11 @@ void	pipeline_from_seg(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 
 t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens, t_ctx *ctx)
 {
-	t_full_cmd *full;
+	t_full_cmd	*full;
 
 	full = initialize_cmd();
 	if (!full)
-		return NULL;
+		return (NULL);
 	apply_redirs_from_tokens(full, tokens);
 	pipeline_from_seg(full, tokens, ctx);
 	return (full);

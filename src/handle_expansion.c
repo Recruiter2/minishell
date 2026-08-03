@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 21:49:07 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/03 23:35:11 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ int	detect_var_expan(char *str)
 //we will handle just symbol in a different function
 size_t	extract_var_expan(char *str, t_ctx *ctx, char **seg)
 {
-	size_t	start = 0;
-	size_t	end = 0;
-	char *res;
+	size_t	start;
+	size_t	end;
+	char	*res;
 
+	start = 0;
+	end = 0;
 	while (str[end] && str[end] != ' ')
 		end++;
 	res = malloc(end - start + 1);
@@ -66,9 +68,11 @@ int	find_end(char *str)
 int	get_one_word(char *str, char **seg)
 {
 	char	*txt;
-	size_t	start = 0;
-	size_t	end = find_end(str) + 1;
+	size_t	start;
+	size_t	end;
 
+	start = 0;
+	end = find_end(str) + 1;
 	txt = ft_strndup(str + start, end - start);
 	while (start < end)
 	{
@@ -87,9 +91,10 @@ and then if not detect just adds what needed
 //*/
 void	detect_start(char *str, t_ctx *ctx, char **seg)
 {
-	size_t	i = 0;
+	size_t	i;
 	size_t	tmp;
 
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -100,7 +105,7 @@ void	detect_start(char *str, t_ctx *ctx, char **seg)
 		else
 		{
 			i += get_one_word(&str[i], seg);
-			continue;
+			continue ;
 		}
 		i++;
 	}

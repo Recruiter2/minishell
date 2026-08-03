@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 22:04:49 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 00:10:46 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,25 @@ int	is_redir(t_token_type t)
 void	append_word(char **seg, char *word)
 {
 	char	*temp;
-	size_t	seglen = 0;
+	size_t	seglen;
 	size_t	wlen;
-	size_t	add = 0;
 
 	if (word == NULL)
 		return ;
 	wlen = ft_strlen(word);
-	add = wlen;
+	seglen = wlen;
 	if (*seg)
-	{
-		seglen = ft_strlen(*seg);
-		add++;
-	}
-	temp = ft_calloc(seglen + add + 1, sizeof(char));
+		seglen += ft_strlen(*seg) + 1;
+	temp = ft_calloc(seglen + 1, sizeof(char));
 	if (!temp)
 		exit(1);
 	if (*seg)
 	{
 		ft_strlcpy(temp, *seg, seglen + 1);
 		free(*seg);
+		ft_strcat(temp, " ");
 	}
 	*seg = temp;
-	if (seglen)
-		ft_strcat(*seg, " ");
 	ft_strcat(*seg, word);
 }
 
