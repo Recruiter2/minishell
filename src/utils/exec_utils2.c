@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:34:54 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:42:31 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:04:24 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,33 @@ int	ft_isalnum(char c)
 	{
 		return (1);
 	}
+	return (0);
+}
+
+int	simple_atoi(int *ptr_to_n, const char *str)
+{
+	int	n;
+	int	s;
+	int	i;
+
+	n = 0;
+	s = 1;
+	if (*str == '-')
+	{
+		str++;
+		s = -1;
+	}
+	else if (*str == '+')
+		str++;
+	i = 0;
+	while ('0' <= *str && *str <= '9')
+	{
+		n = 10 * n;
+		n += *str++ - '0';
+		i++;
+	}
+	if (*str || i == 0)
+		return (1);
+	*ptr_to_n = n * s;
 	return (0);
 }

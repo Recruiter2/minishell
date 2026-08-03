@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:30:18 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/03 16:13:25 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 ◦ echo with option -n
 
 echo [-n] [arg ...]
-Output the args, separated by spaces, terminated with a newline. The return
-status is 0 unless a write error occurs. If -n is specified, the trailing 
-	newline is not printed.
+Output the args, separated by spaces, terminated with a newline.
+The return status is 0 unless a write error occurs.
+If -n is specified, the trailing newline is not printed.
 */
 
 int	bi_echo(char **argv, t_ctx *ctx)
