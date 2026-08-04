@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 23:25:40 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/29 03:21:08 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 06:23:39 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,13 @@ void	init_lex(int *i, t_token **head, t_token **tail)
 
 void	free_tokens(t_token	*head)
 {
-	t_token	*p = head;
-	while (p) {
-		t_token	*n = p->next;
+	t_token	*p;
+	t_token	*n;
+
+	p = head;
+	while (p)
+	{
+		n = p->next;
 		free(p->text);
 		free(p);
 		p = n;
