@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/04 00:26:35 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 07:41:13 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	apply_single_redir(t_full_cmd *full, t_token *op)
 	else if (op->type == T_REDIR_APPEND)
 		add_file_out(full, op->next->text, 1);
 	else if (op->type == T_HEREDOC)
-		add_file_in(full, op->next->text);
+		add_here_doc(full, op->next->text);
 }
 
 void	apply_redirs_from_tokens(t_full_cmd *full, t_token *tokens)
@@ -66,14 +66,28 @@ void	pipeline_from_seg(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 
 // --------- public dispatcher --------- 
 
-t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens, t_ctx *ctx)
+void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
 {
-	t_full_cmd	*full;
+	t_token		*iterator;
+	t_token		*next_chunk;
 
-	full = initialize_cmd();
-	if (!full)
-		return (NULL);
+	iterator = tokens;
+	while (iterator->next != NULL)
+	{
+		if (iterator->next->type == T_PIPE)
+		{
+			next_chunk = iterator->next->next;
+			iterator->next = NULL;
+			apply_redirs_from_tokens(full, tokens);
+			pipeline_from_seg(full, tokens, ctx);
+			add_pipe(full);
+			iterator = next_chunk;
+			tokens = next_chunk;
+		}
+		else
+			iterator = iterator->next;
+	}
 	apply_redirs_from_tokens(full, tokens);
 	pipeline_from_seg(full, tokens, ctx);
-	return (full);
+	return ;
 }

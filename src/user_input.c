@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 21:43:11 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 07:41:08 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int	run_line(t_ctx *ctx, char *line)
 	tokens = lexer(line);
 	if (!tokens)
 		return (1);
-	cmd = dispatch_lexer_to_full_cmd(tokens, ctx);
+	cmd = initialize_cmd();
+	if (!cmd)
+		return (1);
+	dispatch_to_full_cmd(tokens, cmd, ctx);
 	if (cmd)
 	{
 		execute_cmd(ctx, cmd);

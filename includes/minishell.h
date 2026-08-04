@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 22:22:11 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 07:41:03 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int			redirect_choice(t_token **head, t_token **tail, char c);
 char		**build_res_list(t_token *head, t_ctx *ctx);
 
 //dispacher 
-t_full_cmd	*dispatch_lexer_to_full_cmd(t_token *tokens, t_ctx *ctx);
+void		dispatch_to_full_cmd(t_token *tokens, t_full_cmd *cmd, t_ctx *ctx);
 
 //helper functions for dispatcher
 void		add_expandable_var(t_ctx *ctx, t_token *head);
