@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 21:40:05 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:32:08 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 11:41:29 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,30 +94,7 @@ int	init_ctx(t_ctx *ctx, char **envp)
 	return (0);
 }
 
-/*
-* E.g. if in env USER=marhuber, "makedir $USER" should expand to
-*	"makedir marhuber"
-*	To implement this use this fonction:
-*	evar_expansion("USER") points at a malloc'd string containing "marhuber"
-	evar_expansion("INEXISTENT_VAR") will return the NULL-pointer
-*/
-char	*evar_expansion(t_ctx *ctx, char *name)
-{
-	t_list_ev	*it;
-	t_evar		*evar;
-
-	it = ctx->env_lst;
-	while (it)
-	{
-		evar = it->content;
-		if (ft_strcmp(evar->name, name) == 0)
-			return (ft_strdup(evar->value));
-		it = it->next;
-	}
-	return (NULL);
-}
-
-char	*exit_status_expansion(t_ctx *ctx)
+static char	*exit_status_expansion(t_ctx *ctx)
 {
 	int		n;
 	int		i;
@@ -144,4 +121,29 @@ char	*exit_status_expansion(t_ctx *ctx)
 		n /= 10;
 	}
 	return (ret);
+}
+
+/*
+* E.g. if in env USER=marhuber, "makedir $USER" should expand to
+*	"makedir marhuber"
+*	To implement this use this fonction:
+*	evar_expansion("USER") points at a malloc'd string containing "marhuber"
+	evar_expansion("INEXISTENT_VAR") will return the NULL-pointer
+*/
+char	*evar_expansion(t_ctx *ctx, char *name)
+{
+	t_list_ev	*it;
+	t_evar		*evar;
+
+	if (ft_strcmp("?", name) == 0)
+		return (exit_status_expansion(ctx));
+	it = ctx->env_lst;
+	while (it)
+	{
+		evar = it->content;
+		if (ft_strcmp(evar->name, name) == 0)
+			return (ft_strdup(evar->value));
+		it = it->next;
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 12:22:39 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 11:38:04 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		free_ctx_ressources(t_ctx *ctx);
 char		*evar_expansion(t_ctx *ctx, char *name);
 
 // Expand exit status
-char		*exit_status_expansion(t_ctx *ctx);
+// char		*exit_status_expansion(t_ctx *ctx);
 
 // Prepare command structure for the executor, execute and destroz structure
 t_full_cmd	*initialize_cmd(void);
