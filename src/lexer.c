@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 19:51:00 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 07:53:55 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,3 @@ t_token	*lexer(char *str)
 	}
 	return (head);
 }
-
