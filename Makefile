@@ -40,12 +40,12 @@ SRCS 		= 	main.c\
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-$(NAME): $(OBJS) $(LIBFT) 
+$(NAME): $(OBJS) 
 	$(CC) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

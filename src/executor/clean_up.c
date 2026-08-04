@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:33:39 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 14:49:04 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	destroy_single_cmd(void *content)
 
 	cmd = content;
 	ft_lstclear(&cmd->redir, &free);
+	free_all(&cmd->argv);
 	free(content);
 }
 
