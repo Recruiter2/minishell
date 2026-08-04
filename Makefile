@@ -9,10 +9,6 @@ READLINE_LIBS = -lreadline
 LIBFT_DIR    = Libft 
 LIBFT         = $(LIBFT_DIR)/libft.a
 
-FT_PRINTF_PATH := Libft/ft_printf
-FT_PRINTF := -L ${FT_PRINTF_PATH} -lftprintf
-
-
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes
@@ -60,8 +56,7 @@ $(LIBFT):
 
 
 $(NAME):  $(OBJS)
-	make -C Libft/ft_printf all
-	$(CC) -no-pie $(OBJS) -L$(LIBFT_DIR) -lft ${FT_PRINTF} $(READLINE_LIBS) -o $(NAME)
+	$(CC) -no-pie $(OBJS) -L$(LIBFT_DIR) -lft $(READLINE_LIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)/executor
@@ -72,12 +67,10 @@ clean:
 	rm -rf $(OBJ_DIR)
 	rm -f *.o 
 	make -C $(LIBFT_DIR) clean
-	make -C ./Libft/ft_printf clean
 
 fclean: clean
 	rm -rf $(NAME)
 	make -C $(LIBFT_DIR) fclean
-	make -C ./Libft/ft_printf fclean
 
 re: fclean all
 

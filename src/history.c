@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:56 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/20 11:49:44 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 12:01:34 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	builtin_history(void)
 		return ;
 	while (hist_list[i] != NULL)
 	{
-		ft_printf("%d  %s\n", i + history_base, hist_list[i]->line);
+		printf("%d  %s\n", i + history_base, hist_list[i]->line);
 		i++;
 	}
 }

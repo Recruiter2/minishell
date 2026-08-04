@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:42:10 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/07/18 21:22:52 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/04 12:05:32 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <limits.h>
-# include "ft_printf/ft_printf.h"
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -54,7 +53,6 @@ char	*ft_strdup(const char *s);
 //duplicate str but only up to n;
 char	*ft_strndup(const char *s, size_t n);
 
-
 //Part 2
 char	*ft_substr(char const *str, unsigned int start, size_t len);
 char	*ft_strjoin(char const *str, char const *str0);
@@ -74,7 +72,6 @@ void	ft_putendl_fd(char *str, int fd);
 //put_int print_int
 void	ft_putnbr_fd(int n, int fd);
 
-
 // Use OPEN_MAX directly from limits.h
 # define MAX_FDS OPEN_MAX
 
@@ -89,5 +86,6 @@ char	*extract_line(char *buffer);
 char	*trim_buffer(char *buffer);
 char	*ft_strchr(const char *str, int c);
 
+size_t	ft_strlen(const char *str);
 
 #endif
