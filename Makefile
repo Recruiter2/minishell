@@ -1,71 +1,60 @@
-NAME         = minishell
+NAME		= minishell
+CC			= cc
+CFLAGS		= -Wall -Werror -Wextra -Wpedantic -g #remove last two flags before vogosphere
+SRC_DIR 	= src
+OBJ_DIR 	= obj
+LIBFT_DIR	= Libft 
+INC_DIR 	= includes
+INCLUDES	= -I$(INC_DIR) -I$(LIBFT_DIR)
+LIBFT		= $(LIBFT_DIR)/libft.a
 
-CC             = cc
-CFLAGS         = -Wall -Werror -Wextra -Wpedantic -g
-
-INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)
-
-READLINE_LIBS = -lreadline 
-LIBFT_DIR    = Libft 
-LIBFT         = $(LIBFT_DIR)/libft.a
-
-SRC_DIR = src
-OBJ_DIR = obj
-INC_DIR = includes
-
-SRCS = 	main.c\
-		user_input.c\
-		history.c\
-		signaling.c\
-		lexer.c\
-		lexer_fts.c\
-		lexer_functions.c\
-		lexer_pipe_redir.c\
-		dispatcher_helper.c\
-		dispatcher_lib.c\
-		dispatcher.c\
-		handle_expansion.c\
-		executor/prepare_cmd.c\
-		executor/prepare_redirections.c\
-		executor/environment.c\
-		executor/path.c\
-		executor/redirections.c\
-		executor/builtins_ctx_exit.c\
-		executor/builtins_echo_cd_pwd_unset.c\
-		executor/builtins_env_export.c\
-		executor/exec.c\
-		executor/clean_up.c\
-		utils/lists1.c\
-		utils/lists2.c\
-		utils/get_next_line.c\
-		utils/ft_split.c\
-		utils/exec_utils1.c\
-		utils/exec_utils2.c\
-
-
-
+SRCS 		= 	main.c\
+				user_input.c\
+				history.c\
+				signaling.c\
+				lexer.c\
+				lexer_fts.c\
+				lexer_functions.c\
+				lexer_pipe_redir.c\
+				dispatcher_helper.c\
+				dispatcher_lib.c\
+				dispatcher.c\
+				handle_expansion.c\
+				executor/prepare_cmd.c\
+				executor/prepare_redirections.c\
+				executor/environment.c\
+				executor/path.c\
+				executor/redirections.c\
+				executor/builtins_ctx_exit.c\
+				executor/builtins_echo_cd_pwd_unset.c\
+				executor/builtins_env_export.c\
+				executor/exec.c\
+				executor/clean_up.c\
+				utils/lists1.c\
+				utils/lists2.c\
+				utils/get_next_line.c\
+				utils/ft_split.c\
+				utils/exec_utils1.c\
+				utils/exec_utils2.c\
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 
-all:  $(LIBFT) $(NAME)
+all: $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-
-
-$(NAME):  $(OBJS)
-	$(CC) -no-pie $(OBJS) -L$(LIBFT_DIR) -lft $(READLINE_LIBS) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT) 
+	$(CC) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)/executor
-	mkdir -p $(OBJ_DIR)/utils
+	@mkdir -p $(OBJ_DIR)/executor
+	@mkdir -p $(OBJ_DIR)/utils
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)
-	rm -f *.o 
 	make -C $(LIBFT_DIR) clean
 
 fclean: clean

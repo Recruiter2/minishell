@@ -38,33 +38,28 @@ CFILES := 	ft_isalpha.c\
 			free_grid.c\
 			ft_atoi.c\
 
-OBJ_DIR = obj
-
-ERRORFILES := libft.h.gch\
-				a.out
 AR	:= ar rcs
+OBJ_DIR = obj
 OFILES = $(addprefix $(OBJ_DIR)/, $(CFILES:.c=.o))
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME) 
 
 $(NAME) : $(OFILES) 
-		@$(AR)  $(NAME) $(OFILES)
+	$(AR) $(NAME) $(OFILES)
 
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
-
-
 
 clean:
 		rm -rf $(OBJ_DIR)
 		@rm -f $(OFILES)  $(ERRORFILES)
 
 fclean: clean
-		@rm -f $(NAME)
+		rm -f $(NAME)
 
 re: fclean all
 
