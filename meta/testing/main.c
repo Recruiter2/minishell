@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 15:48:35 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/03 15:34:06 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 23:15:18 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@
 char	**ft_split(char const *s, char c);
 void	free_all(char ***strs);
 
+void	free_tokens(t_token	*head)
+{
+	t_token	*p;
+	t_token	*n;
+
+	p = head;
+	while (p)
+	{
+		n = p->next;
+		free(p->text);
+		free(p);
+		p = n;
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -67,8 +81,6 @@ int	main(int argc, char **argv, char **envp)
 		// we free the ressources used to set up full_cmd
 		destroy_full_cmd(&full_cmd);
 		// we free the ressources used to create the two argv 
-		free_all(&first_cmd);
-		free_all(&second_cmd);
 		printf("debug signal 1\n");
 	}
 	// example to run: < txt.txt tail --lines=5 | grep et | wc -l >> out.txt
@@ -87,9 +99,6 @@ int	main(int argc, char **argv, char **envp)
 		add_file_out(full_cmd, "out.txt", 1);
 		execute_cmd(&ctx, full_cmd);
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
-		free_all(&second_cmd);
-		free_all(&third_cmd);
 		printf("debug signal 2\n");
 	}
 	// example to run: < txt.txt wc >> out.txt
@@ -102,7 +111,6 @@ int	main(int argc, char **argv, char **envp)
 		add_file_out(full_cmd, "out.txt", 1);
 		execute_cmd(&ctx, full_cmd);
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
 		printf("debug signal 3\n");
 	}
 	// example to run: < txt.txt << END grep sit | wc -l > out2.txt >> out.txt
@@ -120,12 +128,10 @@ int	main(int argc, char **argv, char **envp)
 		add_file_out(full_cmd, "out.txt", 1);
 		execute_cmd(&ctx, full_cmd);
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
-		free_all(&second_cmd);
 		printf("debug signal 4\n");
 	}
 	// example to run: ls > hi.txt | wc | echo hi > test.txt
-	if (1)
+	if (0)
 	{
 		full_cmd = initialize_cmd();
 		first_cmd = ft_split("ls", ' ');
@@ -140,9 +146,6 @@ int	main(int argc, char **argv, char **envp)
 		add_file_out(full_cmd, "test.txt", 0);
 		execute_cmd(&ctx, full_cmd);
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
-		free_all(&second_cmd);
-		free_all(&third_cmd);
 		printf("debug signal 5\n");
 	}
 	// cat -e txt.txt
@@ -154,7 +157,6 @@ int	main(int argc, char **argv, char **envp)
 		execute_cmd(&ctx, full_cmd);
 		printf("debug signal 20\n");
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
 	}
 	// example to run: echo hi
 	if (1)
@@ -165,7 +167,6 @@ int	main(int argc, char **argv, char **envp)
 		execute_cmd(&ctx, full_cmd);
 		printf("debug signal 21\n");
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
 	}
 	// example to run: echo hello fellow kids | wc
 	if (1)
@@ -179,11 +180,6 @@ int	main(int argc, char **argv, char **envp)
 		execute_cmd(&ctx, full_cmd);
 		printf("debug signal 22\n");
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
-		free_all(&second_cmd);
-		value = exit_status_expansion(&ctx);
-		printf("Exit status was %s\n",value);
-		free(value);
 	}
 	// testing evar_expansio
 	if (1)
@@ -213,11 +209,6 @@ int	main(int argc, char **argv, char **envp)
 		execute_cmd(&ctx, full_cmd);
 		printf("debug signal 23\n");
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
-		free_all(&second_cmd);
-		value = exit_status_expansion(&ctx);
-		printf("Exit status was %s\n",value);
-		free(value);
 	}
 	// example to run: echo hello kitty | non_existing_cmd arg1 arg2
 	if (1)
@@ -231,11 +222,6 @@ int	main(int argc, char **argv, char **envp)
 		execute_cmd(&ctx, full_cmd);
 		printf("debug signal 24\n");
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
-		free_all(&second_cmd);
-		value = exit_status_expansion(&ctx);
-		printf("Exit status was %s\n",value);
-		free(value);
 	}
 	// example to run: < txt.txt << END grep sit
 	if (0)
@@ -247,7 +233,6 @@ int	main(int argc, char **argv, char **envp)
 		add_single_cmd(full_cmd, first_cmd);
 		execute_cmd(&ctx, full_cmd);
 		destroy_full_cmd(&full_cmd);
-		free_all(&first_cmd);
 		printf("debug signal 25\n");
 	}
 	// finish clean up

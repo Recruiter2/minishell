@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/04 08:19:17 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 23:01:12 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_full_cmd	*initialize_cmd(void)
 	if (!ret)
 		return (perror("malloc error"), NULL);
 	ret->cmd = NULL;
+	ret->tokens = NULL;
 	add_pipe(ret);
 	return (ret);
 }
