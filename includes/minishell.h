@@ -5,46 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 00:29:04 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/04 07:41:03 by marhuber         ###   ########.fr       */
+/*   Created: 2026/08/04 15:26:52 by marhuber          #+#    #+#             */
+/*   Updated: 2026/08/04 15:27:09 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
-#include "../Libft/libft.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
+#ifndef MINISHELL_H
+# define MINISHELL_H
+# include <ctype.h>
+# include <stdlib.h>
+# include <string.h>
+# include "../Libft/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
 
 //include executor
-#include "get_next_line.h"
-#include "executor.h"
-#include "environment.h"
-#include "prepare_execution.h"
-
-// <
-// >
-// >>
-// <<
-typedef enum e_token
-{
-	T_WORD,
-	T_PIPE,
-	T_REDIR_IN,
-	T_REDIR_OUT,
-	T_REDIR_APPEND,
-	T_HEREDOC
-}	t_token_type;
-
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*text;
-	char			quote;
-	struct s_token	*next;
-}	t_token;
+# include "get_next_line.h"
+# include "executor.h"
+# include "environment.h"
+# include "prepare_execution.h"
+# include "tokens.h"
 
 // NULL-terminated: argv[0] is program, argv[1...] are args
 // optional helper
@@ -120,3 +101,5 @@ void		detect_start(char *str, t_ctx *ctx, char **seg);
 //this function is used to know if we have a var
 //  to expand thus to call ft detect_start
 int			detect_var_expan(char *str);
+
+#endif

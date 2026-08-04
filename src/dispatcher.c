@@ -6,12 +6,14 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/04 14:54:40 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 15:28:16 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 void	free_all(char ***strs);
+
 // --------- subfunctions --------- 
 //building the cmd (made out of linked list) that will be send to executor
 void	apply_single_redir(t_full_cmd *full, t_token *op)

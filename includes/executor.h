@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:30:45 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/02 18:58:52 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXECUTOR_H
 
 # include "environment.h"
+# include "tokens.h"
 
 /**
 * This represents a redirection: an input file, a here document or an output file
@@ -69,6 +70,7 @@ typedef t_list	t_list_single_cmd;
 typedef struct s_full_command
 {
 	t_list_single_cmd	*cmd;
+	t_token				*tokens;
 }						t_full_cmd;
 
 #endif

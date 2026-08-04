@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/04 14:49:04 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 15:11:25 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../includes/executor.h"
 
 void	ft_lstclear(t_list **ptlst, void (*del)(void*));
+void	free_tokens(t_token	*head);
 void	free_all(char ***strs);
 
 void	destroy_single_cmd(void *content)
@@ -32,6 +33,7 @@ void	destroy_full_cmd(t_full_cmd **ptr_cmd)
 
 	cmd = *ptr_cmd;
 	ft_lstclear(&cmd->cmd, &destroy_single_cmd);
+	free_tokens(cmd->tokens);
 	free(cmd);
 	cmd = NULL;
 }
