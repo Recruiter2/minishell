@@ -6,17 +6,19 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/03 17:03:05 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 08:58:14 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <unistd.h>
 #include "../../includes/executor.h"
 
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_back(t_list **lst, t_list *newelem);
 int			ft_strcmp(const char *s1, const char *s2);
 const char	*ft_strchr(const char *str, char c);
+int			apply_all_redir(t_ctx *ctx, t_list_redir *it_redir);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
 int			simple_atoi(int *ptr_to_n, const char *str);
 void		put_str_fd(const char *s, int fd);
@@ -91,18 +93,33 @@ exit
 Exit the shell, returning a status of n to the shell’s parent. If n is omitted, 
 	the exit status is that of the last command executed.
 */
-void	exec_bi(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd)
+int	exec_bi(t_single_cmd *s_cmd, t_ctx *ctx, t_full_cmd *f_c, int sub)
 {
 	int	ret;
 
-	ret = (*single_cmd->builtin->ft)(single_cmd->argv, ctx);
-	ctx->exit_status = ret;
-	if (ft_strcmp(single_cmd->builtin->name, "exit") == 0)
+	if (sub)
 	{
-		end(ctx, full_cmd);
-		exit(ret);
+		ret = (*s_cmd->builtin->ft)(s_cmd->argv, ctx);
+		end (ctx, f_c);
+		exit (ret);
 	}
-	return ;
+	else
+	{
+		if (apply_all_redir(ctx, s_cmd->redir))
+			return (1);
+		ret = (*s_cmd->builtin->ft)(s_cmd->argv, ctx);
+		ctx->exit_status = ret;
+		if (dup2(ctx->fd_stdin, 0) < 0)
+			return (perror("dup2 in exec_bi"), 1);
+		if (dup2(ctx->fd_stdout, 1) < 0)
+			return (perror("dup2 in exec_bi"), 1);
+		if (ft_strcmp(s_cmd->builtin->name, "exit") == 0)
+		{
+			end(ctx, f_c);
+			exit(ret);
+		}
+	}
+	return (0);
 }
 
 int	bi_exit(char **argv, t_ctx *ctx)

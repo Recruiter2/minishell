@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:32:31 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 08:52:10 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 void		end(t_ctx *ctx, t_full_cmd *cmd);
 int			apply_all_redir(t_ctx *ctx, t_list_redir *it_redir);
-void		exec_bi(t_single_cmd *single_cmd, t_ctx *ctx, t_full_cmd *full_cmd);
+int			exec_bi(t_single_cmd *s_cmd, t_ctx *ctx, t_full_cmd *f_c, int sub);
 const char	*ft_strchr(const char *str, char c);
 int			find_cmd(char **path, char **argv);
-t_builtin	*is_builtin(char *name, t_list_bi *builtins);
+void		check_which_cmd_are_bi(t_list_single_cmd *it_cmd, t_ctx *ctx);
 int			ft_lstsize(t_list *lst);
 int			evar_lst_to_strs(t_ctx *ctx);
 int			extract_path(t_ctx *ctx);
@@ -67,7 +67,7 @@ static int	run_step(t_ctx *ctx, t_full_cmd *cmd, t_single_cmd *step)
 		if (apply_all_redir(ctx, step->redir))
 			exit((end(ctx, cmd), EXIT_FAILURE));
 		if (step->builtin)
-			exit((exec_bi(step, ctx, cmd), end(ctx, cmd), ctx->exit_status));
+			exec_bi(step, ctx, cmd, 1);
 		if (!ft_strchr(step->argv[0], '/'))
 			if (find_cmd(ctx->path, step->argv))
 				exit((end(ctx, cmd), 127));
@@ -131,21 +131,18 @@ executes the command saved in *full_cmd
 */
 int	execute_cmd(t_ctx *ctx, t_full_cmd *full_cmd)
 {
-	t_list_single_cmd	*it_cmd;
-	t_single_cmd		*single_cmd;
+	t_single_cmd	*sole_cmd;
 
-	it_cmd = full_cmd->cmd;
-	while (it_cmd)
-	{
-		single_cmd = it_cmd->content;
-		single_cmd->builtin = is_builtin(*single_cmd->argv, ctx->builtins);
-		it_cmd = it_cmd->next;
-	}
+	check_which_cmd_are_bi(full_cmd->cmd, ctx);
 	if (ft_lstsize(full_cmd->cmd) == 1)
 	{
-		single_cmd = full_cmd->cmd->content;
-		if (single_cmd->builtin)
-			return (exec_bi(single_cmd, ctx, full_cmd), 0);
+		sole_cmd = full_cmd->cmd->content;
+		if (sole_cmd->builtin)
+		{
+			if (exec_bi(sole_cmd, ctx, full_cmd, 0))
+				return (1);
+			return (0);
+		}
 	}
 	if (evar_lst_to_strs(ctx))
 		return (1);

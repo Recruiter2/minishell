@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:33:09 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/04 08:19:17 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 #include <unistd.h>
 #include "../../includes/executor.h"
 
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_back(t_list **lst, t_list *newelem);
-t_list	*ft_lstlast(t_list *lst);
-void	put_str_fd(const char *s, int fd);
+t_list		*ft_lstnew(void *content);
+void		ft_lstadd_back(t_list **lst, t_list *newelem);
+t_list		*ft_lstlast(t_list *lst);
+void		put_str_fd(const char *s, int fd);
+t_builtin	*is_builtin(char *name, t_list_bi *builtins);
 
 int	add_pipe(t_full_cmd *cmd)
 {
@@ -61,4 +62,16 @@ int	add_single_cmd(t_full_cmd *cmd, char **argv)
 		return (put_str_fd("error new cmd without pipe in between\n", 2), 1);
 	content->argv = argv;
 	return (0);
+}
+
+void	check_which_cmd_are_bi(t_list_single_cmd *it_cmd, t_ctx *ctx)
+{
+	t_single_cmd		*single_cmd;
+
+	while (it_cmd)
+	{
+		single_cmd = it_cmd->content;
+		single_cmd->builtin = is_builtin(*single_cmd->argv, ctx->builtins);
+		it_cmd = it_cmd->next;
+	}
 }
