@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/05 12:38:25 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/05 16:38:14 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,35 @@ int	detect_var_expan(char *str)
 
 //assuming not just expansion symbol so we have some var to expand
 //we will handle just symbol in a different function
-size_t	extract_var_expan(char *str, t_ctx *ctx, char **seg)
+static int is_ident_start(char c)
 {
-	size_t	start;
-	size_t	end;
-	char	*res;
+	return (c == '_' || ft_isalpha(c));
+}
 
-	start = 0;
-	end = 0;
-	while (str[end] && str[end] != ' ')
-	{
-		end++;
-		if (str[end] == '=')
-		{
-			end--;
-			break;
-		}
-	}
-	res = malloc(end - start + 1);
-	ft_memcpy(res, str, end - start);
-	res[end - start] = '\0';
-	if (evar_expansion(ctx, res) != NULL)
-		append_word(seg, evar_expansion(ctx, res));
-	free(res);
-	return (end - start);
+static int is_ident_char(char c)
+{
+	return (c == '_' || ft_isalnum(c));
+}
+
+//	return i; consumed identifier length (stops before '=')
+size_t extract_var_expan(char *str, t_ctx *ctx, char **seg)
+{
+	size_t i = 0;
+	char   *name;
+	if (!str || !is_ident_start(str[0]))
+		return 0;
+	while (str[i] && is_ident_char(str[i]))
+		i++;
+	name = malloc(i + 1);
+	if (!name)
+		return 0;
+	ft_memcpy(name, str, i);
+	name[i] = '\0';
+	char *val = evar_expansion(ctx, name);
+	if (val)
+		append_word(seg, val);
+	free(name);
+	return i;
 }
 
 int	find_end(char *str)
@@ -109,8 +114,7 @@ void	detect_start(char *str, t_ctx *ctx, char **seg)
 		if (str[i] == '$')
 		{
 			tmp = extract_var_expan(&str[i + 1], ctx, seg);
-			//printf("after calling extract_var_expan seg = %s\n", *seg);
-			i += tmp + 1;
+			i += tmp + find_end(&str[i]);
 		}
 		else
 		{
