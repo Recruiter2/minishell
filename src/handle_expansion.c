@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/03 23:35:11 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/05 12:38:25 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,20 @@ size_t	extract_var_expan(char *str, t_ctx *ctx, char **seg)
 	start = 0;
 	end = 0;
 	while (str[end] && str[end] != ' ')
+	{
 		end++;
+		if (str[end] == '=')
+		{
+			end--;
+			break;
+		}
+	}
 	res = malloc(end - start + 1);
 	ft_memcpy(res, str, end - start);
-	res[end - start + 1] = '\0';
-	append_word(seg, evar_expansion(ctx, res));
+	res[end - start] = '\0';
+	if (evar_expansion(ctx, res) != NULL)
+		append_word(seg, evar_expansion(ctx, res));
+	free(res);
 	return (end - start);
 }
 
@@ -85,7 +94,7 @@ int	get_one_word(char *str, char **seg)
 	return (start);
 }
 
-//it's not really detecting the start we scoop the varto expand n add it to seg
+//it's not really detecting the start we scoop the var to expand n add it to seg
 /* altho it detects the var to expand
 and then if not detect just adds what needed
 //*/
@@ -100,6 +109,7 @@ void	detect_start(char *str, t_ctx *ctx, char **seg)
 		if (str[i] == '$')
 		{
 			tmp = extract_var_expan(&str[i + 1], ctx, seg);
+			//printf("after calling extract_var_expan seg = %s\n", *seg);
 			i += tmp + 1;
 		}
 		else
