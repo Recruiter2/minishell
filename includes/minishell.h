@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:26:52 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/04 15:27:09 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/06 00:59:32 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void		add_segment(char **res, int *idx, char **seg);
 void		consume_word(t_token **t, char **seg, t_ctx *ctx);
 void		consume_redir(t_token **t);
 void		skip_other(t_token **t);
+//expansion functions
+int			find_end(char *str);
+size_t		extract_var_expan(char *str, t_ctx *ctx, char **seg);
 
 //misc
 t_full_cmd	*initialize_cmd(void);

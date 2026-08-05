@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 22:20:16 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/05 22:21:42 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 00:54:05 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,22 @@ void	append_word(char **seg, char *word)
 	size_t	wlen;
 
 	if (!word)
-		return;
+		return ;
 	wlen = ft_strlen(word);
-
 	if (*seg == NULL)
 	{
 		*seg = ft_strdup(word);
-		return;
+		return ;
 	}
-
 	seglen = ft_strlen(*seg);
 	temp = ft_calloc(seglen + wlen + 1, sizeof(char));
 	if (!temp)
 		exit(1);
-
 	ft_strlcpy(temp, *seg, seglen + 1);
 	ft_strcat(temp, word);
-
 	free(*seg);
 	*seg = temp;
 }
-
 
 //nseg increments so we count the number of segments
 //echo hi | text.txt two segments here
