@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/05 16:38:14 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/05 22:29:59 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ size_t extract_var_expan(char *str, t_ctx *ctx, char **seg)
 {
 	size_t i = 0;
 	char   *name;
+	char *val;
+	
 	if (!str || !is_ident_start(str[0]))
 		return 0;
 	while (str[i] && is_ident_char(str[i]))
@@ -58,7 +60,7 @@ size_t extract_var_expan(char *str, t_ctx *ctx, char **seg)
 		return 0;
 	ft_memcpy(name, str, i);
 	name[i] = '\0';
-	char *val = evar_expansion(ctx, name);
+	val = evar_expansion(ctx, name);
 	if (val)
 		append_word(seg, val);
 	free(name);
@@ -93,7 +95,7 @@ int	get_one_word(char *str, char **seg)
 		txt[start] = str[start];
 		start++;
 	}
-	txt[start] = ' ';
+	//txt[start] = ' ';
 	txt[start + 1] = '\0';
 	append_word(seg, txt);
 	return (start);
