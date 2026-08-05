@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher_helper.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/13 14:22:00 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/04 07:53:28 by marhuber         ###   ########.fr       */
+/*   Created: 2026/08/05 22:20:16 by tzinaliy          #+#    #+#             */
+/*   Updated: 2026/08/05 22:21:42 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,39 @@ int	is_redir(t_token_type t)
 //this function appends word to the segment that will be used obviously
 // no need to grow: existing + (space if needed) + word + '\0'
 //strlcpy copy old content obviously
+// whatever is using append_word segments if token we need to add space
 void	append_word(char **seg, char *word)
 {
 	char	*temp;
 	size_t	seglen;
 	size_t	wlen;
 
-	if (word == NULL)
-		return ;
+	if (!word)
+		return;
 	wlen = ft_strlen(word);
-	seglen = wlen;
-	if (*seg)
-		seglen += ft_strlen(*seg) + 1;
-	temp = ft_calloc(seglen + 1, sizeof(char));
+
+	if (*seg == NULL)
+	{
+		*seg = ft_strdup(word);
+		return;
+	}
+
+	seglen = ft_strlen(*seg);
+	temp = ft_calloc(seglen + wlen + 1, sizeof(char));
 	if (!temp)
 		exit(1);
-	if (*seg)
-	{
-		ft_strlcpy(temp, *seg, seglen + 1);
-		free(*seg);
-		ft_strcat(temp, " ");
-	}
+
+	ft_strlcpy(temp, *seg, seglen + 1);
+	ft_strcat(temp, word);
+
+	free(*seg);
 	*seg = temp;
-	ft_strcat(*seg, word);
 }
+
 
 //nseg increments so we count the number of segments
 //echo hi | text.txt two segments here
 //nseg++; segments = pipes + 1 (assuming at least one token)
-
 int	number_of_segments(t_token *head)
 {
 	t_token	*t;
