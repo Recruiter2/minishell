@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:26:52 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/06 00:59:32 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 01:02:57 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int			is_redir(t_token_type t);
 void		add_segment(char **res, int *idx, char **seg);
 void		consume_word(t_token **t, char **seg, t_ctx *ctx);
 void		consume_redir(t_token **t);
-void		skip_other(t_token **t);
 //expansion functions
 int			find_end(char *str);
 size_t		extract_var_expan(char *str, t_ctx *ctx, char **seg);

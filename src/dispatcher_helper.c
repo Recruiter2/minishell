@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 22:20:16 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/06 00:54:05 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 01:02:25 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	number_of_segments(t_token *head)
 // +1 for NULL terminator
 //t = t->next; advance before continue
 //is_redir(t->type) skip redirection target token (typically the next T_WORD)
+//		t = t->next; skip other
 char	**build_res_list(t_token *head, t_ctx *ctx)
 {
 	t_token	*t;
@@ -95,7 +96,7 @@ char	**build_res_list(t_token *head, t_ctx *ctx)
 			consume_word(&t, &seg, ctx);
 		else if (is_redir(t->type))
 			consume_redir(&t);
-		skip_other(&t);
+		t = t->next;
 	}
 	add_segment(res, &idx, &seg);
 	return (res);
