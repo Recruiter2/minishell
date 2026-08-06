@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expansion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/06 15:04:11 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 15:44:44 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,48 +32,43 @@ int	detect_var_expan(char *str)
 	return (0);
 }
 
+/*
+in this scope str points to the char right AFTER '$', also when the function 
+	calls extract_var_expan()
+If '?' comes at the start, this function consumes only '?'
+*/
 size_t	pipe_status(char *str, t_ctx *ctx, char **seg)
 {
-	// str points to the char right AFTER '$'
 	char	*val;
 
 	if (!str)
 		return (0);
-
 	if (str[0] == '?')
 	{
 		val = evar_expansion(ctx, "?");
 		if (val)
 			append_word(seg, val);
-		return (1); // consumed only '?'
+		return (1);
 	}
-
-	return (extract_var_expan(str, ctx, seg)); // str starts at first char after '$'
+	return (extract_var_expan(str, ctx, seg));
 }
 
-//assuming not just expansion symbol so we have some var to expand
-//we will handle just symbol in a different function
-static	int	is_ident_start(char c)
-{
-	return (c == '_' || c == '?' || ft_isalpha(c));
-}
-
-static	int	is_ident_char(char c)
-{
-	return (c == '_' || c == '?' || ft_isalnum(c));
-}
-
-//	return i; consumed identifier length (stops before '=')
+//	return i; consumed identifier length
+//	stops before any character that cannot be part of an identifier
 size_t	extract_var_expan(char *str, t_ctx *ctx, char **seg)
 {
 	size_t	i;
 	char	*name;
 	char	*val;
 
-	i = 0;
-	if (!str || !is_ident_start(str[0]))
+	if (!str)
 		return (0);
-	while (str[i] && is_ident_char(str[i]))
+	i = 0;
+	if (str[i] == '_' || ft_isalpha(str[i]))
+		i++;
+	else
+		return (0);
+	while (str[i] == '_' || ft_isalnum(str[i]))
 		i++;
 	name = malloc(i + 1);
 	if (!name)
