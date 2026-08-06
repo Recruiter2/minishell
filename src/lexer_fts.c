@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 13:48:47 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/06/21 23:27:01 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 16:29:19 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	extract_quoted_word(char *str, int *i, t_token **head, t_token **tail)
 			return (free_tokens_list(*head), -1);
 		}
 		if (!head)
-			head = &token;
+			*head = token;
 		*tail = append_token(*tail, token);
 		*i = ni;
 		return (1);

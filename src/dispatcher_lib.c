@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 20:27:08 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/06 15:01:21 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 17:35:49 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	add_segment(char **res, int *idx, char **seg)
 	}
 }
 
-void	consume_word(t_token **t, char **seg, t_ctx *ctx)
+int	consume_word(t_token **t, char **seg, t_ctx *ctx)
 {
 	if (!(*t)->text || (*t)->text[0] == '\0')
 	{
 		*t = (*t)->next;
-		return ;
+		return (1);
 	}
 	if (*seg && (*seg)[0] != '\0')
 		append_word(seg, " ");
@@ -40,6 +40,7 @@ void	consume_word(t_token **t, char **seg, t_ctx *ctx)
 		detect_start((*t)->text, ctx, seg);
 	else
 		append_word(seg, (*t)->text);
+	return (0);
 }
 
 void	consume_redir(t_token **t)

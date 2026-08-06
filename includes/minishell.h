@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:26:52 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/06 01:02:57 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 17:04:58 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		sigint_handler(int sig);
 
 //lexer
 
-t_token		*lexer(char *s);
+t_token		*lexer(char *str);
 void		free_tokens(t_token	*head);
 
 t_token		*tok_new(t_token_type type, char *text, char quote);
@@ -85,7 +85,7 @@ int			is_redir(t_token_type t);
 
 //dispatcher_lib
 void		add_segment(char **res, int *idx, char **seg);
-void		consume_word(t_token **t, char **seg, t_ctx *ctx);
+int		consume_word(t_token **t, char **seg, t_ctx *ctx);
 void		consume_redir(t_token **t);
 //expansion functions
 int			find_end(char *str);
