@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:43:34 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/04 11:38:04 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/06 16:02:38 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@
 int			init_ctx(t_ctx *ctx, char **envp);
 void		free_ctx_ressources(t_ctx *ctx);
 
-// Expand environment variables
+// Expand environment variables (and exceptionally also '?')
 char		*evar_expansion(t_ctx *ctx, char *name);
-
-// Expand exit status
-// char		*exit_status_expansion(t_ctx *ctx);
 
 // Prepare command structure for the executor, execute and destroz structure
 t_full_cmd	*initialize_cmd(void);

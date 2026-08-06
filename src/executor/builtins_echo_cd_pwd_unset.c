@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/03 16:13:25 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/06 16:13:49 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *src);
 int		export_valid_var(char *name, char *value, t_list_ev **ptr_env_lst);
+char	*evar_expansion(t_ctx *ctx, char *name);
 void	put_str_fd(const char *s, int fd);
 void	destroy_evar(void *content);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
@@ -101,13 +102,25 @@ static int	cd_valid_path(char *new_pwd, t_ctx *ctx)
 
 int	bi_cd(char **argv, t_ctx *ctx)
 {
-	if (argv[1] == NULL || argv[2] != NULL)
+	char	*tmp;
+	char	*err_prefix;
+
+	err_prefix = "minishell: cd: ";
+	if (argv[1] == NULL)
 	{
-		put_str_fd("minishell: cd: use with one argument\n", 2);
+		tmp = evar_expansion(ctx, "HOME");
+		if (access(tmp, F_OK))
+			return (put_str_fd(err_prefix, 2), perror(tmp), free(tmp), 1);
+		cd_valid_path(tmp, ctx);
+		return (free(tmp), 0);
+	}
+	if (argv[2] != NULL)
+	{
+		put_str_fd("minishell: cd: too many arguments\n", 2);
 		return (1);
 	}
 	if (access(argv[1], F_OK))
-		return (perror(argv[1]), 1);
+		return (put_str_fd(err_prefix, 2), perror(argv[1]), 1);
 	cd_valid_path(argv[1], ctx);
 	return (0);
 }
@@ -126,7 +139,7 @@ int	bi_pwd(char **argv, t_ctx *ctx)
 	(void)ctx;
 	path = getcwd(NULL, 0);
 	if (!path)
-		return (perror("minishell: pwd"), 1);
+		return (perror("minishell: pwd: "), 1);
 	printf("%s\n", path);
 	free(path);
 	return (0);
