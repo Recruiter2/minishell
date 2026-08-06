@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/06 11:48:30 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 15:04:11 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,25 @@ int	detect_var_expan(char *str)
 		i++;
 	}
 	return (0);
+}
+
+size_t	pipe_status(char *str, t_ctx *ctx, char **seg)
+{
+	// str points to the char right AFTER '$'
+	char	*val;
+
+	if (!str)
+		return (0);
+
+	if (str[0] == '?')
+	{
+		val = evar_expansion(ctx, "?");
+		if (val)
+			append_word(seg, val);
+		return (1); // consumed only '?'
+	}
+
+	return (extract_var_expan(str, ctx, seg)); // str starts at first char after '$'
 }
 
 //assuming not just expansion symbol so we have some var to expand

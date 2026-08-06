@@ -6,11 +6,13 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 20:27:08 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/06 11:19:35 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 15:01:21 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+size_t	pipe_status(char *str, t_ctx *ctx, char **seg);
 
 void	add_segment(char **res, int *idx, char **seg)
 {
@@ -69,6 +71,7 @@ int	get_one_word(char *str, char **seg)
 //it's not really detecting the start we scoop the var to expand n add it to seg
 /* altho it detects the var to expand
 and then if not detect just adds what needed*/
+//i += tmp; // + find_end(&str[i]); previously
 void	detect_start(char *str, t_ctx *ctx, char **seg)
 {
 	size_t	i;
@@ -79,8 +82,8 @@ void	detect_start(char *str, t_ctx *ctx, char **seg)
 	{
 		if (str[i] == '$')
 		{
-			tmp = extract_var_expan(&str[i + 1], ctx, seg);
-			i += tmp + find_end(&str[i]);
+			tmp = pipe_status(&str[i + 1], ctx, seg);
+			i += tmp; // + find_end(&str[i]);
 		}
 		else
 		{
