@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/06 00:58:29 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/06 11:48:30 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int	detect_var_expan(char *str)
 //we will handle just symbol in a different function
 static	int	is_ident_start(char c)
 {
-	return (c == '_' || ft_isalpha(c));
+	return (c == '_' || c == '?' || ft_isalpha(c));
 }
 
 static	int	is_ident_char(char c)
 {
-	return (c == '_' || ft_isalnum(c));
+	return (c == '_' || c == '?' || ft_isalnum(c));
 }
 
 //	return i; consumed identifier length (stops before '=')
