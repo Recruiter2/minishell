@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 22:20:16 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/07 21:45:30 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/07 23:48:01 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,3 @@ void	append_word(char **seg, char *word)
 	free(*seg);
 	*seg = temp;
 }
-
-

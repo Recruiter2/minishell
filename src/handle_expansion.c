@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/07 15:51:19 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/07 23:53:21 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,37 +82,24 @@ size_t	extract_var_expan(char *str, t_ctx *ctx, char **seg)
 	return (i);
 }
 
-int	find_end(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
+//	expanded = NULL; // append_word expects *seg to be NULL or empty
+//	detect_start(token, ctx, &expanded); // fills expanded via append_word
+//		append_word(&expanded, token);       // just duplicate/append token
 char	*expand_one_word_token(char *token, t_ctx *ctx, int single_quote)
 {
 	char	*expanded;
 
-	expanded = NULL; // append_word expects *seg to be NULL or empty
+	expanded = NULL;
 	if (!token || token[0] == '\0')
 		return (NULL);
-
 	if (detect_var_expan(token) && !single_quote)
-		detect_start(token, ctx, &expanded); // fills expanded via append_word
+		detect_start(token, ctx, &expanded);
 	else
-		append_word(&expanded, token);       // just duplicate/append token
-
+		append_word(&expanded, token);
 	return (expanded);
 }
 
-static int argv_append_ptr(char ***argv, char *s)
+static	int	argv_append_ptr(char ***argv, char *s)
 {
 	size_t	i;
 	char	**newv;
@@ -142,14 +129,12 @@ static int argv_append_ptr(char ***argv, char *s)
 	return (1);
 }
 
-
-static int	argv_push(char ***argv, char *s)
+static	int	argv_push(char ***argv, char *s)
 {
 	int		i;
 
 	if (!s)
 		return (1);
-
 	if (!*argv)
 	{
 		*argv = ft_calloc(2, sizeof(char *));
@@ -158,13 +143,11 @@ static int	argv_push(char ***argv, char *s)
 		(*argv)[0] = s;
 		return (1);
 	}
-
 	i = 0;
 	while ((*argv)[i])
 		i++;
-
 	if (!argv_append_ptr(argv, s))
-		return 0;
+		return (0);
 	return (1);
 }
 
@@ -178,18 +161,15 @@ int	consume_word_to_argv(t_token **t, char ***argv, t_ctx *ctx)
 		*t = (*t)->next;
 		return (1);
 	}
-
 	single_quote = ((*t)->quote == '\'');
 	expanded = expand_one_word_token((*t)->text, ctx, single_quote);
 	if (!expanded)
 		return (0);
-
 	if (!argv_push(argv, expanded))
 	{
 		free(expanded);
 		return (0);
 	}
-
 	*t = (*t)->next;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:26:52 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/07 21:49:58 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/07 23:51:33 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,8 @@ void		add_expandable_var(t_ctx *ctx, t_token *head);
 int			is_redir(t_token_type t);
 
 //dispatcher_lib
-void	consume_redir(t_full_cmd *full, t_token **t);
+void		consume_redir(t_full_cmd *full, t_token **t);
 //expansion functions
-int			find_end(char *str);
 size_t		extract_var_expan(char *str, t_ctx *ctx, char **seg);
 
 //misc

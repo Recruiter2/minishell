@@ -6,14 +6,13 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/07 21:43:42 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/07 23:47:14 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 int		consume_word_to_argv(t_token **t, char ***argv, t_ctx *ctx);
-void	free_all(char ***strs);
 
 // --------- subfunctions --------- 
 //building the cmd (made out of linked list) that will be send to executor
@@ -48,6 +47,8 @@ void	apply_redirs_from_tokens(t_full_cmd *full, t_token *tokens)
 // explicit boundary node 			add_pipe(full);
 // put after free_res(res);
 //is project-specific; free res[i] + res itself if needed 
+//if (!consume_word_to_argv could add in if 	// free_argv(&argv);
+
 void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 {
 	t_token	*t;
@@ -55,17 +56,13 @@ void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 
 	t = tokens;
 	argv = NULL;
-
 	while (t)
 	{
 		if (t->type == T_WORD)
 		{
 			if (!consume_word_to_argv(&t, &argv, ctx))
-			{
-				// free_argv_if_needed(&argv);
-				return;
-			}
-			continue;
+				return ;
+			continue ;
 		}
 		if (t->type == T_PIPE)
 		{
@@ -74,16 +71,15 @@ void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 			add_pipe(full);
 			argv = NULL;
 			t = t->next;
-			continue;
+			continue ;
 		}
 		if (is_redir(t->type))
 		{
-			consume_redir(full,&t); // keep your existing behavior
-			continue;
+			consume_redir(full, &t);
+			continue ;
 		}
 		t = t->next;
 	}
-
 	if (argv)
 		add_single_cmd(full, argv);
 }

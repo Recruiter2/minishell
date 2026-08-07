@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 20:27:08 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/07 21:47:47 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/07 23:51:23 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 size_t	pipe_status(char *str, t_ctx *ctx, char **seg);
 
-
-
+// consume BOTH the operator and its filename *t = fname->next;
 void	consume_redir(t_full_cmd *full, t_token **t)
 {
-	t_token *redir = *t;
-	t_token *fname;
+	t_token	*redir;
+	t_token	*fname;
 
+	redir = *t;
 	if (!redir || !redir->next)
-		return;
-
+		return ;
 	fname = redir->next;
 	if (fname->type != T_WORD)
-		return;
-
+		return ;
 	if (redir->type == T_REDIR_IN)
 		add_file_in(full, fname->text);
 	else if (redir->type == T_REDIR_OUT)
@@ -36,9 +34,21 @@ void	consume_redir(t_full_cmd *full, t_token **t)
 		add_file_out(full, fname->text, 1);
 	else if (redir->type == T_HEREDOC)
 		add_here_doc(full, redir->next->text);
-
-	// consume BOTH the operator and its filename
 	*t = fname->next;
+}
+
+int	find_end(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ')
+			return (i);
+		i++;
+	}
+	return (0);
 }
 
 /*expansion functions*/
@@ -76,7 +86,7 @@ void	detect_start(char *str, t_ctx *ctx, char **seg)
 		if (str[i] == '$')
 		{
 			tmp = pipe_status(&str[i + 1], ctx, seg);
-			i += tmp; // + find_end(&str[i]);
+			i += tmp;
 		}
 		else
 		{
