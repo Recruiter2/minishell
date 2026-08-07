@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 20:27:08 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/06 17:35:49 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/07 21:47:47 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,31 @@
 
 size_t	pipe_status(char *str, t_ctx *ctx, char **seg);
 
-void	add_segment(char **res, int *idx, char **seg)
-{
-	if (*seg)
-	{
-		res[(*idx)++] = *seg;
-		*seg = NULL;
-	}
-	else
-	{
-		res[(*idx)++] = ft_strdup("");
-	}
-}
 
-int	consume_word(t_token **t, char **seg, t_ctx *ctx)
-{
-	if (!(*t)->text || (*t)->text[0] == '\0')
-	{
-		*t = (*t)->next;
-		return (1);
-	}
-	if (*seg && (*seg)[0] != '\0')
-		append_word(seg, " ");
-	if (detect_var_expan((*t)->text) && (*t)->quote != '\'')
-		detect_start((*t)->text, ctx, seg);
-	else
-		append_word(seg, (*t)->text);
-	return (0);
-}
 
-void	consume_redir(t_token **t)
+void	consume_redir(t_full_cmd *full, t_token **t)
 {
-	if ((*t)->next && (*t)->next->type == T_WORD)
-		*t = (*t)->next;
+	t_token *redir = *t;
+	t_token *fname;
+
+	if (!redir || !redir->next)
+		return;
+
+	fname = redir->next;
+	if (fname->type != T_WORD)
+		return;
+
+	if (redir->type == T_REDIR_IN)
+		add_file_in(full, fname->text);
+	else if (redir->type == T_REDIR_OUT)
+		add_file_out(full, fname->text, 0);
+	else if (redir->type == T_REDIR_APPEND)
+		add_file_out(full, fname->text, 1);
+	else if (redir->type == T_HEREDOC)
+		add_here_doc(full, redir->next->text);
+
+	// consume BOTH the operator and its filename
+	*t = fname->next;
 }
 
 /*expansion functions*/

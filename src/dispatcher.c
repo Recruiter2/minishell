@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/07 16:03:41 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/07 21:43:42 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	free_all(char ***strs);
 
 // --------- subfunctions --------- 
 //building the cmd (made out of linked list) that will be send to executor
+//most likely we need to remove delete this function or not
 void	apply_single_redir(t_full_cmd *full, t_token *op)
 {
 	if (!op || !op->next || op->next->type != T_WORD || !op->next->text)
@@ -77,7 +78,7 @@ void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 		}
 		if (is_redir(t->type))
 		{
-			consume_redir(&t); // keep your existing behavior
+			consume_redir(full,&t); // keep your existing behavior
 			continue;
 		}
 		t = t->next;

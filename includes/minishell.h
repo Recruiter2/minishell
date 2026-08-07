@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:26:52 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/06 17:04:58 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/07 21:49:58 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int			redirect_choice(t_token **head, t_token **tail, char c);
 
 //helper function for adding  cmd and its args 
 // (ls + -la); has issue does beyond what is asked
-char		**build_res_list(t_token *head, t_ctx *ctx);
 
 //dispacher 
 void		dispatch_to_full_cmd(t_token *tokens, t_full_cmd *cmd, t_ctx *ctx);
@@ -84,9 +83,7 @@ void		add_expandable_var(t_ctx *ctx, t_token *head);
 int			is_redir(t_token_type t);
 
 //dispatcher_lib
-void		add_segment(char **res, int *idx, char **seg);
-int		consume_word(t_token **t, char **seg, t_ctx *ctx);
-void		consume_redir(t_token **t);
+void	consume_redir(t_full_cmd *full, t_token **t);
 //expansion functions
 int			find_end(char *str);
 size_t		extract_var_expan(char *str, t_ctx *ctx, char **seg);
