@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/04 15:28:16 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/07 16:03:41 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int		consume_word_to_argv(t_token **t, char ***argv, t_ctx *ctx);
 void	free_all(char ***strs);
 
 // --------- subfunctions --------- 
@@ -46,26 +47,44 @@ void	apply_redirs_from_tokens(t_full_cmd *full, t_token *tokens)
 // explicit boundary node 			add_pipe(full);
 // put after free_res(res);
 //is project-specific; free res[i] + res itself if needed 
-void	pipeline_from_seg(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
+void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 {
-	char	**res;
-	int		i;
+	t_token	*t;
 	char	**argv;
 
-	res = build_res_list(tokens, ctx);
-	if (!res)
-		return ;
-	i = 0;
-	while (res[i])
+	t = tokens;
+	argv = NULL;
+
+	while (t)
 	{
-		argv = ft_split(res[i], ' ');
-		if (argv)
-			add_single_cmd(full, argv);
-		if (res[i + 1])
+		if (t->type == T_WORD)
+		{
+			if (!consume_word_to_argv(&t, &argv, ctx))
+			{
+				// free_argv_if_needed(&argv);
+				return;
+			}
+			continue;
+		}
+		if (t->type == T_PIPE)
+		{
+			if (argv)
+				add_single_cmd(full, argv);
 			add_pipe(full);
-		i++;
+			argv = NULL;
+			t = t->next;
+			continue;
+		}
+		if (is_redir(t->type))
+		{
+			consume_redir(&t); // keep your existing behavior
+			continue;
+		}
+		t = t->next;
 	}
-	free_all(&res);
+
+	if (argv)
+		add_single_cmd(full, argv);
 }
 
 // --------- public dispatcher --------- 
@@ -83,7 +102,7 @@ void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
 			next_chunk = iterator->next->next;
 			iterator->next = NULL;
 			apply_redirs_from_tokens(full, tokens);
-			pipeline_from_seg(full, tokens, ctx);
+			pipeline_from_tokens(full, tokens, ctx);
 			add_pipe(full);
 			iterator = next_chunk;
 			tokens = next_chunk;
@@ -92,6 +111,6 @@ void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
 			iterator = iterator->next;
 	}
 	apply_redirs_from_tokens(full, tokens);
-	pipeline_from_seg(full, tokens, ctx);
+	pipeline_from_tokens(full, tokens, ctx);
 	return ;
 }
