@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/07 23:47:14 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/08 11:21:44 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	apply_single_redir(t_full_cmd *full, t_token *op)
 {
 	if (!op || !op->next || op->next->type != T_WORD || !op->next->text)
 		return ;
+	printf("DEBUG: input for 'apply_single_redir' is: >>%s<<\n", op->next->text);
 	if (op->type == T_REDIR_IN)
 		add_file_in(full, op->next->text);
 	else if (op->type == T_REDIR_OUT)
