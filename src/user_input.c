@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/04 15:27:36 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/09 11:08:29 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	run_line(t_ctx *ctx, char *line)
 	if (cmd)
 	{
 		cmd->tokens = tokens;
-		execute_cmd(ctx, cmd);
+		//execute_cmd(ctx, cmd);
 		destroy_full_cmd(&cmd);
 	}
 	return (0);

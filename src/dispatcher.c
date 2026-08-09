@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatcher.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/08 11:21:44 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/09 00:31:02 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 }
 
 // --------- public dispatcher --------- 
-
+// it seeems the idea here is we iterate through tokens to build a whole pipe
+// t->word t->word t->word until it's t->pipe
+// the last one  was supposed to be 	pipeline_from_tokens(full, tokens, ctx);
+// for the purpose of the last token after the pipe so it's not left unprocessed
 void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
 {
 	t_token		*iterator;
@@ -99,7 +102,7 @@ void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
 		{
 			next_chunk = iterator->next->next;
 			iterator->next = NULL;
-			apply_redirs_from_tokens(full, tokens);
+			//apply_redirs_from_tokens(full, tokens);
 			pipeline_from_tokens(full, tokens, ctx);
 			add_pipe(full);
 			iterator = next_chunk;
@@ -108,7 +111,7 @@ void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
 		else
 			iterator = iterator->next;
 	}
-	apply_redirs_from_tokens(full, tokens);
+	//apply_redirs_from_tokens(full, tokens);
 	pipeline_from_tokens(full, tokens, ctx);
 	return ;
 }
