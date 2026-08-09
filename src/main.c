@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/09 11:08:17 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/09 11:28:44 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("minishell$ ");
-		printf("[heredoc] raw line: %s\n", line);
+		//printf("[heredoc] raw line: %s\n", line);
 		if (!line)
 		{
 			write(1, "\n", 1);
