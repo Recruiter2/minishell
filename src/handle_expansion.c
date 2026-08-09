@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/07 23:53:21 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/09 12:02:32 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	detect_var_expan(char *str)
 in this scope str points to the char right AFTER '$', also when the function 
 	calls extract_var_expan()
 If '?' comes at the start, this function consumes only '?'
+then expands the variable
 */
 size_t	pipe_status(char *str, t_ctx *ctx, char **seg)
 {

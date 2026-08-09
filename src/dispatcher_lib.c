@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 20:27:08 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/09 11:24:47 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/09 14:06:25 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	consume_redir(t_full_cmd *full, t_token **t)
 	fname = redir->next;
 	if (fname->type != T_WORD)
 		return ;
-	//printf("DEBUG: input for 'consume_redir' is: >>%s<<\n", fname->text);
 	if (redir->type == T_REDIR_IN)
 		add_file_in(full, fname->text);
 	else if (redir->type == T_REDIR_OUT)
