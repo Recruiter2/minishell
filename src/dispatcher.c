@@ -6,12 +6,14 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/09 14:06:15 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/09 17:43:54 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+void	chek_word_piplin(t_full_cmd *full, t_token *t, \
+t_ctx *ctx, char ***argv);
 int		consume_word_to_argv(t_token **t, char ***argv, t_ctx *ctx);
 
 // --------- subfunctions --------- 
@@ -22,6 +24,47 @@ int		consume_word_to_argv(t_token **t, char ***argv, t_ctx *ctx);
 //is project-specific; free res[i] + res itself if needed 
 //if (!consume_word_to_argv could add in if 	// free_argv(&argv);
 
+void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
+{
+	t_token	*t;
+	char	**argv;
+
+	t = tokens;
+	argv = NULL;
+	chek_word_piplin(full, t, ctx, &argv);
+	if (argv)
+		add_single_cmd(full, argv);
+}
+
+void	chek_word_piplin(t_full_cmd *full, t_token *t, t_ctx *ctx, char ***argv)
+{
+	while (t)
+	{
+		if (t->type == T_WORD)
+		{
+			if (!consume_word_to_argv(&t, argv, ctx))
+				return ;
+			continue ;
+		}
+		if (t->type == T_PIPE)
+		{
+			if (argv)
+				add_single_cmd(full, *argv);
+			add_pipe(full);
+			argv = NULL;
+			t = t->next;
+			continue ;
+		}
+		if (is_redir(t->type))
+		{
+			consume_redir(full, &t);
+			continue ;
+		}
+		t = t->next;
+	}
+}
+//*/
+/*
 void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 {
 	t_token	*t;
@@ -56,7 +99,7 @@ void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 	if (argv)
 		add_single_cmd(full, argv);
 }
-
+//*/
 // --------- public dispatcher --------- 
 // it seeems the idea here is we iterate through tokens to build a whole pipe
 // t->word t->word t->word until it's t->pipe
