@@ -1,6 +1,6 @@
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -Wpedantic -g #remove last two flags before vogosphere
+CFLAGS		= -Wall -Werror -Wextra -Wpedantic -fsanitize=address -O0 -g #remove last two flags before vogosphere
 SRC_DIR 	= src
 OBJ_DIR 	= obj
 LIBFT_DIR	= Libft 
@@ -46,7 +46,7 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) 
-	$(CC) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline -o $(NAME)
+	$(CC) $(OBJS) -L$(LIBFT_DIR) -lft -lreadline $(CFLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)/executor
