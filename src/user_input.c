@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/09 11:22:49 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:09:07 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	run_line(t_ctx *ctx, char *line)
 	add_shell_history(line);
 	if (ft_strncmp(line, "history", 7) == 0)
 		return (builtin_history(), 0);
-	tokens = lexer(line);
+	tokens = lexer(line);//error
 	if (!tokens)
-		return (1);
+		return (free_tokens_list(tokens), 1);
 	cmd = initialize_cmd();
 	if (!cmd)
-		return (1);
+		return (free_tokens_list(tokens), destroy_full_cmd(&cmd), 1);
 	dispatch_to_full_cmd(tokens, cmd, ctx);
 	if (cmd)
 	{

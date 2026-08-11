@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/09 14:04:42 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/11 12:58:39 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 			write(1, "\n", 1);
 			break ;
 		}
-		run_line(&ctx, line);
+		run_line(&ctx, line);//error
 		free(line);
 	}
 	free_ctx_ressources(&ctx);

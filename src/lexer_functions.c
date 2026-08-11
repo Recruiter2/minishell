@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 23:25:40 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/04 06:23:39 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:00:47 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // create and append an operator token; returns 0 on OOM
+/* old push op it was allocating new token ig
 int	push_op(t_token	**head, t_token	**tail, t_token_type type)
 {
 	t_token	*token;
@@ -23,6 +24,26 @@ int	push_op(t_token	**head, t_token	**tail, t_token_type type)
 	if (!*head)
 		*head = token;
 	*tail = append_token(*tail, token);
+	return (1);
+}*/
+
+int	push_op(t_token **head, t_token **tail, t_token_type type)
+{
+	t_token	*token;
+
+	token = tok_new(type, NULL, 0); //leak error
+	if (!token)
+		return (0);
+	if (!*head)
+	{
+		*head = token;
+		*tail = token;
+	}
+	else
+	{
+		(*tail)->next = token;
+		*tail = token;
+	}
 	return (1);
 }
 
@@ -47,6 +68,8 @@ void	init_lex(int *i, t_token **head, t_token **tail)
 	*tail = NULL;
 }
 
+//keep in mind we have the same function twice 	free_tokens_list in lexer.c
+//but the free_tokens_list is supposed to avoid double frees
 void	free_tokens(t_token	*head)
 {
 	t_token	*p;

@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/09 17:43:54 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/11 15:01:28 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	chek_word_piplin(t_full_cmd *full, t_token *t, t_ctx *ctx, char ***argv)
 	}
 }
 //*/
+
 /*
 void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 {
@@ -105,13 +106,13 @@ void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 // t->word t->word t->word until it's t->pipe
 // the last one  was supposed to be 	pipeline_from_tokens(full, tokens, ctx);
 // for the purpose of the last token after the pipe so it's not left unprocessed
-void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
+/*void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
 {
 	t_token		*iterator;
 	t_token		*next_chunk;
 
 	iterator = tokens;
-	while (iterator->next != NULL)
+	while (iterator->next != NULL) //error most likely deadly
 	{
 		if (iterator->next->type == T_PIPE)
 		{
@@ -126,5 +127,33 @@ void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
 			iterator = iterator->next;
 	}
 	pipeline_from_tokens(full, tokens, ctx);
+	return ;
+}
+//*/
+//added safety
+void	dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
+{
+	t_token		*iterator;
+	t_token		*next_chunk;
+
+	if (!tokens || !full)
+		return;
+	iterator = tokens;
+	while (iterator && iterator->next != NULL) //error most likely deadly
+	{
+		if (iterator->next->type == T_PIPE)
+		{
+			next_chunk = iterator->next->next;
+			iterator->next = NULL;
+			pipeline_from_tokens(full, tokens, ctx);
+			add_pipe(full);
+			iterator = next_chunk;
+			tokens = next_chunk;
+		}
+		else
+			iterator = iterator->next;
+	}
+		if (tokens)
+		pipeline_from_tokens(full, tokens, ctx);
 	return ;
 }

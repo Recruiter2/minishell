@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:26:52 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/07 23:51:33 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/11 07:54:59 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		free_tokens(t_token	*head);
 
 t_token		*tok_new(t_token_type type, char *text, char quote);
 int			consume_quoted(const char *s, int i, char **out);
-t_token		*append_token(t_token	*tail, t_token	*t);
+void		append_token(t_token **head, t_token	**tail, t_token	*token);
 void		free_tokens_list(t_token	*head);
 int			push_op(t_token	**head, t_token	**tail, t_token_type type);
 int			pipe_less_more_(char *str, int *i, t_token **head, t_token **tail);

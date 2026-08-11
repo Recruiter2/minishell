@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/04 08:52:10 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 15:05:04 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	execute_cmd(t_ctx *ctx, t_full_cmd *full_cmd)
 {
 	t_single_cmd	*sole_cmd;
 
-	check_which_cmd_are_bi(full_cmd->cmd, ctx);
+	check_which_cmd_are_bi(full_cmd->cmd, ctx);//error here
 	if (ft_lstsize(full_cmd->cmd) == 1)
 	{
 		sole_cmd = full_cmd->cmd->content;

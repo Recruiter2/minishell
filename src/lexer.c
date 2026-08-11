@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 13:17:07 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/04 07:53:55 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:04:10 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ t_token	*tok_new(t_token_type type, char *text, char quote)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(*token));
+	token = malloc(sizeof(*token)); //leak error
 	if (!token)
-	{
-		free(text);
 		return (NULL);
-	}
 	token->type = type;
 	token->text = text;
 	token->quote = quote;
@@ -62,30 +59,43 @@ int	consume_quoted(const char *s, int i, char **out)
 // allow escaped char in double quotes
 // unmatched quote
 // Append token to list tail; returns new tail or NULL on error
-t_token	*append_token(t_token	*tail, t_token	*t)
+void	append_token(t_token **head, t_token	**tail, t_token	*token)
 {
-	if (!t)
-		return (tail);
-	if (tail)
-		tail->next = t;
-	return (t);
+	if (!*head)
+	{
+		*head = token;
+		*tail = token;
+	}
+	else
+	{
+		(*tail)->next = token;
+		*tail = token;
+	}
+	return ;
 }
 
 // free list and the allocated token
-void	free_tokens_list(t_token	*head)
+//there is another function that does the same free_token
+//but it might be not safe against double frees in lexer_functions.c
+void	free_tokens_list(t_token *head)
 {
 	t_token	*p;
 	t_token	*n;
 
+	if (head == NULL)
+		return ;
 	p = head;
 	while (p)
 	{
-		n = p->next;
+		n = p->next; //error
 		free(p->text);
 		free(p);
 		p = n;
 	}
+	head = NULL;
 }
+
+
 // free the token struct allocated in tok_new
 
 // the whole point of lexer is to give the type of the input 
@@ -107,18 +117,18 @@ t_token	*lexer(char *str)
 	{
 		if (ft_isspace_pp(str[i], &i) == 0)
 			continue ;
-		res = pipe_less_more_(str, &i, &head, &tail);
+		res = pipe_less_more_(str, &i, &head, &tail);// leak error
 		if (res == -1)
-			return (NULL);
+			return (free_tokens_list(head), NULL);
 		if (res == 1)
 			continue ;
 		res = extract_quoted_word(str, &i, &head, &tail);
 		if (res == -1)
-			return (NULL);
+			return (free_tokens_list(head), NULL);
 		if (res == 1)
 			continue ;
-		if (get_unquoted_word(str, &i, &head, &tail) == -1)
-			return (NULL);
+		if (get_unquoted_word(str, &i, &head, &tail) == -1) //ignore this error
+			return (free_tokens_list(head), NULL);
 	}
 	return (head);
 }
