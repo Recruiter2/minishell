@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 13:48:47 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/11 13:37:06 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/11 15:30:14 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,12 @@ int get_unquoted_word(char *str, int *i, t_token **head, t_token **tail)
     if (!txt)
         return -1;
 
-    DBG("UNQ: start=%d len=%d txt='%s'\n", start, (*i - start), txt);
+    //DBG("UNQ: start=%d len=%d txt='%s'\n", start, (*i - start), txt);
 
     token = tok_new(T_WORD, txt, 0);
     if (!token)
     {
-        DBG("UNQ: tok_new failed, freeing txt='%s'\n", txt);
+        //DBG("UNQ: tok_new failed, freeing txt='%s'\n", txt);
         free(txt);
         return -1;
     }
