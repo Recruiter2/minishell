@@ -36,6 +36,7 @@ SRCS 		= 	main.c\
 				utils/ft_split.c\
 				utils/exec_utils1.c\
 				utils/exec_utils2.c\
+				utils/exec_utils3.c\
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 

@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 21:19:01 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:52:40 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 10:27:15 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,64 @@
 #include <fcntl.h>
 #include "../../includes/executor.h"
 
+char	*str_piece_dup(char *start, char *end);
+char	*evar_expansion(t_ctx *ctx, char *name);
+int		ft_isalpha(char c);
+int		ft_isalnum(char c);
 char	*join_str_c_str(char const *s1, char c, char const *s2);
+int		put_str_fd(const char *s, int fd);
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 
-void	put_str_fd(const char *s, int fd)
+int	feed_expansion(t_ctx *ctx, char *name_start, char *name_end, int fd)
 {
-	while (*s)
+	char	*name;
+	char	*value;
+
+	name = str_piece_dup(name_start, name_end);
+	if (!name)
+		return (1);
+	value = evar_expansion(ctx, name);
+	free(name);
+	if (!value)
+		return (0);
+	else
 	{
-		write(fd, s, 1);
-		s++;
+		while (*value)
+		{
+			if (write(fd, value++, 1) < 0)
+				return (perror("feeding heredoc pipe"), 1);
+		}
 	}
+	return (0);
+}
+
+int	feed_line(t_ctx *ctx, char *line, int fd)
+{
+	char	*name;
+
+	while (*line)
+	{
+		if (*line != '$')
+		{
+			if (write(fd, line++, 1) < 0)
+				return (perror("feeding heredoc pipe"), 1);
+		}
+		else
+		{
+			name = ++line;
+			if (*line == '?')
+				feed_expansion(ctx, name, ++line, fd);
+			else if (*line == '_' || ft_isalpha(*line))
+			{
+				line++;
+				while (*line == '_' || ft_isalnum(*line))
+					line++;
+				feed_expansion(ctx, name, line, fd);
+			}
+		}
+	}
+	return (0);
 }
 
 static int	read_here_doc(t_ctx *ctx, char *delim, int *fd_pipe)
@@ -40,9 +87,11 @@ static int	read_here_doc(t_ctx *ctx, char *delim, int *fd_pipe)
 		return (perror("malloc error"), 1);
 	put_str_fd("> ", ctx->fd_stdout);
 	line = get_next_line(ctx->fd_stdin);
+	if (!line)
+		return (put_str_fd("minishell: get_next_line", 2), 1);
 	while (ft_strcmp(line, delim))
 	{
-		put_str_fd(line, pipedes[1]);
+		feed_line(ctx, line, pipedes[1]);
 		put_str_fd("> ", ctx->fd_stdout);
 		free(line);
 		line = get_next_line(ctx->fd_stdin);

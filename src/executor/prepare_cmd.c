@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/04 23:01:12 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 10:31:55 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_back(t_list **lst, t_list *newelem);
 t_list		*ft_lstlast(t_list *lst);
-void		put_str_fd(const char *s, int fd);
+int			put_str_fd(const char *s, int fd);
 t_builtin	*is_builtin(char *name, t_list_bi *builtins);
 
 int	add_pipe(t_full_cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 13:48:13 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/03 21:52:21 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 10:31:38 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			split_in_two(char *str, char c, char *result[2]);
 char		**ft_split(char const *s, char c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*join_str_c_str(char const *s1, char c, char const *s2);
-void		put_str_fd(const char *s, int fd);
+int			put_str_fd(const char *s, int fd);
 
 /*
 This function deletes first any existing collection of strings with the PATH.

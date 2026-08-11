@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 16:07:20 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/04 08:58:14 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 10:31:40 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ const char	*ft_strchr(const char *str, char c);
 int			apply_all_redir(t_ctx *ctx, t_list_redir *it_redir);
 void		end(t_ctx *ctx, t_full_cmd *cmd);
 int			simple_atoi(int *ptr_to_n, const char *str);
-void		put_str_fd(const char *s, int fd);
+int			put_str_fd(const char *s, int fd);
 // Builtin commands implemented:
 int			bi_echo(char **argv, t_ctx *ctx);
 int			bi_cd(char **argv, t_ctx *ctx);

@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/06 16:13:49 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 10:33:05 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *src);
 int		export_valid_var(char *name, char *value, t_list_ev **ptr_env_lst);
 char	*evar_expansion(t_ctx *ctx, char *name);
-void	put_str_fd(const char *s, int fd);
+int		put_str_fd(const char *s, int fd);
 void	destroy_evar(void *content);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 

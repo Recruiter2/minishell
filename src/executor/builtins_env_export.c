@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 18:19:18 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:31:12 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 10:31:39 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list		*ft_lstnew(void *content);
 void		ft_lstadd_back(t_list **lst, t_list *newelem);
 const char	*ft_strchr(const char *str, char c);
 int			split_in_two(char *str, char c, char *result[2]);
-void		put_str_fd(const char *s, int fd);
+int			put_str_fd(const char *s, int fd);
 int			bi_env(char **argv, t_ctx *ctx);
 
 /*
