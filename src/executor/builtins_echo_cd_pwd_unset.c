@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/11 10:33:05 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 18:08:54 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,25 @@ static int	cd_valid_path(char *new_pwd, t_ctx *ctx)
 	int		err;
 
 	incumbent_pwd = getcwd(NULL, 0);
+	if (chdir(new_pwd))
+		return (perror("minishell: cd"), free(incumbent_pwd), 1);
+	new_pwd = getcwd(NULL, 0);
 	varname_oldpwd = ft_strdup("OLDPWD");
 	varname_pwd = ft_strdup("PWD");
-	if (! incumbent_pwd || !varname_oldpwd || !varname_pwd)
+	if (!incumbent_pwd || !new_pwd || !varname_oldpwd || !varname_pwd)
 	{
 		free(incumbent_pwd);
+		free(new_pwd);
 		free(varname_oldpwd);
-		free(varname_pwd);
+		free(varname_pwd);	
 		return (1);
 	}
-	chdir(new_pwd);
-	new_pwd = getcwd(NULL, 0);
 	err = 0;
 	err += export_valid_var(varname_oldpwd, incumbent_pwd, &ctx->env_lst);
 	err += export_valid_var(varname_pwd, new_pwd, &ctx->env_lst);
 	if (err)
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
 int	bi_cd(char **argv, t_ctx *ctx)
@@ -121,8 +122,7 @@ int	bi_cd(char **argv, t_ctx *ctx)
 	}
 	if (access(argv[1], F_OK))
 		return (put_str_fd(err_prefix, 2), perror(argv[1]), 1);
-	cd_valid_path(argv[1], ctx);
-	return (0);
+	return (cd_valid_path(argv[1], ctx));
 }
 
 /*

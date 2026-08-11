@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 18:19:18 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/11 10:31:39 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/11 17:51:29 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ int	export_valid_var(char *name, char *value, t_list_ev **ptr_env_lst)
 		evar = it_lst->content;
 		if (ft_strcmp(evar->name, name) == 0)
 		{
+			free(evar->value);
 			evar->value = value;
-			free(name);
-			return (0);
+			return (free(name), 0);
 		}
 		it_lst = it_lst->next;
 	}
