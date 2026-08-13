@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/13 14:49:33 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/13 15:24:40 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	run_line(t_ctx *ctx, char *line)
 	if (cmd)
 	{
 		cmd->tokens = tokens;
-		print_full_cmd(cmd);
+		//print_full_cmd(cmd);
 		/*// this part was most likely for debug we will remove it
 		t_list_single_cmd *n = cmd->cmd;
 while (n)
