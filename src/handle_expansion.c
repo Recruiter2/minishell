@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 02:15:53 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/09 12:02:32 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/12 18:39:46 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ static	int	argv_push(char ***argv, char *s)
 {
 	int		i;
 
+	if (!argv || !s)
+		return 1;
 	if (!s)
 		return (1);
 	if (!*argv)
@@ -157,6 +159,8 @@ int	consume_word_to_argv(t_token **t, char ***argv, t_ctx *ctx)
 	char	*expanded;
 	int		single_quote;
 
+	if (!t || !*t)
+		return 0;
 	if (!(*t)->text || (*t)->text[0] == '\0')
 	{
 		*t = (*t)->next;

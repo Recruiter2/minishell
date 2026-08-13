@@ -1,6 +1,6 @@
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -Wpedantic -fsanitize=address -O0 -g #remove last two flags before vogosphere
+CFLAGS		= -Wall -Werror -Wextra -Wpedantic -fsanitize=address -O0 -g #remove last two flags before vogosphere 
 SRC_DIR 	= src
 OBJ_DIR 	= obj
 LIBFT_DIR	= Libft 
@@ -19,6 +19,7 @@ SRCS 		= 	main.c\
 				dispatcher_helper.c\
 				dispatcher_lib.c\
 				dispatcher.c\
+				cmd_tester_function.c\
 				handle_expansion.c\
 				executor/prepare_cmd.c\
 				executor/prepare_redirections.c\

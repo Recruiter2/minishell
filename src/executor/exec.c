@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/11 15:05:04 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/13 14:54:43 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ static int	run_step(t_ctx *ctx, t_full_cmd *cmd, t_single_cmd *step)
 		return (perror ("err fork in runstep"), 1);
 	if (!step->id)
 	{
+		if (step->fdin == -1 || step->fdout == -1)
+			exit((end(ctx, cmd), EXIT_FAILURE));
+		if ((step->argv == NULL || step->argv[0] == NULL) && step->redir == NULL)
+		{
+			// syntax error: redirection without a command
+			exit((end(ctx, cmd), EXIT_FAILURE));
+		}
 		if (dup2(step->fdin, 0) < 0)
 			exit((perror("dup2 fdin=0"), end(ctx, cmd), EXIT_FAILURE));
 		if (dup2(step->fdout, 1) < 0)
@@ -66,6 +73,8 @@ static int	run_step(t_ctx *ctx, t_full_cmd *cmd, t_single_cmd *step)
 			exit((end(ctx, cmd), EXIT_FAILURE));
 		if (apply_all_redir(ctx, step->redir))
 			exit((end(ctx, cmd), EXIT_FAILURE));
+		if (step->argv == NULL || step->argv[0] == NULL)
+			exit((end(ctx, cmd), EXIT_SUCCESS));
 		if (step->builtin)
 			exec_bi(step, ctx, cmd, 1);
 		if (!ft_strchr(step->argv[0], '/'))
@@ -100,7 +109,7 @@ static int	start(t_ctx *ctx, t_full_cmd *full_cmd)
 		step->fdin = pipedes[0];
 	}
 	step->fdout = 1;
-	if (run_step(ctx, full_cmd, step))
+	if (run_step(ctx, full_cmd, step)) 
 		return (1);
 	return (0);
 }

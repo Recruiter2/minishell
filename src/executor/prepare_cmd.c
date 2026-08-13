@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/11 10:31:55 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/13 11:39:19 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 #include <unistd.h>
 #include "../../includes/executor.h"
 
+
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_back(t_list **lst, t_list *newelem);
 t_list		*ft_lstlast(t_list *lst);
 int			put_str_fd(const char *s, int fd);
 t_builtin	*is_builtin(char *name, t_list_bi *builtins);
+void		ft_bzero(void *b, size_t SIZE);
+
 
 int	add_pipe(t_full_cmd *cmd)
 {
@@ -28,6 +31,7 @@ int	add_pipe(t_full_cmd *cmd)
 	content = malloc (sizeof(*content));
 	if (!content)
 		return (perror("malloc error"), 1);
+	ft_bzero(content, sizeof(*content));   // <- important
 	content->redir = NULL;
 	content->argv = NULL;
 	content->fdin = -1;
@@ -48,7 +52,7 @@ t_full_cmd	*initialize_cmd(void)
 		return (perror("malloc error"), NULL);
 	ret->cmd = NULL;
 	ret->tokens = NULL;
-	add_pipe(ret);
+	//add_pipe(ret);
 	return (ret);
 }
 
@@ -58,12 +62,18 @@ int	add_single_cmd(t_full_cmd *cmd, char **argv)
 	t_list_single_cmd	*tmp;
 
 	tmp = ft_lstlast(cmd->cmd);
+	if (!tmp)
+		return (1);
 	content = tmp->content;
 	if (content->argv)
 		return (put_str_fd("error new cmd without pipe in between\n", 2), 1);
 	content->argv = argv;
 	return (0);
 }
+
+
+//handle error of > hi. segfault
+//			single_cmd->builtin = NULL;          // or false/nil, depending on type
 
 void	check_which_cmd_are_bi(t_list_single_cmd *it_cmd, t_ctx *ctx)
 {
@@ -72,7 +82,10 @@ void	check_which_cmd_are_bi(t_list_single_cmd *it_cmd, t_ctx *ctx)
 	while (it_cmd)
 	{
 		single_cmd = it_cmd->content;
-		single_cmd->builtin = is_builtin(*single_cmd->argv, ctx->builtins);
+		if (single_cmd->argv == NULL || single_cmd->argv[0] == NULL)
+			single_cmd->builtin = NULL;
+		else
+			single_cmd->builtin = is_builtin(single_cmd->argv[0], ctx->builtins);
 		it_cmd = it_cmd->next;
 	}
 }

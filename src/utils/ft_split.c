@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 21:34:21 by marhuber          #+#    #+#             */
-/*   Updated: 2026/07/16 18:45:52 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/12 18:45:41 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,17 @@ void	free_all(char ***strs)
 {
 	char	**it;
 
-	if (!*strs)
+	if (!strs || !*strs)
 		return ;
 	it = *strs;
 	while (*it)
 	{
 		free(*it);
-		*it = 0;
+		*it = NULL;
 		it++;
 	}
 	free(*strs);
-	*strs = 0;
+	*strs = NULL;
 	return ;
 }
 

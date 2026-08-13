@@ -6,11 +6,12 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/11 12:58:39 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/13 14:40:24 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <unistd.h>
 
 static int	setup_signals(void)
 {
@@ -27,6 +28,8 @@ static int	setup_signals(void)
 }
 
 // ft_putendl_fd writes to fd 2 and return an int to ignore or use
+//function to handle args example ./minishell args
+//but this is not asked 
 static int	arg_error(void)
 {
 	ft_putendl_fd("can't execute binary", 2);
@@ -53,7 +56,7 @@ int	main(int argc, char **argv, char **envp)
 			write(1, "\n", 1);
 			break ;
 		}
-		run_line(&ctx, line);//error
+		run_line(&ctx, line);
 		free(line);
 	}
 	free_ctx_ressources(&ctx);

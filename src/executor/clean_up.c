@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   clean_up.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/04 15:11:25 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/13 14:50:25 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../../includes/executor.h"
+#include <stdio.h>
 
 void	ft_lstclear(t_list **ptlst, void (*del)(void*));
 void	free_tokens(t_token	*head);
@@ -22,9 +23,11 @@ void	destroy_single_cmd(void *content)
 	t_single_cmd	*cmd;
 
 	cmd = content;
+		//fprintf(stderr, "destroy_single_cmd content=%p argv=%p\n", (void*)cmd, (void*)cmd->argv);
 	ft_lstclear(&cmd->redir, &free);
 	free_all(&cmd->argv);
 	free(content);
+
 }
 
 void	destroy_full_cmd(t_full_cmd **ptr_cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_redirections.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 19:11:07 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/02 16:33:15 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/13 14:42:08 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	add_here_doc(t_full_cmd *cmd, char *delimiter)
 	return (0);
 }
 
+//added security most like this function adds to the single last cmd
+// the redirection so executor knows there is a redir ig and the filename
 int	add_file_out(t_full_cmd *cmd, char *filename, int append)
 {
 	t_redir			*content;
@@ -73,6 +75,8 @@ int	add_file_out(t_full_cmd *cmd, char *filename, int append)
 	if (!tmp)
 		return (1);
 	last_single_cmd = ft_lstlast(cmd->cmd)->content;
+	if (!last_single_cmd)
+		return (1);
 	ft_lstadd_back(&last_single_cmd->redir, tmp);
 	return (0);
 }
