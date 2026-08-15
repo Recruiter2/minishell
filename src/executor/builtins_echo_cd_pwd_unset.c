@@ -6,7 +6,7 @@
 /*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 21:26:49 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/11 18:08:54 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/15 17:33:49 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	cd_valid_path(char *new_pwd, t_ctx *ctx)
 		free(incumbent_pwd);
 		free(new_pwd);
 		free(varname_oldpwd);
-		free(varname_pwd);	
+		free(varname_pwd);
 		return (1);
 	}
 	err = 0;

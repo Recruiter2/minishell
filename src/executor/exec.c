@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/13 14:54:43 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/15 17:43:10 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,34 +55,28 @@ static int	run_step(t_ctx *ctx, t_full_cmd *cmd, t_single_cmd *step)
 {
 	step->id = fork();
 	if (step->id < 0)
-		return (perror ("err fork in runstep"), 1);
-	if (!step->id)
-	{
-		if (step->fdin == -1 || step->fdout == -1)
-			exit((end(ctx, cmd), EXIT_FAILURE));
-		if ((step->argv == NULL || step->argv[0] == NULL) && step->redir == NULL)
-		{
-			// syntax error: redirection without a command
-			exit((end(ctx, cmd), EXIT_FAILURE));
-		}
-		if (dup2(step->fdin, 0) < 0)
-			exit((perror("dup2 fdin=0"), end(ctx, cmd), EXIT_FAILURE));
-		if (dup2(step->fdout, 1) < 0)
-			exit((perror("dup2 fdout=1"), end(ctx, cmd), EXIT_FAILURE));
-		if (close_pipe_ends(cmd))
-			exit((end(ctx, cmd), EXIT_FAILURE));
-		if (apply_all_redir(ctx, step->redir))
-			exit((end(ctx, cmd), EXIT_FAILURE));
-		if (step->argv == NULL || step->argv[0] == NULL)
-			exit((end(ctx, cmd), EXIT_SUCCESS));
-		if (step->builtin)
-			exec_bi(step, ctx, cmd, 1);
-		if (!ft_strchr(step->argv[0], '/'))
-			if (find_cmd(ctx->path, step->argv))
-				exit((end(ctx, cmd), 127));
-		if (execve(*step->argv, step->argv, ctx->env_strs) < 0)
-			exit((perror(*step->argv), end(ctx, cmd), EXIT_FAILURE));
-	}
+		return (perror ("err fork in run_step"), 1);
+	if (step->id)
+		return (0);
+	if (step->fdin == -1 || step->fdout == -1)
+		exit((end(ctx, cmd), EXIT_FAILURE));
+	if (dup2(step->fdin, 0) < 0)
+		exit((perror("dup2 fdin=0"), end(ctx, cmd), EXIT_FAILURE));
+	if (dup2(step->fdout, 1) < 0)
+		exit((perror("dup2 fdout=1"), end(ctx, cmd), EXIT_FAILURE));
+	if (close_pipe_ends(cmd))
+		exit((end(ctx, cmd), EXIT_FAILURE));
+	if (apply_all_redir(ctx, step->redir))
+		exit((end(ctx, cmd), EXIT_FAILURE));
+	if (step->argv == NULL || step->argv[0] == NULL)
+		exit((end(ctx, cmd), EXIT_SUCCESS));
+	if (step->builtin)
+		exec_bi(step, ctx, cmd, 1);
+	if (!ft_strchr(step->argv[0], '/'))
+		if (find_cmd(ctx->path, step->argv))
+			exit((end(ctx, cmd), 127));
+	if (execve(*step->argv, step->argv, ctx->env_strs) < 0)
+		exit((perror(*step->argv), end(ctx, cmd), EXIT_FAILURE));
 	return (0);
 }
 
@@ -109,7 +103,7 @@ static int	start(t_ctx *ctx, t_full_cmd *full_cmd)
 		step->fdin = pipedes[0];
 	}
 	step->fdout = 1;
-	if (run_step(ctx, full_cmd, step)) 
+	if (run_step(ctx, full_cmd, step))
 		return (1);
 	return (0);
 }
@@ -142,7 +136,7 @@ int	execute_cmd(t_ctx *ctx, t_full_cmd *full_cmd)
 {
 	t_single_cmd	*sole_cmd;
 
-	check_which_cmd_are_bi(full_cmd->cmd, ctx);//error here
+	check_which_cmd_are_bi(full_cmd->cmd, ctx);
 	if (ft_lstsize(full_cmd->cmd) == 1)
 	{
 		sole_cmd = full_cmd->cmd->content;

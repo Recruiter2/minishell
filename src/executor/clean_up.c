@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_up.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 20:12:19 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/13 14:50:25 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/15 17:32:55 by marhuber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ void	destroy_single_cmd(void *content)
 	t_single_cmd	*cmd;
 
 	cmd = content;
-		//fprintf(stderr, "destroy_single_cmd content=%p argv=%p\n", (void*)cmd, (void*)cmd->argv);
 	ft_lstclear(&cmd->redir, &free);
 	free_all(&cmd->argv);
 	free(content);
-
 }
 
 void	destroy_full_cmd(t_full_cmd **ptr_cmd)
