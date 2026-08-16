@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 14:55:51 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/13 15:24:40 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/16 15:33:07 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,12 @@ int	run_line(t_ctx *ctx, char *line)
 	cmd = initialize_cmd();
 	if (!cmd)
 		return (free_tokens_list(tokens), destroy_full_cmd(&cmd), 1);
-	dispatch_to_full_cmd(tokens, cmd, ctx);
+	if (!dispatch_to_full_cmd(tokens, cmd, ctx))
+	{
+		destroy_full_cmd(&cmd);
+		free_tokens_list(tokens);
+		return 0;
+	}
 
 	if (cmd)
 	{

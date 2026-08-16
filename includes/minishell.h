@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:26:52 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/11 07:54:59 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/16 15:32:16 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int			redirect_choice(t_token **head, t_token **tail, char c);
 // (ls + -la); has issue does beyond what is asked
 
 //dispacher 
-void		dispatch_to_full_cmd(t_token *tokens, t_full_cmd *cmd, t_ctx *ctx);
+int		dispatch_to_full_cmd(t_token *tokens, t_full_cmd *cmd, t_ctx *ctx);
 
 //helper functions for dispatcher
 void		add_expandable_var(t_ctx *ctx, t_token *head);
 int			is_redir(t_token_type t);
 
 //dispatcher_lib
-void		consume_redir(t_full_cmd *full, t_token **t);
+int		consume_redir(t_full_cmd *full, t_token **t);
 //expansion functions
 size_t		extract_var_expan(char *str, t_ctx *ctx, char **seg);
 

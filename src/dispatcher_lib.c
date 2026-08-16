@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 20:27:08 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/09 14:06:25 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/16 15:25:08 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@
 size_t	pipe_status(char *str, t_ctx *ctx, char **seg);
 
 // consume BOTH the operator and its filename *t = fname->next;
-void	consume_redir(t_full_cmd *full, t_token **t)
+int	consume_redir(t_full_cmd *full, t_token **t)
 {
 	t_token	*redir;
 	t_token	*fname;
 
 	redir = *t;
+
 	if (!redir || !redir->next)
-		return ;
+		return 0;
 	fname = redir->next;
 	if (fname->type != T_WORD)
-		return ;
+		return 0;
 	if (redir->type == T_REDIR_IN)
 		add_file_in(full, fname->text);
 	else if (redir->type == T_REDIR_OUT)
@@ -36,6 +37,7 @@ void	consume_redir(t_full_cmd *full, t_token **t)
 	else if (redir->type == T_HEREDOC)
 		add_here_doc(full, fname->text);
 	*t = fname->next;
+	return 1;
 }
 
 int	find_end(char *str)

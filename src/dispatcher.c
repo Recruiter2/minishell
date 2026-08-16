@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:22:09 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/13 14:45:45 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/16 15:35:32 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int		consume_word_to_argv(t_token **t, char ***argv, t_ctx *ctx);
 //add_pipe(full);
 // If argv is empty, you may want to remove the node or allow it,
 // but the current executor likely expects no empty commands.
-void pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
+int pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 {
     t_token *t = tokens;
     char **argv = NULL;
 
 	//printf("pipeline_from_tokens: start t=%p\n", (void*)tokens);
-    if (!chek_word_piplin(full, t, ctx, &argv))
-        return;
+    if (!chek_word_piplin(full, t, ctx, &argv)) //error
+        return 0;
 
     if (argv && argv[0])
     {
@@ -46,6 +46,7 @@ void pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
         add_single_cmd(full, argv);
     }
     // else: no words in this segment => do not add a node
+	return 1;
 }
 
 
@@ -67,7 +68,8 @@ int chek_word_piplin(t_full_cmd *full, t_token *t, t_ctx *ctx, char ***argv)
         }
         if (is_redir(t->type))
         {
-            consume_redir(full, &t);
+            if (!consume_redir(full, &t))
+				return 0; //stop whole line parsing
             continue;
         }
         t = t->next;
@@ -145,12 +147,12 @@ void	pipeline_from_tokens(t_full_cmd *full, t_token *tokens, t_ctx *ctx)
 //added safety
 //pipeline_from_tokens(full, t, ctx);build a segment starting at `t`
 //while (it && it->type != T_PIPE) jump `t` to the token right after the next pipe
-void dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
+int dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
 {
     t_token *t = tokens;
 
     if (!tokens || !full)
-        return;
+        return 0;
 
     while (t)
     {
@@ -163,7 +165,8 @@ void dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
         // Build one segment up to the next pipe
 		//printf("dispatch: token ptr=%p type=%u\n",
        //(void*)t, t ? (unsigned)t->type : 0u);
-        pipeline_from_tokens(full, t, ctx);
+        if (!pipeline_from_tokens(full, t, ctx))
+			return 0;//error
 
         // Advance t to the token after the next pipe
         while (t && t->type != T_PIPE)
@@ -171,4 +174,5 @@ void dispatch_to_full_cmd(t_token *tokens, t_full_cmd *full, t_ctx *ctx)
         if (t && t->type == T_PIPE)
             t = t->next;
     }
+	return 1;
 }
