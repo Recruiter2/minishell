@@ -6,20 +6,22 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/13 14:40:24 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/18 12:34:43 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <unistd.h>
 
+/// signal(SIGQUIT, SIG_IGN);  // Ignore SIGQUIT in the shell
+// sa signal action
 static int	setup_signals(void)
 {
 	struct sigaction	sa;
 
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
+	sa.sa_flags = 0;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		return (1);
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
@@ -53,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("minishell$ ");
 		if (!line)
 		{
-			write(1, "\n", 1);
+			//write(1, "\n", 1);
 			break ;
 		}
 		run_line(&ctx, line);
