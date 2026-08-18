@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marhuber <marhuber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 14:52:41 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/15 17:43:10 by marhuber         ###   ########.fr       */
+/*   Updated: 2026/08/18 19:52:26 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include "../../includes/executor.h"
+#include <errno.h>
 
 void		end(t_ctx *ctx, t_full_cmd *cmd);
 int			apply_all_redir(t_ctx *ctx, t_list_redir *it_redir);
@@ -108,6 +109,8 @@ static int	start(t_ctx *ctx, t_full_cmd *full_cmd)
 	return (0);
 }
 
+//if (errno == EINTR)
+//return 1;// go back to main loop; prompt printed once
 static int	waits(t_ctx *ctx, t_full_cmd *full_cmd)
 {
 	t_list_single_cmd	*it_cmd;
@@ -121,7 +124,11 @@ static int	waits(t_ctx *ctx, t_full_cmd *full_cmd)
 	{
 		step = it_cmd->content;
 		if (waitpid(step->id, &status, 0) == -1)
+		{
+			if (errno == EINTR)
+				return 1;
 			return (perror("error waitpid"), 1);
+		}
 		if (WIFEXITED(status))
 			ctx->exit_status = WEXITSTATUS(status);
 		it_cmd = it_cmd->next;

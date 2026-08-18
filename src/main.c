@@ -6,12 +6,14 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 21:12:22 by tzinaliy          #+#    #+#             */
-/*   Updated: 2026/08/18 12:34:43 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/18 19:51:45 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <unistd.h>
+static int readline_status;
+ // declaration
 
 /// signal(SIGQUIT, SIG_IGN);  // Ignore SIGQUIT in the shell
 // sa signal action
@@ -43,6 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	t_ctx		ctx;
 	char		*line;
 
+
 	if (argc != 1)
 		return (arg_error());
 	(void)argv;
@@ -52,12 +55,15 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	while (1)
 	{
+		readline_status = 1;
 		line = readline("minishell$ ");
+		readline_status = 0;
 		if (!line)
 		{
 			//write(1, "\n", 1);
 			break ;
 		}
+		
 		run_line(&ctx, line);
 		free(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: tzinaliy <tzinaliy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:26:52 by marhuber          #+#    #+#             */
-/*   Updated: 2026/08/16 15:32:16 by tzinaliy         ###   ########.fr       */
+/*   Updated: 2026/08/18 19:37:02 by tzinaliy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include "prepare_execution.h"
 # include "tokens.h"
 
+/*typedef struct s_sigaction
+{} t_sa;*/
 // NULL-terminated: argv[0] is program, argv[1...] are args
 // optional helper
 typedef struct s_cmd
